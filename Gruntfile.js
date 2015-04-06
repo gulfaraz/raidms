@@ -4,9 +4,12 @@ module.exports = function(grunt) {
             all: ['public/src/js/**/*.js']
         },
         uglify: {
+            options: {
+                sourceMap: true
+            },
             build: {
                 files: {
-                    'public/dist/js/rms.min.js': ['public/src/js/**/*.js', 'public/src/js/*.js']
+                    'public/dist/js/rms.min.js': ['public/src/js/*.js', 'public/src/js/**/*.js']
                 }
             }
         },

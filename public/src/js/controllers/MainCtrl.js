@@ -1,8 +1,19 @@
-angular.module('MainCtrl', [])
+angular.module('MainCtrl')
+    .controller('mainController', ['$scope', 'api', function($scope, api) {
 
-.controller('mainController', ['$scope', function($scope) {
+        //Timezone Select
+        $scope.timezones = jstz.olson.timezones;
+        $scope.timezone = jstz.determine().name();
 
-    $scope.message = 'Look at me go!';
+        //Stats
+        api.get(function(data) {
+            $scope.serverStatus = data.status;
+        });
+        api.query({'set':'user'}, function(data) {
+            $scope.onlineUsers = data.length;
+        });
+    }]).controller('listController', ['$scope', 'api', function($scope, api) {
 
-}]);
+        $scope.message = "List";
 
+    }]);
