@@ -18,7 +18,13 @@
     <div>Online Users - {{ onlineUsers }}</div>
     </aside>
     <section class="list" ng-controller="listController">
-    {{message}}
+    <ul>
+        <li ng-repeat="raid in raids">[{{raid.platform}}] - {{raid.game}} - {{raid.players.length}}/{{raid.strength}} - {{raid.time_created}} - {{raid.play_time}} - {{raid.status}}</li>
+    </ul>
+    </section>
+
+    <section>
+    test - {{test}}
     </section>
 </body>
 </html>
