@@ -2,8 +2,8 @@ angular.module('MainCtrl')
     .controller('mainController', ['$scope', 'api', 'angularMomentConfig', function($scope, api, angularMomentConfig) {
 
         //Timezone Select
-        //$scope.timezones = jstz.olson.timezones;
-        //$scope.timezone = jstz.determine().name();
+        $scope.timezones = jstz.olson.timezones;
+        $scope.timezone = jstz.determine().name();
         //console.log('test - ' + angularMomentConfig.timezone);
         //$scope.test = angularMomentConfig.timezone;
         $scope.test = moment();

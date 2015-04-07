@@ -1,7 +1,25 @@
+var globalConfig = {
+    src: 'public/src',
+    dist: 'public/dist',
+    bower: 'bower_components'
+};
+
 module.exports = function(grunt) {
     grunt.initConfig({
+        globalConfig: globalConfig,
+        bower: {
+            install: {
+                options: {
+                    targetDir: "<%= globalConfig.src %>",
+                    cleanup: true
+                }
+            }
+        },
         jshint: {
-            all: ['public/src/js/**/*.js']
+            options: {
+                ignores: ['<%= globalConfig.src %>/js/lib/*.js', '<%= globalConfig.src %>/js/lib/**/*.js']
+            },
+            all: ['<%= globalConfig.src %>/js/**/*.js']
         },
         uglify: {
             options: {
@@ -9,31 +27,31 @@ module.exports = function(grunt) {
             },
             build: {
                 files: {
-                    'public/dist/js/rms.min.js': ['public/src/js/*.js', 'public/src/js/**/*.js']
+                    '<%= globalConfig.dist %>/js/rms.min.js': ['<%= globalConfig.src %>/js/*.js', '<%= globalConfig.src %>/js/lib/*.js', '<%= globalConfig.src %>/js/lib/**/*.js', '<%= globalConfig.src %>/js/**/*.js']
                 }
             }
         },
         less: {
             build: {
                 files: {
-                    'public/dist/css/style.css': 'public/src/css/style.less'
+                    '<%= globalConfig.dist %>/css/style.css': '<%= globalConfig.src %>/css/style.less'
                 }
             }
         },
         cssmin: {
             build: {
                 files: {
-                    'public/dist/css/style.min.css': 'public/dist/css/style.css'
+                    '<%= globalConfig.dist %>/css/style.min.css': '<%= globalConfig.dist %>/css/style.css'
                 }
             }
         },
         watch: {
             css: {
-                files: ['public/src/css/**/*.less'],
+                files: ['<%= globalConfig.src %>/css/**/*.less'],
                 tasks: ['less', 'cssmin']
             },
             js: {
-                files: ['public/src/js/**/*.js'],
+                files: ['<%= globalConfig.src %>/js/**/*.js'],
                 tasks: ['jshint', 'uglify']
             }
         },
@@ -50,6 +68,7 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-bower-installer');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
