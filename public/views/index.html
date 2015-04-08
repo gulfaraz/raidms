@@ -16,7 +16,7 @@
     </aside>
     <section class="list" ng-controller="listController">
     <ul>
-        <li ng-repeat="raid in raids">[{{raid.platform}}] - {{raid.game}} - {{raid.players.length}}/{{raid.strength}} - {{raid.time_created}} - {{raid.play_time}} - {{raid.status}}</li>
+        <li ng-repeat="raid in raids">[{{raid.platform}}] - {{raid.game}} - {{raid.players.length}}/{{raid.strength}} - {{raid.display_play_time}} - {{raid.display_time_created}} - {{raid.status}}</li>
     </ul>
     </section>
 
