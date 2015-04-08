@@ -10,31 +10,41 @@ module.exports = function(grunt) {
         bower: {
             install: {
                 options: {
-                    targetDir: "<%= globalConfig.src %>",
-                    cleanup: true
+                    targetDir: "<%= globalConfig.src %>/libs",
+                    cleanup: false //true
                 }
             }
         },
         jshint: {
             options: {
-                ignores: ['<%= globalConfig.src %>/js/lib/*.js', '<%= globalConfig.src %>/js/lib/**/*.js']
+                ignores: '<%= globalConfig.src %>/libs/**/*.js'
             },
-            all: ['<%= globalConfig.src %>/js/**/*.js']
+            all: ['<%= globalConfig.src %>/rms/js/**/*.js']
         },
         uglify: {
             options: {
-                sourceMap: true
+                sourceMap: true //false
             },
             build: {
                 files: {
-                    '<%= globalConfig.dist %>/js/rms.min.js': ['<%= globalConfig.src %>/js/*.js', '<%= globalConfig.src %>/js/lib/*.js', '<%= globalConfig.src %>/js/lib/**/*.js', '<%= globalConfig.src %>/js/**/*.js']
+                    '<%= globalConfig.dist %>/js/rms.min.js': [
+                        '<%= globalConfig.src %>/libs/angular/*.js',
+                        '<%= globalConfig.src %>/libs/angular-resource/*.js',
+                        '<%= globalConfig.src %>/libs/moment/*.js',
+                        '<%= globalConfig.src %>/libs/moment-timezone/*.js',
+                        '<%= globalConfig.src %>/libs/jstimezonedetect/*.js',
+                        '<%= globalConfig.src %>/libs/angular-moment/*.js',
+                        '<%= globalConfig.src %>/libs/**/*.js',
+                        '<%= globalConfig.src %>/rms/js/*.js',
+                        '<%= globalConfig.src %>/rms/js/**/*.js'
+                    ]
                 }
             }
         },
         less: {
             build: {
                 files: {
-                    '<%= globalConfig.dist %>/css/style.css': '<%= globalConfig.src %>/css/style.less'
+                    '<%= globalConfig.dist %>/css/style.css': '<%= globalConfig.src %>/rms/css/style.less'
                 }
             }
         },
@@ -47,12 +57,18 @@ module.exports = function(grunt) {
         },
         watch: {
             css: {
-                files: ['<%= globalConfig.src %>/css/**/*.less'],
-                tasks: ['less', 'cssmin']
+                files: ['<%= globalConfig.src %>/rms/css/**/*.less'],
+                tasks: ['less', 'cssmin'],
+                options: {
+                    livereload: false,
+                }
             },
             js: {
-                files: ['<%= globalConfig.src %>/js/**/*.js'],
-                tasks: ['jshint', 'uglify']
+                files: ['<%= globalConfig.src %>/rms/js/**/*.js'],
+                tasks: ['jshint', 'uglify'],
+                options: {
+                    livereload: false,
+                }
             }
         },
         concurrent: {
@@ -77,5 +93,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
 
-    grunt.registerTask('default', ['less', 'cssmin', 'jshint', 'uglify', 'concurrent']);
+    grunt.registerTask('default', ['bower', 'less', 'cssmin', 'jshint', 'uglify', 'concurrent']);
 };
