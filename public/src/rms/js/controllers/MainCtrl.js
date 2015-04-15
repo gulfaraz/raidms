@@ -17,7 +17,6 @@ angular.module('MainCtrl')
         }();
 
         $scope.timezone = '(' + moment(moment()).tz(jstz.determine().name()).format('Z')+' GMT) ' + jstz.determine().name();
-        //moment.tz.setDefault($scope.timezone);
 
         $scope.message = {
             text: 'hello world!',
@@ -26,7 +25,6 @@ angular.module('MainCtrl')
 
         $scope.change_active_timezone = function() {
             $scope.active_timezone = (/^\([+-][0-9]{1,2}:[0-9]{1,2}\sGMT\)\s([A-Za-z/_]*)/g).exec($scope.timezone)[1];
-            $scope.test = moment(moment()).tz($scope.active_timezone).format('Z');
         };
 
         //Stats

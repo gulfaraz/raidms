@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         cssmin: {
             build: {
                 files: {
-                    '<%= globalConfig.dist %>/css/style.min.css': '<%= globalConfig.dist %>/css/style.css'
+                    '<%= globalConfig.dist %>/css/style.min.css': ['<%= globalConfig.src %>/libs/**/*.css', '<%= globalConfig.dist %>/css/style.css']
                 }
             }
         },

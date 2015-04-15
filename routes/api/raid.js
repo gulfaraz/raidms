@@ -10,6 +10,7 @@ module.exports = function(router, Raid) {
             raid.play_time = req.body.play_time;
             raid.status = req.body.status;
             raid.host = req.body.host;
+            raid.description = req.body.description;
             raid.save(function(err) {
                 if(err) {
                     res.send(err);
@@ -18,12 +19,43 @@ module.exports = function(router, Raid) {
             });
         })
         .get(function(req, res) {
-            Raid.find(function(err, raid) {
-                if(err) {
-                    res.send(err);
+            var tableState = eval('(' + req.query.tableState + ')');
+            var sort = (tableState.sort.reverse ? '-' : '') + tableState.sort.predicate;
+            var start = req.query.start;
+            var number = req.query.number;
+            var select = tableState.search.predicateObject || {};
+            if(typeof Object.prototype.except !== 'function') {
+                Object.prototype.except = function() {
+                    for(var i = 0, j = arguments.length; i < j; i++) {
+                        if(this.hasOwnProperty(arguments[i])) {
+                            delete this[arguments[i]];
+                        }
+                    }
+                    return this;
                 }
-                res.json(raid);
-            });
+            }
+            var found = (select.hasOwnProperty("$") ? ('(' + select['$'].split(' ').join('|') + ')') : '');
+            select.except('$');
+            Raid
+                .find({
+                    $and: [
+                        { $and: [select] },
+                        { $or: [
+                                { platform : new RegExp(found, "ig") },
+                                { game : new RegExp(found, "ig") },
+                                { status : new RegExp(found, "ig") },
+                                { description : new RegExp(found, "ig") }
+                            ]
+                        }
+                    ]
+                })
+                .sort(sort)
+                .exec(function(err, raid) {
+                    if(err) {
+                        res.send(err);
+                    }
+                    res.json({ data : raid.slice(start, start + number), numberOfPages: Math.ceil(raid.length/number) });
+                });
         });
     router.route('/api/raid/:raid_id')
         .get(function(req, res) {
@@ -47,6 +79,7 @@ module.exports = function(router, Raid) {
                 raid.play_time = req.body.play_time;
                 raid.status = req.body.status;
                 raid.host = req.body.host;
+                raid.description = req.body.description;
                 raid.save(function(err) {
                     if(err) {
                         res.send(err);

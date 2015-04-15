@@ -25,7 +25,8 @@ var RaidSchema = new Schema({
     time_created: Date,
     play_time: Date,
     status: String,
-    host: { type: Schema.Types.ObjectId, ref: 'User' }
+    host: { type: Schema.Types.ObjectId, ref: 'User' },
+    description: String
 });
 
 module.exports = {'User': mongoose.model('User', UserSchema), 'Raid': mongoose.model('Raid', RaidSchema) };
