@@ -20,9 +20,24 @@ module.exports = function(router, Raid) {
         })
         .get(function(req, res) {
             var tableState = eval('(' + req.query.tableState + ')');
-            var sort = (tableState.sort.reverse ? '-' : '') + tableState.sort.predicate;
-            var start = req.query.start;
-            var number = req.query.number;
+            if(!tableState) {
+                tableState = {
+                    "sort": {
+                        "predicate" : "time_created",
+                        "reverse" : true
+                    },
+                    "search" : {
+                        "predicateObject" : {}
+                    },
+                    "pagination" : {
+                        "start" : 0,
+                        "number" : 10
+                    }
+                };
+            }
+            var sort = ((tableState.sort.reverse ? '-' : '') + tableState.sort.predicate);
+            var start = parseInt(req.query.start) || 0;
+            var number = parseInt(req.query.number) || 10;
             var select = tableState.search.predicateObject || {};
             if(typeof Object.prototype.except !== 'function') {
                 Object.prototype.except = function() {

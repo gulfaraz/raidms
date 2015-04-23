@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="dist/css/style.min.css">
 </head>
 <body ng-app="rmsApp" ng-controller="mainController">
-    <header>RMS - Raid Management System</header>
+    <header>RMS</header>
     <section class="config">
         <label for="timezone">Select your Timezone - </label><select id="timezone" ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
     </section>
@@ -14,65 +14,7 @@
     <div>Server Status - {{ serverStatus }}</div>
     <div>Online Users - {{ onlineUsers }}</div>
     </aside>
-    <section class="list" ng-controller="listController">
-    <table st-set-filter="multiFilter" st-table="show_raids" st-safe-src="raids" st-pipe="get_raids">
-        <thead>
-        <tr>
-            <th st-sort="status" st-skip-natural="true">Status</th>
-            <th st-sort="platform" st-skip-natural="true">Platform</th>
-            <th st-sort="game" st-skip-natural="true">Game</th>
-            <th st-sort="strength" st-skip-natural="true">Capacity</th>
-            <th>Description</th>
-            <th st-sort="play_time" st-skip-natural="true">Play Time</th>
-            <th st-sort="time_created" st-skip-natural="true" st-sort-default="reverse">Created</th>
-        </tr>
-        <tr>
-            <th>
-                <select st-search="status" ng-init="statusFilterModel = statusFilter['']" ng-model="statusFilterModel" ng-options="(value | capitalize) for (key , value) in statusFilter">
-                    <option value="">All</option>
-                </select>
-            </th>
-            <th>
-                <select st-search="platform" ng-init="platformFilterModel = platformFilter['']" ng-model="platformFilterModel" ng-options="(value | uppercase) for (key , value) in platformFilter">
-                    <option value="">All</option>
-                </select>
-            </th>
-            <th>
-                <select st-search="game" ng-init="gameFilterModel = gameFilter['']" ng-model="gameFilterModel" ng-options="(value | capitalize) for (key , value) in gameFilter">
-                    <option value="">All</option>
-                </select>
-            </th>
-            <th colspan="4">
-                <input st-search placeholder="Search All" type="search" />
-            </th>
-        </tr>
-        </thead>
-        <tbody ng-show="!isLoading">
-        <tr ng-repeat="raid in show_raids">
-            <td>{{raid.status | capitalize}}</td>
-            <td>{{raid.platform | uppercase}}</td>
-            <td>{{raid.game | capitalize}}</td>
-            <td>{{raid.players.length}}/{{raid.strength}}</td>
-            <td>{{raid.description}}</td>
-            <td>{{raid.display_play_time}}</td>
-            <td>{{raid.display_time_created}}</td>
-        </tr>
-        <tr ng-if="show_raids.length == 0">
-            <td colspan="7">No Raids Found</td>
-        </tr>
-        </tbody>
-        <tbody ng-show="isLoading">
-        <tr>
-            <td colspan="7">Loading ... </td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td st-pagination="" st-items-by-page="5" colspan="4"></td>
-        </tr>
-    </tfoot>
-    </table>
-    </section>
+    <div ui-view></div>
     <script src="dist/js/rms.min.js"></script>
 </body>
 </html>

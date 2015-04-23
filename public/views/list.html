@@ -1,0 +1,67 @@
+<section class="list" ng-controller="listController">
+    <table st-set-filter="multiFilter" st-table="show_raids" st-safe-src="raids" st-pipe="get_raids">
+        <thead>
+        <tr>
+            <th st-sort="status" st-skip-natural="true">Status</th>
+            <th st-sort="platform" st-skip-natural="true">Platform</th>
+            <th st-sort="game" st-skip-natural="true">Game</th>
+            <th st-sort="strength" st-skip-natural="true">Capacity</th>
+            <th>Description</th>
+            <th st-sort="play_time" st-skip-natural="true">Play Time</th>
+            <th st-sort="time_created" st-skip-natural="true" st-sort-default="reverse">Created</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>
+                <select st-search="status" ng-init="statusFilterModel = filterState.status" ng-model="statusFilterModel" ng-options="(value | capitalize) for (key , value) in statusFilter">
+                    <option value="">All</option>
+                </select>
+            </th>
+            <th>
+                <select st-search="platform" ng-init="platformFilterModel = filterState.platform" ng-model="platformFilterModel" ng-options="(value | uppercase) for (key , value) in platformFilter">
+                    <option value="">All</option>
+                </select>
+            </th>
+            <th>
+                <select st-search="game" ng-init="gameFilterModel = filterState.game" ng-model="gameFilterModel" ng-options="(value | capitalize) for (key , value) in gameFilter">
+                    <option value="">All</option>
+                </select>
+            </th>
+            <th colspan="4">
+                <input st-search placeholder="Search All" type="search" />
+            </th>
+            <th>
+                <button type="button" st-reset-search>Reset Filters</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody ng-show="!isLoading">
+        <tr ng-repeat="raid in show_raids">
+            <td>{{raid.status | capitalize}}</td>
+            <td>{{raid.platform | uppercase}}</td>
+            <td>{{raid.game | capitalize}}</td>
+            <td>{{raid.players.length}}/{{raid.strength}}</td>
+            <td>{{raid.description}}</td>
+            <td>{{raid.display_play_time}}</td>
+            <td>{{raid.display_time_created}}</td>
+            <td>
+                <button type="button">Join</button>
+                <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filterState' : { 'status' : statusFilterModel, 'platform' : platformFilterModel, 'game' : gameFilterModel } })">View</button>
+            </td>
+        </tr>
+        <tr ng-if="show_raids.length == 0">
+            <td colspan="8">No Raids Found</td>
+        </tr>
+        </tbody>
+        <tbody ng-show="isLoading">
+        <tr>
+            <td colspan="8">Loading ... </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td st-pagination="" st-items-by-page="10" colspan="4"></td>
+        </tr>
+    </tfoot>
+    </table>
+</section>

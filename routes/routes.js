@@ -9,5 +9,6 @@ module.exports = function(express, models) {
     });
     router.use('/api', require('./api/user')(router, models.User));
     router.use('/api', require('./api/raid')(router, models.Raid));
+    router.use('/api', require('./api/filter')(router, models.Filter));
     return router;
 }

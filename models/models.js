@@ -12,7 +12,7 @@ var UserSchema = new Schema({
     play_start: Date,
     play_end: Date,
     platforms: [Schema.Types.Mixed],
-    seeking: [Schema.Types.Mixed],
+    seeking: Schema.Types.Mixed,
     date_joined: Date,
     date_updated: Date
 });
@@ -29,4 +29,10 @@ var RaidSchema = new Schema({
     description: String
 });
 
-module.exports = {'User': mongoose.model('User', UserSchema), 'Raid': mongoose.model('Raid', RaidSchema) };
+var FilterSchema = new Schema({
+    'game': [String],
+    'platform': [String],
+    'status': [String]
+});
+
+module.exports = {'User': mongoose.model('User', UserSchema), 'Raid': mongoose.model('Raid', RaidSchema), 'Filter': mongoose.model('Filter', FilterSchema) };

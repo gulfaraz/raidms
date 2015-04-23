@@ -56,19 +56,16 @@ module.exports = function(grunt) {
             }
         },
         watch: {
+            options: {
+              livereload: true,
+            },
             css: {
                 files: ['<%= globalConfig.src %>/rms/css/**/*.less'],
-                tasks: ['less', 'cssmin'],
-                options: {
-                    livereload: false,
-                }
+                tasks: ['less', 'cssmin']
             },
             js: {
                 files: ['<%= globalConfig.src %>/rms/js/**/*.js'],
-                tasks: ['jshint', 'uglify'],
-                options: {
-                    livereload: false,
-                }
+                tasks: ['jshint', 'uglify']
             }
         },
         concurrent: {

@@ -23,7 +23,7 @@ module.exports = function(router, User) {
             });
         })
         .get(function(req, res) {
-            User.find(function(err, user) {
+            User.find().select('username seeking date_joined platforms').exec(function(err, user) {
                 if(err) {
                     res.send(err);
                 }
@@ -32,7 +32,7 @@ module.exports = function(router, User) {
         });
     router.route('/api/user/:user_id')
         .get(function(req, res) {
-            User.findById(req.params.user_id, function(err, user) {
+            User.findById(req.params.user_id).select('username seeking date_joined platforms').exec(function(err, user) {
                 if(err) {
                     res.send(err);
                 }
