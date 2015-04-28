@@ -1,6 +1,6 @@
-module.exports = function(router, Raid) {
+module.exports = function(router, Raid, auth) {
     router.route('/api/raid')
-        .post(function(req, res) {
+        .post(auth.isAuthenticated, function(req, res) {
             var raid = new Raid();
             raid.platform = req.body.platform;
             raid.game = req.body.game;
@@ -9,7 +9,7 @@ module.exports = function(router, Raid) {
             raid.time_created = req.body.time_created;
             raid.play_time = req.body.play_time;
             raid.status = req.body.status;
-            raid.host = req.body.host;
+            raid.host = req.user._id;
             raid.description = req.body.description;
             raid.save(function(err) {
                 if(err) {
@@ -81,31 +81,35 @@ module.exports = function(router, Raid) {
                 res.json(raid);
             });
         })
-        .put(function(req, res) {
+        .put(auth.isAuthenticated, function(req, res) {
             Raid.findById(req.params.raid_id, function(err, raid) {
-                if(err) {
-                    res.send(err);
-                }
-                raid.platform = req.body.platform;
-                raid.game = req.body.game;
-                raid.strength = req.body.strength;
-                raid.players = req.body.players;
-                raid.time_created = req.body.time_created;
-                raid.play_time = req.body.play_time;
-                raid.status = req.body.status;
-                raid.host = req.body.host;
-                raid.description = req.body.description;
-                raid.save(function(err) {
+                if(raid.host == req.user._id) {
                     if(err) {
                         res.send(err);
                     }
-                    res.json({ message: 'Raid updated' });
-                });
+                    raid.platform = req.body.platform;
+                    raid.game = req.body.game;
+                    raid.strength = req.body.strength;
+                    raid.players = req.body.players;
+                    raid.time_created = req.body.time_created;
+                    raid.play_time = req.body.play_time;
+                    raid.status = req.body.status;
+                    raid.description = req.body.description;
+                    raid.save(function(err) {
+                        if(err) {
+                            res.send(err);
+                        }
+                        res.json({ message: 'Raid updated' });
+                    });
+                } else {
+                    res.json({ message: 'You can only edit raids that you have created' });
+                }
             });
         })
-        .delete(function(req, res) {
+        .delete(auth.isAuthenticated, function(req, res) {
             Raid.remove({
-                _id: req.params.raid_id
+                _id : req.params.raid_id,
+                host : req.user._id
             }, function(err, raid) {
                 if (err) {
                     res.send(err);

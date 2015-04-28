@@ -7,7 +7,7 @@ angular.module('MainCtrl')
             angular.forEach($scope.raid.players, function(player) {
                 api.get({ 'set' : 'user', 'id' : player }, function(user) {
                     $scope.player_data[player] = user;
-                    $scope.player_data[player]['show'] = false;
+                    $scope.player_data[player].show = false;
                 });
             });
         });

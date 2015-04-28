@@ -10,9 +10,31 @@
     <section class="config">
         <label for="timezone">Select your Timezone - </label><select id="timezone" ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
     </section>
+    <section ng-show="user.username.length <= 0">
+        <div>
+            <span>PSN</span>
+            <span>XBOX</span>
+            <span><a href="/auth/facebook">Facebook</a></span>
+            <span><a href="/auth/twitter">Twitter</a></span>
+            <span><a href="/auth/google">Google</a></span>
+        </div>
+        <div>
+            <input type="text" name="username" placeholder="username" />
+            <input type="password" name="password"  placeholder="password" />
+            <button type="button">Sign In</button>
+            <button type="button">Register</button>
+        </div>
+    </section>
+    <section ng-show="user.username.length > 0">
+        <div>
+            <span>{{user.username}}</span>
+            <button type="button">My Account</button>
+            <button type="button">Sign Out</button>
+        </div>
+    </section>
     <aside>
-    <div>Server Status - {{ serverStatus }}</div>
-    <div>Online Users - {{ onlineUsers }}</div>
+        <div>Server Status - {{ serverStatus }}</div>
+        <div>Online Users - {{ onlineUsers }}</div>
     </aside>
     <div ui-view></div>
     <script src="dist/js/rms.min.js"></script>

@@ -1,4 +1,5 @@
-module.exports = function(router, User) {
+module.exports = function(router, User, auth) {
+    var select = 'username mail role status caption score play_start play_end platforms seeking date_joined date_updated';
     router.route('/api/user')
         .post(function(req, res) {
             var user = new User();
@@ -23,7 +24,7 @@ module.exports = function(router, User) {
             });
         })
         .get(function(req, res) {
-            User.find().select('username seeking date_joined platforms').exec(function(err, user) {
+            User.find().select(select).exec(function(err, user) {
                 if(err) {
                     res.send(err);
                 }
@@ -32,14 +33,14 @@ module.exports = function(router, User) {
         });
     router.route('/api/user/:user_id')
         .get(function(req, res) {
-            User.findById(req.params.user_id).select('username seeking date_joined platforms').exec(function(err, user) {
+            User.findById(req.params.user_id).select(select).exec(function(err, user) {
                 if(err) {
                     res.send(err);
                 }
                 res.json(user);
             });
         })
-        .put(function(req, res) {
+        .put(auth.isAuthenticated, function(req, res) {
             User.findById(req.params.user_id, function(err, user) {
                 if(err) {
                     res.send(err);
@@ -65,7 +66,7 @@ module.exports = function(router, User) {
                 });
             });
         })
-        .delete(function(req, res) {
+        .delete(auth.isAuthenticated, function(req, res) {
             User.remove({
                 _id: req.params.user_id
             }, function(err, user) {
@@ -73,7 +74,7 @@ module.exports = function(router, User) {
                     res.send(err);
                 }
                 res.json({ message: 'User deleted' });
+            });
         });
-    });;
     return router;
 }
