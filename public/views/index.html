@@ -10,6 +10,7 @@
     <section class="config">
         <label for="timezone">Select your Timezone - </label><select id="timezone" ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
     </section>
+    <div>{{message}}</div>
     <section ng-show="user.username.length <= 0">
         <div>
             <span>PSN</span>
@@ -19,17 +20,19 @@
             <span><a href="/auth/google">Google</a></span>
         </div>
         <div>
-            <input type="text" name="username" placeholder="username" />
-            <input type="password" name="password"  placeholder="password" />
-            <button type="button">Sign In</button>
-            <button type="button">Register</button>
+            <form name="signIn" ng-submit="sign_in()">
+                <input type="text" name="username" placeholder="username" ng-model="username" required/>
+                <input type="password" name="passcode" placeholder="passcode" ng-model="passcode" required/>
+                <button type="submit" ng-disabled="signIn.$invalid">Sign In</button>
+                <button ui-sref="register({})" type="button">Register</button>
+            </form>
         </div>
     </section>
     <section ng-show="user.username.length > 0">
         <div>
             <span>{{user.username}}</span>
             <button type="button">My Account</button>
-            <button type="button">Sign Out</button>
+            <button type="button" ng-click="sign_out()">Sign Out</button>
         </div>
     </section>
     <aside>

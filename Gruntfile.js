@@ -1,32 +1,33 @@
 var globalConfig = {
-    src: 'public/src',
-    dist: 'public/dist',
-    bower: 'bower_components'
+    'src' : 'public/src',
+    'dist' : 'public/dist',
+    'bower' : 'bower_components'
 };
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
     grunt.initConfig({
-        globalConfig: globalConfig,
-        bower: {
-            install: {
-                options: {
-                    targetDir: "<%= globalConfig.src %>/libs",
-                    cleanup: false //true
+        'globalConfig' : globalConfig,
+        'bower' : {
+            'install' : {
+                'options' : {
+                    'targetDir' : "<%= globalConfig.src %>/libs",
+                    'cleanTargetDir' : true,
+                    'cleanBowerDir' : false
                 }
             }
         },
-        jshint: {
-            options: {
-                ignores: '<%= globalConfig.src %>/libs/**/*.js'
+        'jshint' : {
+            'options': {
+                'ignores' : '<%= globalConfig.src %>/libs/**/*.js'
             },
-            all: ['<%= globalConfig.src %>/rms/js/**/*.js']
+            'all' : ['<%= globalConfig.src %>/rms/js/**/*.js']
         },
-        uglify: {
-            options: {
-                sourceMap: true //false
+        'uglify' : {
+            'options' : {
+                'sourceMap' : true //false
             },
-            build: {
-                files: {
+            'build' : {
+                'files' : {
                     '<%= globalConfig.dist %>/js/rms.min.js': [
                         '<%= globalConfig.src %>/libs/angular/*.js',
                         '<%= globalConfig.src %>/libs/angular-resource/*.js',
@@ -41,42 +42,42 @@ module.exports = function(grunt) {
                 }
             }
         },
-        less: {
-            build: {
-                files: {
+        'less' : {
+            'build' : {
+                'files' : {
                     '<%= globalConfig.dist %>/css/style.css': '<%= globalConfig.src %>/rms/css/style.less'
                 }
             }
         },
-        cssmin: {
-            build: {
-                files: {
+        'cssmin' : {
+            'build' : {
+                'files' : {
                     '<%= globalConfig.dist %>/css/style.min.css': ['<%= globalConfig.src %>/libs/**/*.css', '<%= globalConfig.dist %>/css/style.css']
                 }
             }
         },
-        watch: {
-            options: {
-              livereload: true,
+        'watch' : {
+            'options' : {
+              'livereload' : true,
             },
-            css: {
-                files: ['<%= globalConfig.src %>/rms/css/**/*.less'],
-                tasks: ['less', 'cssmin']
+            'css' : {
+                'files' : ['<%= globalConfig.src %>/rms/css/**/*.less'],
+                'tasks' : ['less', 'cssmin']
             },
-            js: {
-                files: ['<%= globalConfig.src %>/rms/js/**/*.js'],
-                tasks: ['jshint', 'uglify']
+            'js' : {
+                'files' : ['<%= globalConfig.src %>/rms/js/**/*.js'],
+                'tasks' : ['jshint', 'uglify']
             }
         },
-        concurrent: {
-            options: {
-                logConcurrentOutput: true
+        'concurrent' : {
+            'options' : {
+                'logConcurrentOutput' : true
             },
-            tasks: ['nodemon', 'watch']
+            'tasks' : ['nodemon', 'watch']
         },
-        nodemon: {
-            dev: {
-                script: 'index.js'
+        'nodemon' : {
+            'dev' : {
+                'script' : 'index.js'
             }
         }
     });

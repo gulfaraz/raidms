@@ -8,6 +8,8 @@ var models = require('./models');
 var User = models.User;
 var Client = models.Client;
 var Token = models.Token;
+var jwt = require('jsonwebtoken');
+var jwt_secret = 'gulfaraz';
 
 passport.use(new BasicStrategy(
     function (username, password, callback) {
@@ -46,6 +48,30 @@ passport.use('client-basic', new BasicStrategy(
 ));
 
 passport.use(new BearerStrategy(
+    function (token, callback) {
+        try {
+            jwt.verify(token, jwt_secret, function (err, decoded) {
+                if(err) {
+                    return callback(err);
+                }
+                User.findOne({ 'username' : decoded }, function (err, user) {
+                    if(err) {
+                        return callback(err);
+                    }
+                    if(!user) {
+                        return callback(null, false);
+                    } else {
+                        callback(null, user, { 'scope' : '*' });
+                    }
+                });
+            });
+        } catch(err) {
+            return callback(null, false);
+        }
+    }
+));
+
+passport.use('oauth-bearer', new BearerStrategy(
     function (access_token, callback) {
         Token.findOne({ 'value' : access_token }, function (err, token) {
             if(err) {
@@ -67,44 +93,11 @@ passport.use(new BearerStrategy(
     }
 ));
 
-passport.use(new FacebookStrategy({ 'clientID' : 'FACEBOOK_APP_ID', 'clientSecret' : 'FACEBOOK_APP_SECRET', 'callbackURL' : 'http://54.169.119.195:8080/auth/facebook/callback' },
-    function (access_token, refresh_token, profile, done) {
-        User.findOrCreate({ 'social.facebook' :  profile.id }, function (err, user) {
-            if(err) {
-                return done(err);
-            }
-            done(null, user);
-        });
-    }
-));
-
-passport.use(new TwitterStrategy({ 'consumerKey' : 'TWITTER_CONSUMER_KEY', 'consumerSecret' : 'TWITTER_CONSUMER_SECRET', 'callbackURL': "http://54.169.119.195:8080/auth/twitter/callback" },
-    function (token, token_secret, profile, done) {
-        User.findOrCreate({ 'social.twitter' :  profile.id }, function (err, user) {
-            if(err) {
-                return done(err);
-            }
-            done(null, user);
-        });
-    }
-));
-
-passport.use(new GoogleStrategy({ 'clientID' : 'GOOGLE_CLIENT_ID', 'clientSecret' : 'GOOGLE_CLIENT_SECRET', 'callbackURL' : "http://54.169.119.195:8080/auth/google/callback", 'passReqToCallback' : true },
-    function (request, accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ 'social.google' : profile.id }, function (err, user) {
-            return done(err, user);
-        });
-    }
-));
-
-var redirects = { 'successRedirect' : '#/list', 'failureRedirect' : '#/list' };
-
-exports.isAuthenticated = passport.authenticate(['basic', 'bearer'], { 'session' : false });
+exports.oauth2 = require('./oauth2');
+exports.passport_init = passport.initialize();
+exports.jwt = jwt;
+exports.jwt_secret = jwt_secret;
+exports.isAuthenticated = passport.authenticate(['basic', 'bearer', 'oauth-bearer'], { 'session' : false });
 exports.isClientAuthenticated = passport.authenticate('client-basic', { 'session' : false });
 exports.isBearerAuthenticated = passport.authenticate('bearer', { 'session' : false });
-exports.isFacebookAuthenticated = passport.authenticate('facebook', { 'session' : false });
-exports.isFacebookAuthenticatedCallback = passport.authenticate('facebook', redirects, { 'session' : false });
-exports.isTwitterAuthenticated = passport.authenticate('twitter', { 'session' : false });
-exports.isTwitterAuthenticatedCallback = passport.authenticate('twitter', redirects, { 'session' : false });
-exports.isGoogleAuthenticated = passport.authenticate('google', { 'scope' :  [ 'https://www.googleapis.com/auth/plus.login' ] }, { 'session' : false });
-exports.isGoogleAuthenticatedCallback = passport.authenticate('google', redirects, { 'session' : false });
+exports.isOAuthBearerAuthenticated = passport.authenticate('oauth-bearer', { 'session' : false });

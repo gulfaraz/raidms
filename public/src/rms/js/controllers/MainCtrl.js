@@ -1,10 +1,10 @@
 angular.module('MainCtrl')
-    .controller('mainController', ['$scope', 'api', '$state', function ($scope, api, $state) {
+    .controller('mainController', ['$scope', 'api', '$state', '$localStorage', function ($scope, api, $state, $localStorage) {
 
         $state.go('list');
 
         $scope.user = {
-            'login_time' : Date.now(),
+            'time' : Date.now(),
             'username' : ''
         };
 
@@ -31,7 +31,56 @@ angular.module('MainCtrl')
         api.get(function (data) {
             $scope.serverStatus = data.status;
         });
-        api.query({ 'set' : 'user' }, function (data) {
-            $scope.onlineUsers = data.length;
+        api.get({ 'set' : 'user' }, function (users) {
+            $scope.onlineUsers = users.data.length;
         });
+
+        $scope.sign_in = function () {
+            if(($scope.username && $scope.username.length > 0) || ($scope.passcode && $scope.passcode.length > 0)) {
+                api.save({ 'set' : 'login'} , { 'username' : $scope.username, 'password' : $scope.passcode }, function (data) {
+                    if(data.success) {
+                        $localStorage.token = data.token;
+                        $scope.user = {
+                            'time' : Date.now(),
+                            'username' : data.username
+                        };
+                        $scope.message = '';
+                    } else {
+                        $localStorage.$reset();
+                        $scope.user = {
+                            'time' : Date.now(),
+                            'username' : ''
+                        };
+                        $scope.message = 'Invalid Credentials';
+                    }
+                });
+            } else {
+                $scope.message = 'Invalid Credentials';
+            }
+        };
+
+        $scope.sign_out = function () {
+            $localStorage.$reset();
+            $scope.user = {
+                'time' : Date.now(),
+                'username' : ''
+            };
+        };
+
+        if($localStorage.token) {
+            api.save({ 'set' : 'login', 'id' : $localStorage.token }, {}, function (data) {
+                if(data.success) {
+                    $scope.user = {
+                        'time' : Date.now(),
+                        'username' : data.username
+                    };
+                } else {
+                    $localStorage.$reset();
+                    $scope.user = {
+                        'time' : Date.now(),
+                        'username' : ''
+                    };
+                }
+            });
+        }
     }]);

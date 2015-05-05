@@ -1,10 +1,11 @@
 angular.module('MainCtrl')
-    .config(['$stateProvider', function($stateProvider) {
+    .config(['$stateProvider', '$httpProvider', function($stateProvider, $httpProvider) {
+        $httpProvider.interceptors.push('AuthInterceptor');
         $stateProvider
             .state('list', {
                 url : '/list',
                 params : {
-                    filterState : {
+                    'filterState' : {
                         'status' : '',
                         'platform' : '',
                         'game' : ''
@@ -16,7 +17,7 @@ angular.module('MainCtrl')
             .state('raid', {
                 url : '/raid/:raid_id',
                 params : {
-                    filterState : {
+                    'filterState' : {
                         'status' : '',
                         'platform' : '',
                         'game' : ''
@@ -24,5 +25,10 @@ angular.module('MainCtrl')
                 },
                 templateUrl : 'views/raid.html',
                 controller: 'raidController'
+            })
+            .state('register', {
+                url : '/register',
+                params : {},
+                templateUrl : 'views/register.html'
             });
     }]);

@@ -1,0 +1,36 @@
+<section class="sign_up" ng-controller="signUpController">
+    <form name="signUp" ng-submit="sign_up()">
+        <header>Sign Up</header>
+        <div>
+            <label>User Name</label>
+            <span ng-messages="signUp.username.$error" ng-if="showMessages('username')">
+                <span ng-message="required">Required</span>
+                <span ng-message="duplicate">{{signUp.username.$viewValue}} not available</span>
+            </span>
+            <input type="text" name="username" placeholder="username" ng-model="username" ng-minlength="5" required available />
+        </div>
+        <div>
+            <label>Passcode</label>
+            <span ng-messages="signUp.passcode.$error" ng-if="showMessages('passcode')">
+                <span ng-message="required">Required</span>
+            </span>
+            <input type="{{passcode_type()}}" name="passcode" placeholder="passcode" ng-model="passcode" required />
+            <span>
+                <input type="checkbox" ng-model="show_passcode" tabindex="-1" />
+                <label>Show</label>
+            </span>
+        </div>
+        <div>
+            <label>Mail</label>
+            <span ng-messages="signUp.mail.$error" ng-if="showMessages('mail')">
+                <span ng-message="required">Required</span>
+                <span ng-message="email">Invalid Mail</span>
+                <span ng-message="duplicate">Registered Mail</span>
+            </span>
+            <input type="email" name="mail" placeholder="username@rms.com" ng-model="mail" required available />
+        </div>
+        <div>
+            <button type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button>
+        </div>
+    </form>
+</section>

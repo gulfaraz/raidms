@@ -77,7 +77,7 @@ exports.authorization = [
             return callback(null, client, redirect_uri);
         });
     }),
-    function(req, res){
+    function (req, res) {
         res.render('../public/views/auth.html', { 'user' : { 'username' : 'Gulfaraz' }, 'transactionID' : req.oauth2.transactionID, 'user' : req.user, 'client' : req.oauth2.client });
     }
 ];
