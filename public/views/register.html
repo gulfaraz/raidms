@@ -3,22 +3,24 @@
         <header>Sign Up</header>
         <div>
             <label>User Name</label>
-            <span ng-messages="signUp.username.$error" ng-if="showMessages('username')">
+            <span ng-messages="signUp.user_name.$error" ng-if="showMessages('user_name')">
                 <span ng-message="required">Required</span>
-                <span ng-message="duplicate">{{signUp.username.$viewValue}} not available</span>
+                <span ng-message="duplicate">{{signUp.user_name.$viewValue}} not available</span>
             </span>
-            <input type="text" name="username" placeholder="username" ng-model="username" ng-minlength="5" required available />
+            <input type="text" name="user_name" placeholder="user_name" ng-model="user_name" ng-minlength="5" required available />
         </div>
         <div>
             <label>Passcode</label>
             <span ng-messages="signUp.passcode.$error" ng-if="showMessages('passcode')">
                 <span ng-message="required">Required</span>
             </span>
-            <input type="{{passcode_type()}}" name="passcode" placeholder="passcode" ng-model="passcode" required />
-            <span>
-                <input type="checkbox" ng-model="show_passcode" tabindex="-1" />
-                <label>Show</label>
-            </span>
+            <div>
+                <input type="{{ show_register_passcode ? 'text' : 'password' }}" name="passcode" placeholder="passcode" ng-model="passcode" required />
+                <span>
+                    <input type="checkbox" ng-model="show_register_passcode" tabindex="-1" />
+                    <label>Show</label>
+                </span>
+            </div>
         </div>
         <div>
             <label>Mail</label>
@@ -27,7 +29,7 @@
                 <span ng-message="email">Invalid Mail</span>
                 <span ng-message="duplicate">Registered Mail</span>
             </span>
-            <input type="email" name="mail" placeholder="username@rms.com" ng-model="mail" required available />
+            <input type="email" name="mail" placeholder="user_name@rms.com" ng-model="mail" required available />
         </div>
         <div>
             <button type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button>

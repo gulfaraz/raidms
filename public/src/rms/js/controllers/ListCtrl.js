@@ -1,5 +1,14 @@
 angular.module('MainCtrl')
-    .controller('listController', ['$scope', 'api', '$stateParams', function ($scope, api, $stateParams) {
+    .controller('listController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
+        $scope.$watch('user.user_name', function () {
+            if($scope.$parent.$parent.user.user_name.length > 0) {
+                api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
+                    if(user.success) {
+                        $state.go('list', { 'filterState' : { 'platform' : user.data[0].seeking.platform, 'game' : user.data[0].seeking.game } });
+                    }
+                });
+            }
+        });
         $scope.filterState = $stateParams.filterState || {
             'status' : '',
             'platform' : '',
@@ -32,15 +41,7 @@ angular.module('MainCtrl')
         $scope.update_to_active_timezone = function () {
             $scope.localize($scope.raids);
         };
-        $scope.localize = function (raids) {
-            var format = 'h:mm A (Do MMM)';
-            angular.forEach(raids, function (value, key) {
-                value.display_time_created = moment.tz(value.time_created, $scope.active_timezone).format(format);
-                value.display_play_time = moment.tz(value.play_time, $scope.active_timezone).format(format);
-            });
-            return raids;
-        };
-        var populateFilters = function () {
+        var populate_filters = function () {
             api.get({ 'set' : 'filter' }, function (filters) {
                 var filter_types = {
                     'gameFilter' : filters.data[0].game,

@@ -3,19 +3,21 @@ var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    'username' : { 'type' : String, 'unique' : true, 'required' : true },
+    'user_name' : { 'type' : String, 'unique' : true, 'required' : true },
     'password' : { 'type' : String, 'required' : true },
     'mail' : { 'type' : String, 'unique' : true, 'lowercase' : true },
     'role' : String,
     'status' : String,
     'caption' : String,
-    'score' : Number,
+    'karma' : Number,
     'play_start' : Date,
     'play_end' : Date,
     'platforms' : [String],
     'seeking' : Schema.Types.Mixed,
     'date_joined' : Date,
-    'date_updated' : Date
+    'date_updated' : Date,
+    'delete' : Date,
+    'timezone' : String
 });
 
 UserSchema.pre('save', function (callback) {

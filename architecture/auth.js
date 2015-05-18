@@ -12,8 +12,9 @@ var jwt = require('jsonwebtoken');
 var jwt_secret = 'gulfaraz';
 
 passport.use(new BasicStrategy(
-    function (username, password, callback) {
-        User.findOne({ 'username' : username }, function (err, user) {
+    function (user_name, password, callback) {
+        User.find({ 'user_name' : user_name }).limit(1).exec(function (err, user) {
+            user = user[0];
             if(err) {
                 return callback(err);
             }
@@ -34,8 +35,9 @@ passport.use(new BasicStrategy(
 ));
 
 passport.use('client-basic', new BasicStrategy(
-    function (username, password, callback) {
-        Client.findOne({ 'id' : username }, function (err, client) {
+    function (user_name, password, callback) {
+        Client.find({ 'id' : user_name }).limit(1).exec(function (err, client) {
+            client = client[0];
             if(err) {
                 return callback(err);
             }
@@ -54,7 +56,8 @@ passport.use(new BearerStrategy(
                 if(err) {
                     return callback(err);
                 }
-                User.findOne({ 'username' : decoded }, function (err, user) {
+                User.find({ 'user_name' : decoded }).limit(1).exec(function (err, user) {
+                    user = user[0];
                     if(err) {
                         return callback(err);
                     }
@@ -73,14 +76,16 @@ passport.use(new BearerStrategy(
 
 passport.use('oauth-bearer', new BearerStrategy(
     function (access_token, callback) {
-        Token.findOne({ 'value' : access_token }, function (err, token) {
+        Token.find({ 'value' : access_token }).limit(1).exec(function (err, token) {
+            token = token[0];
             if(err) {
                 return callback(err);
             }
             if(!token) {
                 return callback(null, false);
             }
-            User.findOne({ '_id': token.user_id }, function (err, user) {
+            User.find({ '_id': token.user_id }).limit(1).exec(function (err, user) {
+                user = user[0];
                 if(err) {
                     return callback(err);
                 }

@@ -17,7 +17,7 @@ var session = require('express-session');
 var swig = require('swig');
 swig.setDefaults({ 'cache' : false });
 
-var util = require('./util')();
+var util = require('./util')(auth);
 
 var port = process.env.PORT || 8080;
 

@@ -1,0 +1,223 @@
+<section class="user edit" ng-controller="userEditController">
+    <div ng-if="(profile.user_name == user.user_name)">
+        <header>{{profile.user_name}}</header>
+        <section>
+            <header>Profile Settings</header>
+            <div>
+                <div>
+                    <div>Caption</div>
+                    <div><textarea rows="3" cols="50" maxlength="90" ng-maxlength="90" ng-model="profile.caption"></textarea></div>
+                </div>
+                <div>
+                    <div>Seeking</div>
+                    <div class="inline">
+                        <div>
+                            <div>Platform</div>
+                            <div>
+                                <select ng-model="profile.seeking.platform" ng-options="(value | capitalize) for (key , value) in models.filter.platform">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div>Game</div>
+                            <div>
+                                <select ng-model="profile.seeking.game" ng-options="(value | capitalize) for (key , value) in models.filter.game">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>Message</div>
+                        <div><textarea rows="3" cols="50" maxlength="90" ng-maxlength="90" ng-model="profile.seeking.message"></textarea></div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>Platforms</div>
+                        <div class="inline">
+                            <span ng-repeat="platform in profile.platforms">{{platform}}<button ng-click="remove_platform(platform)">Remove</button></span>
+                            <div ng-show="models.new_platforms.length > 0">
+                                <select ng-model="models.new_platform" ng-options="(value | capitalize) for (key , value) in models.new_platforms">
+                                    <option value="">All</option>
+                                </select>
+                                <button ng-click="add_platform()">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>Usual Play Time</div>
+                        <div>
+                            <label for="timezone">Default Timezone </label><select ng-model="profile.timezone" ng-options="value for (key , value) in timezones"></select>
+                        </div>
+                        <div class="inline">
+                            <div>
+                                <div>Start Time</div>
+                                <div>
+                                    <timepicker ng-model="models.play_start" disable-seconds="true"></timepicker>
+                                </div>
+                            </div>
+                            <div>
+                                <div>End Time</div>
+                                <div>
+                                    <timepicker ng-model="models.play_end" disable-seconds="true"></timepicker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" ng-click="update_profile()">Save</button>
+                    <button type="button" ui-sref="user({ 'user_name' : user.user_name })">Back</button>
+                    <span>{{models.profile_form_status_message}}</span>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div>Accounts Linked</div>
+            <div class="inline">
+                <div>
+                    <div>PSN</div>
+                    <div>
+                        <span ng-hide="profile.social.psn.linked">Connect</span>
+                    </div>
+                    <div ng-show="profile.social.psn.linked" class="block">
+                        <span>PSN ID</span>
+                        <span>Disconnect</span>
+                    </div>
+                </div>
+                <div>
+                    <div>XBOX</div>
+                    <div>
+                        <span ng-hide="profile.social.xbox.linked">Connect</span>
+                    </div>
+                    <div ng-show="profile.social.xbox.linked" class="block">
+                        <span>XBOX ID</span>
+                        <span>Disconnect</span>
+                    </div>
+                </div>
+                <div>
+                    <div>Facebook</div>
+                    <div>
+                        <span ng-hide="profile.social.facebook.linked">Connect</span>
+                    </div>
+                    <div ng-show="profile.social.facebook.linked" class="block">
+                        <span>Facebook ID</span>
+                        <span>Disconnect</span>
+                    </div>
+                </div>
+                <div>
+                    <div>Twitter</div>
+                    <div>
+                        <span ng-hide="profile.social.twitter.linked">Connect</span>
+                    </div>
+                    <div ng-show="profile.social.twitter.linked" class="block">
+                        <span>Twitter ID</span>
+                        <span>Disconnect</span>
+                    </div>
+                </div>
+                <div>
+                    <div>Google</div>
+                    <div>
+                        <span ng-hide="profile.social.google.linked">Connect</span>
+                    </div>
+                    <div ng-show="profile.social.google.linked" class="block">
+                        <span>Google ID</span>
+                        <span>Disconnect</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <header>Account Settings</header>
+            <div>
+                <div>
+                    <div ng-init="models.passcode.show_change_passcode = false" ng-click="toggle('passcode')">Change Passcode <span>{{models.passcode.passcode_message}}</span></div>
+                    <div ng-show="models.passcode.show_change_passcode">
+                        <form name="models.passcode.change_passcode_form" ng-submit="change_passcode()">
+                            <div>
+                                <label>Old Passcode</label>
+                                <span ng-messages="models.passcode.change_passcode_form.old_passcode.$error" ng-if="models.passcode.change_passcode_form.old_passcode.$touched && models.passcode.change_passcode_form.old_passcode.$invalid">
+                                    <span ng-message="required">Required</span>
+                                </span>
+                                <div>
+                                    <input type="{{ models.passcode.show_old_passcode ? 'text' : 'password' }}" name="old_passcode" placeholder="old passcode" ng-model="models.passcode.old_passcode" required />
+                                    <span>
+                                        <input type="checkbox" ng-model="models.passcode.show_old_passcode" tabindex="-1" />
+                                        <label>Show</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <label>New Passcode</label>
+                                <span ng-messages="models.passcode.change_passcode_form.new_passcode.$error" ng-if="models.passcode.change_passcode_form.new_passcode.$touched && models.passcode.change_passcode_form.new_passcode.$invalid">
+                                    <span ng-message="required">Required</span>
+                                </span>
+                                <div>
+                                    <input type="{{ models.passcode.show_new_passcode ? 'text' : 'password' }}" name="new_passcode" placeholder="new passcode" ng-model="models.passcode.new_passcode" required />
+                                    <span>
+                                        <input type="checkbox" ng-model="models.passcode.show_new_passcode" tabindex="-1" />
+                                        <label>Show</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit" ng-disabled="models.passcode.change_passcode_form.$invalid || models.passcode.change_passcode_form.$pending">Change</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <div ng-init="models.mail.show_change_mail = false" ng-click="toggle('mail')">Change Mail <span>{{models.mail.mail_message}}</span></div>
+                    <div ng-show="models.mail.show_change_mail">
+                        <form name="models.mail.change_mail_form" ng-submit="change_mail()">
+                            <span ng-messages="models.mail.change_mail_form.new_mail.$error" ng-if="models.mail.change_mail_form.new_mail.$touched && models.mail.change_mail_form.new_mail.$invalid">
+                                <span ng-message="required">Required</span>
+                                <span ng-message="email">Invalid Mail</span>
+                                <span ng-message="duplicate">Registered Mail</span>
+                            </span>
+                            <div>
+                                <input type="email" name="new_mail" placeholder="new mail" ng-model="models.mail.new_mail" required available />
+                            </div>
+                            <div>
+                                <button type="submit" ng-disabled="models.mail.change_mail_form.$invalid || models.mail.change_mail_form.$pending">Change</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <div ng-hide="models.delete.countdown">
+                        <div ng-init="models.delete.show_change_delete = false" ng-click="toggle('delete')">Delete Account <span>{{models.delete.delete_message}}</span></div>
+                        <div ng-show="models.delete.show_change_delete">
+                            <form name="models.delete.change_delete_form" ng-submit="delete_account()">
+                                <div>
+                                    <label>Passcode</label>
+                                    <span ng-messages="models.delete.change_delete_form.old_delete.$error" ng-if="models.delete.change_delete_form.old_delete.$touched && models.delete.change_delete_form.old_delete.$invalid">
+                                        <span ng-message="required">Required</span>
+                                    </span>
+                                    <div>
+                                        <input type="{{ models.delete.show_old_delete ? 'text' : 'password' }}" name="old_delete" placeholder="passcode" ng-model="models.delete.old_delete" required />
+                                        <span>
+                                            <input type="checkbox" ng-model="models.delete.show_old_delete" tabindex="-1" />
+                                            <label>Show</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" ng-disabled="models.delete.change_delete_form.$invalid || models.delete.change_delete_form.$pending">Delete</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div ng-show="models.delete.countdown">
+                        <div ng-click="cancel_termination()">CANCEL TERMINATION <span> Your account will be terminated in {{models.delete.countdown}}</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div ng-if="!(profile.user_name == user.user_name)">
+        <div>Access Denied</div>
+    </div>
+</section>

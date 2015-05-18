@@ -74,8 +74,9 @@ module.exports = function (util, router, Raid, auth) {
                 }
             });
         })
-        .put(auth.isAuthenticated, function (req, res) {
-            Raid.findById(req.params.raid_id, function (err, raid) {
+        .post(auth.isAuthenticated, function (req, res) {
+            Raid.find({ '_id' : req.params.raid_id }).limit(1).exec(function (err, raid) {
+                raid = raid[0];
                 if(raid.host.toString() == req.user._id.toString()) {
                     if(err) {
                         res.json({ 'success' : false, 'message' : err.toString() });

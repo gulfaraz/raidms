@@ -11,7 +11,7 @@
         <label for="timezone">Select your Timezone - </label><select id="timezone" ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
     </section>
     <div>{{message}}</div>
-    <section ng-show="user.username.length <= 0">
+    <section ng-show="user.user_name.length <= 0">
         <div>
             <span>PSN</span>
             <span>XBOX</span>
@@ -21,17 +21,29 @@
         </div>
         <div>
             <form name="signIn" ng-submit="sign_in()">
-                <input type="text" name="username" placeholder="username" ng-model="username" required/>
-                <input type="password" name="passcode" placeholder="passcode" ng-model="passcode" required/>
-                <button type="submit" ng-disabled="signIn.$invalid">Sign In</button>
-                <button ui-sref="register({})" type="button">Register</button>
+                <div class="inline">
+                    <div>
+                        <input type="text" name="user_name" placeholder="user_name" ng-model="user_name" required/>
+                    </div>
+                    <div>
+                        <input type="{{ show_login_passcode ? 'text' : 'password' }}" name="passcode" placeholder="passcode" ng-model="passcode" required/>
+                        <span>
+                            <input type="checkbox" ng-model="show_login_passcode" tabindex="-1" />
+                            <label>Show</label>
+                        </span>
+                    </div>
+                    <div>
+                        <button type="submit" ng-disabled="signIn.$invalid">Sign In</button>
+                        <button ui-sref="register({})" type="button">Register</button>
+                    </div>
+                </div>
             </form>
         </div>
     </section>
-    <section ng-show="user.username.length > 0">
+    <section ng-show="user.user_name.length > 0">
         <div>
-            <span>{{user.username}}</span>
-            <button type="button">My Account</button>
+            <span>{{user.user_name}}</span>
+            <button type="button" ui-sref="user({ 'user_name' : user.user_name })">Profile</button>
             <button type="button" ng-click="sign_out()">Sign Out</button>
         </div>
     </section>

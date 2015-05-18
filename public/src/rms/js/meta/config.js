@@ -11,8 +11,7 @@ angular.module('MainCtrl')
                         'game' : ''
                     }
                 },
-                templateUrl : 'views/list.html',
-                controller : 'listController'
+                templateUrl : 'views/list.html'
             })
             .state('raid', {
                 url : '/raid/:raid_id',
@@ -23,12 +22,21 @@ angular.module('MainCtrl')
                         'game' : ''
                     }
                 },
-                templateUrl : 'views/raid.html',
-                controller: 'raidController'
+                templateUrl : 'views/raid.html'
             })
             .state('register', {
                 url : '/register',
                 params : {},
                 templateUrl : 'views/register.html'
+            })
+            .state('user', {
+                url : '/user/:user_name',
+                params : {},
+                templateUrl : 'views/user.html'
+            })
+            .state('editUser', {
+                url : '/user/edit/:user_name',
+                params : {},
+                templateUrl : 'views/userEdit.html'
             });
     }]);

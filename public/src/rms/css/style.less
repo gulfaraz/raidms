@@ -4,12 +4,20 @@ body {
     background: @primaryColor;
 }
 
+textarea {
+    resize: none;
+}
+
+.inline > * {
+    display: inline-block;
+}
+
 /* Bootstap CSS */
 
-.st-sort-ascent:before {
+.st-sort-ascent:before, .timepicker_button_up:before {
     content: '\25B2';
 }
-.st-sort-descent:before {
+.st-sort-descent:before, .timepicker_button_down:before {
   content: '\25BC';
 }
 :before, :after {
