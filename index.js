@@ -30,9 +30,7 @@ rms.set('view cache', false);
 rms.use(session({ 'secret' : 'gulfaraz', 'saveUninitialized' : true, 'resave' : true }));
 rms.use(auth.passport_init);
 
-var router = express.Router()
-rms.use('/', require('./routes/routes')(util, router, models, auth));
-rms.use(express.static(__dirname + '/public'), require('./routes/routes')(util, router, models, auth));
+rms.use(express.static(__dirname + '/public'), require('./routes/routes')(util, express, models, auth));
 rms.use('/', function (req, res) { res.sendFile('./public/views/index.html', { 'root' : __dirname }); });
 
 rms.listen(port);

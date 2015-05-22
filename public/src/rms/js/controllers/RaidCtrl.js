@@ -1,6 +1,6 @@
 angular.module('MainCtrl')
     .controller('raidController', ['$scope', 'api', '$stateParams', function ($scope, api, $stateParams) {
-        $scope.filterState = $stateParams.filterState || { 'status' : '', 'platform' : '', 'game' : '' };
+        $scope.filter_state = $stateParams.filter_state || { 'status' : '', 'platform' : '', 'game' : '' };
         api.get({ 'set' : 'raid', 'id' : $stateParams.raid_id }, function (raid) {
             $scope.raid = $scope.localize([raid.data])[0];
             $scope.player_data = {};

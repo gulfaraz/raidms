@@ -6,7 +6,7 @@ angular.module('MainCtrl')
             'link' : function (scope, elm, attrs, ngModel) {
                 ngModel.$asyncValidators.duplicate = function (modelValue, viewValue) {
                     var userInput= modelValue || viewValue;
-                    return $http.get('/api/check/' + userInput)
+                    return $http.get('/check/' + userInput)
                         .then(function (response) {
                             if(response.data.available) {
                                 return true;

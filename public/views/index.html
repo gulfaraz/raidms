@@ -7,10 +7,14 @@
 </head>
 <body ng-app="rmsApp" ng-controller="mainController">
     <header>RMS</header>
-    <section class="config">
-        <label for="timezone">Select your Timezone - </label><select id="timezone" ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
+    <section>
+        <label for="timezone">Select your Timezone - </label><select ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
     </section>
     <div>{{message}}</div>
+    <div>
+        <button ui-sref="list">LFG</button>
+        <button ui-sref="queue">LFM</button>
+    </div>
     <section ng-show="user.user_name.length <= 0">
         <div>
             <span>PSN</span>
@@ -23,10 +27,10 @@
             <form name="signIn" ng-submit="sign_in()">
                 <div class="inline">
                     <div>
-                        <input type="text" name="user_name" placeholder="user_name" ng-model="user_name" required/>
+                        <input type="text" name="user_name" placeholder="Enter your User Name" ng-model="user_name" required/>
                     </div>
                     <div>
-                        <input type="{{ show_login_passcode ? 'text' : 'password' }}" name="passcode" placeholder="passcode" ng-model="passcode" required/>
+                        <input type="{{ show_login_passcode ? 'text' : 'password' }}" name="passcode" placeholder="Enter your Passcode" ng-model="passcode" required/>
                         <span>
                             <input type="checkbox" ng-model="show_login_passcode" tabindex="-1" />
                             <label>Show</label>
@@ -34,7 +38,8 @@
                     </div>
                     <div>
                         <button type="submit" ng-disabled="signIn.$invalid">Sign In</button>
-                        <button ui-sref="register({})" type="button">Register</button>
+                        <button ui-sref="register" type="button">Register</button>
+                        <button ui-sref="forgot" type="button">Forgot Password</button>
                     </div>
                 </div>
             </form>

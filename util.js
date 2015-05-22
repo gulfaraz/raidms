@@ -2,8 +2,9 @@ module.exports = function (auth) {
 
     var config = {
         'protocol' : 'http://',
-        'domain' : '54.169.119.195:8080/'
+        'domain' : '54.169.119.195/'
     };
+
     var nodemailer = require('nodemailer');
 
     var transporter = nodemailer.createTransport();
@@ -42,9 +43,20 @@ module.exports = function (auth) {
         sendMail(to, 'RMS - Account Termination', html);
     }
 
+    function sendForgotPasscodeMail(to, token) {
+        var url = config.protocol + config.domain + "#/reset/" + token;
+        var html = "<b>Hello</b><br/>\
+        <p>Please click the following link to set a new passcode for your RMS account.</p>\
+        <p><a href='" + url + "' title='RMS Reset Passcode'>" + url + "</a></p>";
+        sendMail(to, 'RMS - Reset Passcode', html);
+    }
+
     return {
         'config' : config,
         'except' : function (object, arguments) {
+            if (object.constructor.name === 'model') {
+                object = object.toObject();
+            }
             for(var i = 0, j = arguments.length; i < j; i++) {
                 if(object.hasOwnProperty(arguments[i])) {
                     delete object[arguments[i]];
@@ -58,6 +70,7 @@ module.exports = function (auth) {
         },
         'sendRegistrationMail' : sendRegistrationMail,
         'sendMailChangeMail' : sendMailChangeMail,
-        'sendAccountTerminationMail' : sendAccountTerminationMail
+        'sendAccountTerminationMail' : sendAccountTerminationMail,
+        'sendForgotPasscodeMail' : sendForgotPasscodeMail
     };
 }

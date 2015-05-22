@@ -11,6 +11,10 @@ var Token = models.Token;
 var jwt = require('jsonwebtoken');
 var jwt_secret = 'gulfaraz';
 
+var auth_return = function(user) {
+    return { 'user_name' : user.user_name, '_id' : user._id, 'status' : user.status };
+};
+
 passport.use(new BasicStrategy(
     function (user_name, password, callback) {
         User.find({ 'user_name' : user_name }).limit(1).exec(function (err, user) {
@@ -28,7 +32,7 @@ passport.use(new BasicStrategy(
               if(!isMatch) {
                   return callback(null, false);
               }
-              return callback(null, user);
+              return callback(null, auth_return(user));
             });
         });
     }
@@ -64,7 +68,7 @@ passport.use(new BearerStrategy(
                     if(!user) {
                         return callback(null, false);
                     } else {
-                        callback(null, user, { 'scope' : '*' });
+                        callback(null, auth_return(user), { 'scope' : '*' });
                     }
                 });
             });
@@ -92,16 +96,36 @@ passport.use('oauth-bearer', new BearerStrategy(
                 if(!user) {
                     return callback(null, false);
                 }
-                callback(null, user, { 'scope' : '*' });
+                callback(null, auth_return(user), { 'scope' : '*' });
             });
         });
     }
 ));
 
+var verify_token = function (token, callback) {
+    jwt.verify(token, jwt_secret, function (err, decoded) {
+        if(err) {
+            return callback(false, err);
+        }
+        User.find({ 'user_name' : decoded }).limit(1).exec(function (err, user) {
+            user = user[0];
+            if(err) {
+                return callback(false, err);
+            }
+            if(!user) {
+                return callback(false, 'User not found');
+            } else {
+                callback(true, auth_return(user));
+            }
+        });
+    });
+};
+
 exports.oauth2 = require('./oauth2');
 exports.passport_init = passport.initialize();
 exports.jwt = jwt;
 exports.jwt_secret = jwt_secret;
+exports.verify_token = verify_token;
 exports.isAuthenticated = passport.authenticate(['basic', 'bearer', 'oauth-bearer'], { 'session' : false });
 exports.isClientAuthenticated = passport.authenticate('client-basic', { 'session' : false });
 exports.isBearerAuthenticated = passport.authenticate('bearer', { 'session' : false });

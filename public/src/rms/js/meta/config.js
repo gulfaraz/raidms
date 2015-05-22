@@ -5,22 +5,14 @@ angular.module('MainCtrl')
             .state('list', {
                 url : '/list',
                 params : {
-                    'filterState' : {
-                        'status' : '',
-                        'platform' : '',
-                        'game' : ''
-                    }
+                    'filter_state' : {}
                 },
                 templateUrl : 'views/list.html'
             })
             .state('raid', {
                 url : '/raid/:raid_id',
                 params : {
-                    'filterState' : {
-                        'status' : '',
-                        'platform' : '',
-                        'game' : ''
-                    }
+                    'filter_state' : {}
                 },
                 templateUrl : 'views/raid.html'
             })
@@ -38,5 +30,15 @@ angular.module('MainCtrl')
                 url : '/user/edit/:user_name',
                 params : {},
                 templateUrl : 'views/userEdit.html'
+            })
+            .state('forgot', {
+                url : '/forgot',
+                params : {},
+                templateUrl : 'views/forgot.html'
+            })
+            .state('reset', {
+                url : '/reset/:reset_token',
+                params : {},
+                templateUrl : 'views/reset.html'
             });
     }]);

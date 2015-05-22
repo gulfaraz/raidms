@@ -16,19 +16,22 @@ angular.module('MainCtrl')
             scope: {
                 disableSeconds:"=",
                 disableMinutes:"=",
-                'timeModel': '=timeModel'
+                timezone:"="
             },
             template: '<table><tbody><tr><td><a ng-click="incrementHours()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-hide="disableMinutes">&nbsp;</td><td ng-hide="disableMinutes"><a ng-click="incrementMinutes()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-hide="disableSeconds">&nbsp;</td><td ng-hide="disableSeconds"><a ng-click="incrementSeconds()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-show="showMeridian"></td></tr><tr><td ng-class="{\'has-error\': invalidHours}"><input type="text" ng-model="hours" ng-change="updateHours()" ng-mousewheel="incrementHours()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-hide="disableMinutes">:</td><td ng-hide="disableMinutes" ng-class="{\'has-error\': invalidMinutes}"><input type="text" ng-model="minutes" ng-change="updateMinutes()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-hide="disableSeconds">:</td><td ng-hide="disableSeconds" ng-class="{\'has-error\': invalidSeconds}"><input type="text" ng-model="seconds" ng-change="updateSeconds()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-show="showMeridian"><button type="button" ng-click="toggleMeridian()">{{meridian}}</button></td></tr><tr><td><a ng-click="decrementHours()"><span class="timepicker_button timepicker_button_down"></span></a></td><td ng-hide="disableMinutes">&nbsp;</td><td ng-hide="disableMinutes"><a ng-click="decrementMinutes()"><span class="timepicker_button timepicker_button_down"></span></a></td><td ng-hide="disableSeconds">&nbsp;</td><td ng-hide="disableSeconds"><a ng-click="decrementSeconds()"><span class="timepicker_button timepicker_button_down"></span></a><td ng-show="showMeridian"></td></tr></tbody></table>',
             link: function(scope, element, attrs, ngModel) {
                 if ( !ngModel ) {
                     return; // do nothing if no ng-model
                 }
+                if ( scope.timezone ) {
+                    scope.active_timezone = (/^\([+-][0-9]{1,2}:[0-9]{1,2}\sGMT\)\s([A-Za-z/_]*)/g).exec(scope.timezone)[1];
+                }
 
                 scope.$parent.$watch($parse(attrs.ngDisabled), function(value) {
                     scope.readonlyInput = value;
                 });
 
-                var selected = new Date(),
+                var selected = moment().tz(scope.active_timezone),
                     meridians = angular.isDefined(attrs.meridians) ? scope.$parent.$eval(attrs.meridians) : timepickerConfig.meridians || $locale.DATETIME_FORMATS.AMPMS;
 
                 var hourStep = timepickerConfig.hourStep;
@@ -64,7 +67,7 @@ angular.module('MainCtrl')
                             // Evaluate from template
                             var hours = getHoursFromTemplate(), minutes = getMinutesFromTemplate();
                             if (angular.isDefined( hours ) && angular.isDefined( minutes )) {
-                                selected.setHours( hours );
+                                selected.hour( hours );
                                 refresh();
                             }
                         } else {
@@ -163,7 +166,7 @@ angular.module('MainCtrl')
                         var hours = getHoursFromTemplate();
 
                         if ( angular.isDefined(hours) ) {
-                            selected.setHours( hours );
+                            selected.hour( hours );
                             refresh( 'h' );
                         } else {
                             invalidate(true);
@@ -182,7 +185,7 @@ angular.module('MainCtrl')
                         var minutes = getMinutesFromTemplate();
 
                         if ( angular.isDefined(minutes) ) {
-                            selected.setMinutes( minutes );
+                            selected.hour( minutes );
                             refresh( 'm' );
                         } else {
                             invalidate(undefined, true);
@@ -202,7 +205,7 @@ angular.module('MainCtrl')
                         var seconds = getSecondsFromTemplate();
 
                         if ( angular.isDefined(seconds) ) {
-                            selected.setSeconds( seconds );
+                            selected.hour( seconds );
                             refresh( 's' );
                         } else {
                             invalidate(undefined, true);
@@ -224,7 +227,7 @@ angular.module('MainCtrl')
                 }
 
                 ngModel.$render = function() {
-                    var date = ngModel.$modelValue ? new Date( ngModel.$modelValue ) : null;
+                    var date = ngModel.$modelValue ? moment.tz(ngModel.$modelValue, scope.active_timezone) : null;
 
                     if ( isNaN(date) ) {
                         ngModel.$setValidity('time', false);
@@ -241,7 +244,7 @@ angular.module('MainCtrl')
                 // Call internally when we know that model is valid.
                 function refresh( keyboardChange ) {
                     makeValid();
-                    ngModel.$setViewValue( new Date(selected) );
+                    ngModel.$setViewValue( moment.tz(selected, scope.active_timezone) );
                     updateTemplate( keyboardChange );
                 }
 
@@ -253,7 +256,7 @@ angular.module('MainCtrl')
                 }
 
                 function updateTemplate( keyboardChange ) {
-                    var hours = selected.getHours(), minutes = selected.getMinutes(),seconds = selected.getSeconds();
+                    var hours = selected.hour(), minutes = selected.minute(),seconds = selected.second();
 
                     if ( scope.showMeridian ) {
                         hours = ( hours === 0 || hours === 12 ) ? 12 : hours % 12; // Convert 24 to 12 hour system
@@ -261,12 +264,12 @@ angular.module('MainCtrl')
                     scope.hours =  keyboardChange === 'h' ? hours : pad(hours);
                     scope.minutes = keyboardChange === 'm' ? minutes : pad(minutes);
                     scope.seconds = keyboardChange === 's' ? seconds : pad(seconds);
-                    scope.meridian = selected.getHours() < 12 ? meridians[0] : meridians[1];
+                    scope.meridian = selected.hour() < 12 ? meridians[0] : meridians[1];
                 }
 
                 function addTime( seconds ) {
-                    var dt = new Date( selected.getTime() + seconds * 1000);
-                    selected.setHours( dt.getHours(), dt.getMinutes(),dt.getSeconds());
+                    var dt = selected.add(seconds, 's');
+                    selected.hour(dt.hour(), dt.minute(), dt.second());
                     refresh();
                 }
 
@@ -295,7 +298,7 @@ angular.module('MainCtrl')
 
 
                 scope.toggleMeridian = function() {
-                    addTime( 12 * 60 * (( selected.getHours() < 12 ) ? 1 : -1) * 60 );
+                    addTime( 12 * 60 * (( selected.hour() < 12 ) ? 1 : -1) * 60 );
                 };
             }
         };

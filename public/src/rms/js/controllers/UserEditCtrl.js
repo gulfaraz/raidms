@@ -26,15 +26,15 @@ angular.module('MainCtrl')
                 'game' : {}
             }
         };
-        api.get({ 'set' : 'user', 'id' : $stateParams.user_name }, function (user) {
-            $scope.profile = $scope.localize(user.data)[0];
+        api.retrieve({ 'set' : 'user', 'id' : $stateParams.user_name }, function (user) {
+            $scope.profile = $scope.localize([user.data])[0];
             if(moment().diff($scope.profile.delete) > 0) {
                 $state.go('list');
             } else {
                 start_countdown($scope.profile.delete);
                 refresh_new_platforms();
-                $scope.models.play_start = moment($scope.profile.play_start);
-                $scope.models.play_end = moment($scope.profile.play_end);
+                $scope.models.play_start = $scope.profile.play_start;
+                $scope.models.play_end = $scope.profile.play_end;
                 if($scope.profile.timezone) {
                     $scope.profile.timezone = '(' + moment.tz($scope.profile.timezone).format('Z')+' GMT) ' + $scope.profile.timezone;
                 } else {
@@ -202,8 +202,8 @@ angular.module('MainCtrl')
                     'caption' : $scope.profile.caption,
                     'seeking' : $scope.profile.seeking,
                     'platforms' : $scope.profile.platforms,
-                    'play_start' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_start).format('HH'), 'minute' : moment($scope.models.play_start).format('mm') }).utc(),
-                    'play_end' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_end).format('HH'), 'minute' : moment($scope.models.play_end).format('mm') }).utc(),
+                    'play_start' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_start).format('HH'), 'minute' : moment($scope.models.play_start).format('mm') }).utc().format(),
+                    'play_end' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_end).format('HH'), 'minute' : moment($scope.models.play_end).format('mm') }).utc().format(),
                     'timezone' : timezone
                 }, function (data_change) {
                 if(data_change.success) {

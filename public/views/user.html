@@ -1,4 +1,4 @@
-<section class="user" ng-controller="userController">
+<section ng-controller="userController">
     <header>{{profile.user_name}}</header>
     <div>
         <div>Caption</div>
@@ -17,6 +17,7 @@
         <div>Availability</div>
         <div>
             <span ng-repeat="platform in profile.platforms">{{platform}}</span>
+            <span ng-show="profile.platforms.length <= 0">None</span>
         </div>
         <div class="inline">
             <div>
@@ -33,6 +34,6 @@
     </div>
     <div>
         <button type="button" ui-sref="editUser({ 'user_name' : user.user_name })" ng-if="(profile.user_name == user.user_name)">Edit</button>
-        <button type="button" ui-sref="list">Go Back</button>
+        <button type="button" ui-sref="list">Back</button>
     </div>
 </section>

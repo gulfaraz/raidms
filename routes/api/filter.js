@@ -1,5 +1,6 @@
-module.exports = function (util, router, Filter) {
-    router.route('/api/filter/')
+module.exports = function (util, express, Filter) {
+    var router = express.Router();
+    router.route('/')
         .post(function (req, res) {
             var filter = new Filter();
             filter.game = req.body.game;
@@ -30,7 +31,7 @@ module.exports = function (util, router, Filter) {
                 }
             });
         });
-    router.route('/api/filter/:filter_type')
+    router.route('/:filter_type')
         .post(function (req, res) {
             var filter_type = req.params.filter_type;
             var push = {};

@@ -1,4 +1,4 @@
-<section class="user edit" ng-controller="userEditController">
+<section ng-controller="userEditController">
     <div ng-if="(profile.user_name == user.user_name)">
         <header>{{profile.user_name}}</header>
         <section>
@@ -55,13 +55,13 @@
                             <div>
                                 <div>Start Time</div>
                                 <div>
-                                    <timepicker ng-model="models.play_start" disable-seconds="true"></timepicker>
+                                    <timepicker ng-model="models.play_start" disable-seconds="true" timezone="profile.timezone"></timepicker>
                                 </div>
                             </div>
                             <div>
                                 <div>End Time</div>
                                 <div>
-                                    <timepicker ng-model="models.play_end" disable-seconds="true"></timepicker>
+                                    <timepicker ng-model="models.play_end" disable-seconds="true" timezone="profile.timezone"></timepicker>
                                 </div>
                             </div>
                         </div>
@@ -82,9 +82,9 @@
                     <div>
                         <span ng-hide="profile.social.psn.linked">Connect</span>
                     </div>
-                    <div ng-show="profile.social.psn.linked" class="block">
-                        <span>PSN ID</span>
-                        <span>Disconnect</span>
+                    <div ng-show="profile.social.psn.linked">
+                        <div>PSN ID</div>
+                        <div>Disconnect</div>
                     </div>
                 </div>
                 <div>
@@ -92,9 +92,9 @@
                     <div>
                         <span ng-hide="profile.social.xbox.linked">Connect</span>
                     </div>
-                    <div ng-show="profile.social.xbox.linked" class="block">
-                        <span>XBOX ID</span>
-                        <span>Disconnect</span>
+                    <div ng-show="profile.social.xbox.linked">
+                        <div>XBOX ID</div>
+                        <div>Disconnect</div>
                     </div>
                 </div>
                 <div>
@@ -102,9 +102,9 @@
                     <div>
                         <span ng-hide="profile.social.facebook.linked">Connect</span>
                     </div>
-                    <div ng-show="profile.social.facebook.linked" class="block">
-                        <span>Facebook ID</span>
-                        <span>Disconnect</span>
+                    <div ng-show="profile.social.facebook.linked">
+                        <div>Facebook ID</div>
+                        <div>Disconnect</div>
                     </div>
                 </div>
                 <div>
@@ -112,9 +112,9 @@
                     <div>
                         <span ng-hide="profile.social.twitter.linked">Connect</span>
                     </div>
-                    <div ng-show="profile.social.twitter.linked" class="block">
-                        <span>Twitter ID</span>
-                        <span>Disconnect</span>
+                    <div ng-show="profile.social.twitter.linked">
+                        <div>Twitter ID</div>
+                        <div>Disconnect</div>
                     </div>
                 </div>
                 <div>
@@ -122,9 +122,9 @@
                     <div>
                         <span ng-hide="profile.social.google.linked">Connect</span>
                     </div>
-                    <div ng-show="profile.social.google.linked" class="block">
-                        <span>Google ID</span>
-                        <span>Disconnect</span>
+                    <div ng-show="profile.social.google.linked">
+                        <div>Google ID</div>
+                        <div>Disconnect</div>
                     </div>
                 </div>
             </div>

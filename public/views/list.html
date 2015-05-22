@@ -1,4 +1,4 @@
-<section class="list" ng-controller="listController">
+<section ng-controller="listController">
     <table st-set-filter="multiFilter" st-table="show_raids" st-safe-src="raids" st-pipe="get_raids">
         <thead>
         <tr>
@@ -13,17 +13,17 @@
         </tr>
         <tr>
             <th>
-                <select st-search="status" ng-init="statusFilterModel = filterState.status" ng-model="statusFilterModel" ng-options="(value | capitalize) for (key , value) in statusFilter">
+                <select st-search="status" ng-model="filter_state.status" ng-options="(value | capitalize) for (key , value) in status_filters">
                     <option value="">All</option>
                 </select>
             </th>
             <th>
-                <select st-search="platform" ng-init="platformFilterModel = filterState.platform" ng-model="platformFilterModel" ng-options="(value | uppercase) for (key , value) in platformFilter">
+                <select st-search="platform" ng-model="filter_state.platform" ng-options="(value | uppercase) for (key , value) in platform_filters">
                     <option value="">All</option>
                 </select>
             </th>
             <th>
-                <select st-search="game" ng-init="gameFilterModel = filterState.game" ng-model="gameFilterModel" ng-options="(value | capitalize) for (key , value) in gameFilter">
+                <select st-search="game" ng-model="filter_state.game" ng-options="(value | capitalize) for (key , value) in game_filters">
                     <option value="">All</option>
                 </select>
             </th>
@@ -31,7 +31,8 @@
                 <input st-search placeholder="Search All" type="search" />
             </th>
             <th>
-                <button type="button" st-reset-search>Reset Filters</button>
+                <button ui-sref="list" ui-sref-opts="{ 'reload' : true }">Reset</button>
+                <button type="button" ng-click="filter_state = {}" st-reset-search>Clear</button>
             </th>
         </tr>
         </thead>
@@ -46,7 +47,7 @@
             <td>{{raid.display_time_created}}</td>
             <td>
                 <button type="button">Join</button>
-                <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filterState' : { 'status' : statusFilterModel, 'platform' : platformFilterModel, 'game' : gameFilterModel } })">View</button>
+                <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : '{{filter_state.status}}', 'platform' : '{{filter_state.platform}}', 'game' : '{{filter_state.game}}' } })">View</button>
             </td>
         </tr>
         <tr ng-if="show_raids.length == 0">

@@ -4,14 +4,14 @@ angular.module('MainCtrl')
             return ($scope.signUp[field].$touched && $scope.signUp.$invalid);
         };
         $scope.sign_up = function () {
-            api.save({ 'set' : 'user' } , { 'user_name' : $scope.user_name, 'password' : $scope.passcode, 'mail' : $scope.mail }, function (data) {
+            api.save({ 'set' : 'user' } , { 'user_name' : $scope.register_user_name, 'password' : $scope.register_passcode, 'mail' : $scope.mail, 'timezone' : $scope.active_timezone }, function (data) {
                 if(data.success) {
                     $state.go('list');
-                    $scope.$parent.$parent.message = 'Please check your registered mailbox to complete the registration.';
+                    $scope.$parent.$parent.message = 'Please check your registered mail to complete the registration';
                     $scope.show_register_passcode = false;
                 } else {
                     $state.go('register');
-                    $scope.$parent.$parent.message = 'Registration Failed.';
+                    $scope.$parent.$parent.message = 'Registration Failed';
                 }
             });
         };

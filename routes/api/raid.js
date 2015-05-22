@@ -1,23 +1,28 @@
-module.exports = function (util, router, Raid, auth) {
-    router.route('/api/raid')
+module.exports = function (util, express, Raid, auth) {
+    var router = express.Router();
+    router.route('/')
         .post(auth.isAuthenticated, function (req, res) {
-            var raid = new Raid();
-            raid.platform = req.body.platform;
-            raid.game = req.body.game;
-            raid.strength = req.body.strength;
-            raid.players = req.body.players;
-            raid.time_created = req.body.time_created;
-            raid.play_time = req.body.play_time;
-            raid.status = req.body.status;
-            raid.host = req.user._id;
-            raid.description = req.body.description;
-            raid.save(function (err) {
-                if(err) {
-                    res.json({ 'success' : false, 'message' : err.toString() });
-                } else {
-                    res.json({ 'success' : true, 'message' : 'Raid created' });
-                }
-            });
+            if(req.user.status == 'active') {
+                var raid = new Raid();
+                raid.platform = req.body.platform;
+                raid.game = req.body.game;
+                raid.strength = req.body.strength;
+                raid.players = req.body.players;
+                raid.time_created = req.body.time_created;
+                raid.play_time = req.body.play_time;
+                raid.status = req.body.status;
+                raid.host = req.user._id;
+                raid.description = req.body.description;
+                raid.save(function (err) {
+                    if(err) {
+                        res.json({ 'success' : false, 'message' : err.toString() });
+                    } else {
+                        res.json({ 'success' : true, 'message' : 'Raid created' });
+                    }
+                });
+            } else {
+                res.json({ 'success' : false, 'message' : 'Unauthorized' });
+            }
         })
         .get(function (req, res) {
             var tableState = eval('(' + req.query.tableState + ')');
@@ -64,7 +69,7 @@ module.exports = function (util, router, Raid, auth) {
                     }
                 });
         });
-    router.route('/api/raid/:raid_id')
+    router.route('/:raid_id')
         .get(function (req, res) {
             Raid.findById(req.params.raid_id, function (err, raid) {
                 if(err) {

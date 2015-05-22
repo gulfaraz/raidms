@@ -1,5 +1,6 @@
-module.exports = function (util, router, Client, auth) {
-    router.route('/api/client/')
+module.exports = function (util, express, Client, auth) {
+    var router = express.Router();
+    router.route('/')
         .post(auth.isAuthenticated, function (req, res) {
             var client = new Client();
             client.name = req.body.name;

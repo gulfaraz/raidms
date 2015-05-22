@@ -1,4 +1,4 @@
-<section class="sign_up" ng-controller="signUpController">
+<section ng-controller="signUpController">
     <form name="signUp" ng-submit="sign_up()">
         <header>Sign Up</header>
         <div>
@@ -7,7 +7,7 @@
                 <span ng-message="required">Required</span>
                 <span ng-message="duplicate">{{signUp.user_name.$viewValue}} not available</span>
             </span>
-            <input type="text" name="user_name" placeholder="user_name" ng-model="user_name" ng-minlength="5" required available />
+            <input type="text" name="user_name" placeholder="Choose your User Name" ng-model="register_user_name" ng-minlength="5" required available />
         </div>
         <div>
             <label>Passcode</label>
@@ -15,7 +15,7 @@
                 <span ng-message="required">Required</span>
             </span>
             <div>
-                <input type="{{ show_register_passcode ? 'text' : 'password' }}" name="passcode" placeholder="passcode" ng-model="passcode" required />
+                <input type="{{ show_register_passcode ? 'text' : 'password' }}" name="passcode" placeholder="Choose your Passcode" ng-model="register_passcode" required />
                 <span>
                     <input type="checkbox" ng-model="show_register_passcode" tabindex="-1" />
                     <label>Show</label>
@@ -29,10 +29,11 @@
                 <span ng-message="email">Invalid Mail</span>
                 <span ng-message="duplicate">Registered Mail</span>
             </span>
-            <input type="email" name="mail" placeholder="user_name@rms.com" ng-model="mail" required available />
+            <input type="email" name="mail" placeholder="name@rms.com" ng-model="mail" required available />
         </div>
         <div>
             <button type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button>
+            <button type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } })">Cancel</button>
         </div>
     </form>
 </section>

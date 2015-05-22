@@ -22,7 +22,10 @@ angular.module('MainCtrl')
             return zones;
         }();
 
-        $scope.timezone = '(' + moment.tz(jstz.determine().name()).format('Z')+' GMT) ' + jstz.determine().name();
+        var detect_timezone = function () {
+            $scope.timezone = '(' + moment.tz(jstz.determine().name()).format('Z')+' GMT) ' + jstz.determine().name();
+        };
+        detect_timezone();
 
         $scope.change_active_timezone = function () {
             $scope.active_timezone = (/^\([+-][0-9]{1,2}:[0-9]{1,2}\sGMT\)\s([A-Za-z/_]*)/g).exec($scope.timezone)[1];
@@ -87,7 +90,8 @@ angular.module('MainCtrl')
                 'time' : moment().utc(),
                 'user_name' : ''
             };
-            $state.go('list', { 'filterState' : { 'status' : '', 'platform' : '', 'game' : '' } });
+            detect_timezone();
+            $state.go('list', { 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } });
         };
 
         if($localStorage.token) {
@@ -111,8 +115,8 @@ angular.module('MainCtrl')
 
         var user_timezone = function () {
             api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
-                if(user.success) {
-                    $scope.timezone = '(' + moment.tz(user.data[0].timezone).format('Z')+' GMT) ' + user.data[0].timezone;
+                if(user.success && (typeof user.data.timezone != 'undefined')) {
+                    $scope.timezone = '(' + moment.tz(user.data.timezone).format('Z')+' GMT) ' + user.data.timezone;
                 }
             });
         };

@@ -4,23 +4,23 @@ angular.module('MainCtrl')
             if($scope.$parent.$parent.user.user_name.length > 0) {
                 api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
                     if(user.success) {
-                        $state.go('list', { 'filterState' : { 'platform' : user.data[0].seeking.platform, 'game' : user.data[0].seeking.game } });
+                        if(Object.keys($stateParams.filter_state).length <= 0) {
+                            $state.go('list', { 'filter_state' : { 'status' : 'open', 'platform' : user.data.seeking.platform, 'game' : user.data.seeking.game } });
+                        } else {
+                            $scope.reset_filter_state = $stateParams.filter_state;
+                        }
                     }
                 });
             }
         });
-        $scope.filterState = $stateParams.filterState || {
-            'status' : '',
-            'platform' : '',
-            'game' : ''
-        };
-        $scope.statusFilter = {};
-        $scope.platformFilter = {};
-        $scope.gameFilter = {};
+        $scope.filter_state = angular.extend({ 'status' : '', 'platform' : '', 'game' : '' }, $stateParams.filter_state);
+        $scope.status_filters = {};
+        $scope.platform_filters = {};
+        $scope.game_filters = {};
         $scope.get_raids = function get_raids(tableState) {
-            tableState.search.predicateObject = tableState.search.predicateObject || $scope.filterState;
+            tableState.search.predicateObject = tableState.search.predicateObject || $scope.filter_state;
             angular.forEach(tableState.search.predicateObject, function (value, key) {
-                if(value.length < 2) {
+                if((typeof value == 'string') && value.length < 2) {
                     delete tableState.search.predicateObject[key];
                 }
             });
@@ -39,14 +39,16 @@ angular.module('MainCtrl')
             $scope.update_to_active_timezone();
         });
         $scope.update_to_active_timezone = function () {
-            $scope.localize($scope.raids);
+            if($scope.raids) {
+                $scope.localize($scope.raids);
+            }
         };
         var populate_filters = function () {
             api.get({ 'set' : 'filter' }, function (filters) {
                 var filter_types = {
-                    'gameFilter' : filters.data[0].game,
-                    'statusFilter' : filters.data[0].status,
-                    'platformFilter' : filters.data[0].platform
+                    'game_filters' : filters.data[0].game,
+                    'status_filters' : filters.data[0].status,
+                    'platform_filters' : filters.data[0].platform
                 };
                 angular.forEach(filter_types, function (filter_values, filter_type) {
                     angular.forEach(filter_values, function (value) {
