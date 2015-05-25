@@ -32,10 +32,15 @@ angular.module('MainCtrl')
         };
 
         api.get(function (data) {
-            $scope.serverStatus = data.status;
+            $scope.serverStatus = 'Offline';
+            if(data.success) {
+                $scope.serverStatus = data.status;
+            }
         });
         api.get({ 'set' : 'user' }, function (users) {
-            $scope.onlineUsers = users.data.length;
+            if(users.success) {
+                $scope.onlineUsers = users.data.length;
+            }
         });
 
         $scope.localize = function (data_array) {

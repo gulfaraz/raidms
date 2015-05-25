@@ -2,7 +2,7 @@ module.exports = function (util, express, models, auth) {
     var router = express.Router();
     var api_root = '/api';
     router.get(api_root, function (req, res) {
-        res.json({message: 'Welcome', 'status': 'Online'});
+        res.json({ 'success' : true, 'message' : 'Welcome', 'status' : 'Online' });
     });
     router.use(api_root + '/user', require('./api/user')(util, express, models.User, auth));
     router.use(api_root + '/raid', require('./api/raid')(util, express, models.Raid, auth));

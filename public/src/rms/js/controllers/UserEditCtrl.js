@@ -196,16 +196,16 @@ angular.module('MainCtrl')
         };
         $scope.update_profile = function () {
             var timezone = (/^\([+-][0-9]{1,2}:[0-9]{1,2}\sGMT\)\s([A-Za-z/_]*)/g).exec($scope.profile.timezone)[1];
-            api.save({ 'set' : 'user', 'id' : $scope.user.user_name } ,
-                {
-                    'user_name' : $scope.user.user_name,
-                    'caption' : $scope.profile.caption,
-                    'seeking' : $scope.profile.seeking,
-                    'platforms' : $scope.profile.platforms,
-                    'play_start' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_start).format('HH'), 'minute' : moment($scope.models.play_start).format('mm') }).utc().format(),
-                    'play_end' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_end).format('HH'), 'minute' : moment($scope.models.play_end).format('mm') }).utc().format(),
-                    'timezone' : timezone
-                }, function (data_change) {
+            var updated_profile = {
+                'user_name' : $scope.user.user_name,
+                'caption' : $scope.profile.caption,
+                'seeking' : $scope.profile.seeking,
+                'platforms' : $scope.profile.platforms,
+                'play_start' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_start).format('HH'), 'minute' : moment($scope.models.play_start).format('mm') }).utc().format(),
+                'play_end' : moment.tz(timezone).set({ 'hour' : moment($scope.models.play_end).format('HH'), 'minute' : moment($scope.models.play_end).format('mm') }).utc().format(),
+                'timezone' : timezone
+            };
+            api.save({ 'set' : 'user', 'id' : $scope.user.user_name } , updated_profile, function (data_change) {
                 if(data_change.success) {
                     $scope.$parent.$parent.timezone = '(' + moment.tz(timezone).format('Z')+' GMT) ' + timezone;
                     $scope.models.profile_form_status_message = 'Profile Updated';

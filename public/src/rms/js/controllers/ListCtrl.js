@@ -29,10 +29,12 @@ angular.module('MainCtrl')
             var start = pagination.start || 0;
             var number = pagination.number || 10;
             api.get({ 'set' : 'raid', 'start' : start, 'number' : number, 'tableState' : tableState }, function (raids) {
-                $scope.raids = $scope.localize(raids.data);
-                tableState.pagination.numberOfPages = raids.numberOfPages;
-                $scope.show_raids = [].concat($scope.raids);
-                $scope.isLoading = false;
+                if(raids.success) {
+                    $scope.raids = $scope.localize(raids.data);
+                    tableState.pagination.numberOfPages = raids.numberOfPages;
+                    $scope.show_raids = [].concat($scope.raids);
+                    $scope.isLoading = false;
+                }
             });
         };
         $scope.$watch('active_timezone', function () {
@@ -45,16 +47,18 @@ angular.module('MainCtrl')
         };
         var populate_filters = function () {
             api.get({ 'set' : 'filter' }, function (filters) {
-                var filter_types = {
-                    'game_filters' : filters.data[0].game,
-                    'status_filters' : filters.data[0].status,
-                    'platform_filters' : filters.data[0].platform
-                };
-                angular.forEach(filter_types, function (filter_values, filter_type) {
-                    angular.forEach(filter_values, function (value) {
-                        $scope[filter_type][value] = value;
+                if(filters.success) {
+                    var filter_types = {
+                        'game_filters' : filters.data[0].game,
+                        'status_filters' : filters.data[0].status,
+                        'platform_filters' : filters.data[0].platform
+                    };
+                    angular.forEach(filter_types, function (filter_values, filter_type) {
+                        angular.forEach(filter_values, function (value) {
+                            $scope[filter_type][value] = value;
+                        });
                     });
-                });
+                }
             });
         }();
     }]);
