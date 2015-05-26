@@ -4,11 +4,11 @@ angular.module('rmsApp.profile')
             api.save({ 'set' : 'reset' } , { 'token' : $stateParams.reset_token, 'password' : $scope.passcode }, function (data) {
                 if(data.success) {
                     $state.go('list');
-                    $scope.$parent.$parent.message = 'Passcode Updated';
+                    $scope.$parent.message = 'Passcode Updated';
                     $scope.show_reset_passcode = false;
                 } else {
                     $state.go('reset', { 'reset_token' : $stateParams.reset_token });
-                    $scope.$parent.$parent.message = 'Registration Failed';
+                    $scope.$parent.message = 'Registration Failed';
                 }
             });
         };

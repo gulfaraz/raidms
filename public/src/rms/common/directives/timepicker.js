@@ -1,25 +1,25 @@
 angular.module('rmsApp.shared')
     .constant('timepickerConfig', {
-        hourStep: 1,
-        minuteStep: 1,
-        secondStep: 1,
-        showMeridian: true,
-        meridians: null,
-        readonlyInput: false,
-        mousewheel: true
+        'hourStep' : 1,
+        'minuteStep' : 1,
+        'secondStep' : 1,
+        'showMeridian' : true,
+        'meridians' : null,
+        'readonlyInput' : false,
+        'mousewheel' : true
     })
     .directive('timepicker', ['$parse', '$log', 'timepickerConfig', '$locale', function ($parse, $log, timepickerConfig, $locale) {
         return {
-            restrict: 'EA',
-            require:'?^ngModel',
-            replace: true,
-            scope: {
-                disableSeconds:"=",
-                disableMinutes:"=",
-                timezone:"="
+            'restrict' : 'EA',
+            'require' : '?^ngModel',
+            'replace' : true,
+            'scope' : {
+                'disableSeconds':"=",
+                'disableMinutes':"=",
+                'timezone':"="
             },
-            template: '<table><tbody><tr><td><a ng-click="incrementHours()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-hide="disableMinutes">&nbsp;</td><td ng-hide="disableMinutes"><a ng-click="incrementMinutes()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-hide="disableSeconds">&nbsp;</td><td ng-hide="disableSeconds"><a ng-click="incrementSeconds()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-show="showMeridian"></td></tr><tr><td ng-class="{\'has-error\': invalidHours}"><input type="text" ng-model="hours" ng-change="updateHours()" ng-mousewheel="incrementHours()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-hide="disableMinutes">:</td><td ng-hide="disableMinutes" ng-class="{\'has-error\': invalidMinutes}"><input type="text" ng-model="minutes" ng-change="updateMinutes()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-hide="disableSeconds">:</td><td ng-hide="disableSeconds" ng-class="{\'has-error\': invalidSeconds}"><input type="text" ng-model="seconds" ng-change="updateSeconds()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-show="showMeridian"><button type="button" ng-click="toggleMeridian()">{{meridian}}</button></td></tr><tr><td><a ng-click="decrementHours()"><span class="timepicker_button timepicker_button_down"></span></a></td><td ng-hide="disableMinutes">&nbsp;</td><td ng-hide="disableMinutes"><a ng-click="decrementMinutes()"><span class="timepicker_button timepicker_button_down"></span></a></td><td ng-hide="disableSeconds">&nbsp;</td><td ng-hide="disableSeconds"><a ng-click="decrementSeconds()"><span class="timepicker_button timepicker_button_down"></span></a><td ng-show="showMeridian"></td></tr></tbody></table>',
-            link: function(scope, element, attrs, ngModel) {
+            'template' : '<table><tbody><tr><td><a ng-click="incrementHours()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-hide="disableMinutes">&nbsp;</td><td ng-hide="disableMinutes"><a ng-click="incrementMinutes()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-hide="disableSeconds">&nbsp;</td><td ng-hide="disableSeconds"><a ng-click="incrementSeconds()"><span class="timepicker_button timepicker_button_up"></span></a></td><td ng-show="showMeridian"></td></tr><tr><td ng-class="{\'has-error\': invalidHours}"><input type="text" ng-model="hours" ng-change="updateHours()" ng-mousewheel="incrementHours()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-hide="disableMinutes">:</td><td ng-hide="disableMinutes" ng-class="{\'has-error\': invalidMinutes}"><input type="text" ng-model="minutes" ng-change="updateMinutes()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-hide="disableSeconds">:</td><td ng-hide="disableSeconds" ng-class="{\'has-error\': invalidSeconds}"><input type="text" ng-model="seconds" ng-change="updateSeconds()" ng-readonly="readonlyInput" maxlength="2"></td><td ng-show="showMeridian"><button type="button" ng-click="toggleMeridian()">{{meridian}}</button></td></tr><tr><td><a ng-click="decrementHours()"><span class="timepicker_button timepicker_button_down"></span></a></td><td ng-hide="disableMinutes">&nbsp;</td><td ng-hide="disableMinutes"><a ng-click="decrementMinutes()"><span class="timepicker_button timepicker_button_down"></span></a></td><td ng-hide="disableSeconds">&nbsp;</td><td ng-hide="disableSeconds"><a ng-click="decrementSeconds()"><span class="timepicker_button timepicker_button_down"></span></a><td ng-show="showMeridian"></td></tr></tbody></table>',
+            'link' : function (scope, element, attrs, ngModel) {
                 if ( !ngModel ) {
                     return; // do nothing if no ng-model
                 }
@@ -27,7 +27,7 @@ angular.module('rmsApp.shared')
                     scope.active_timezone = (/^\([+-][0-9]{1,2}:[0-9]{1,2}\sGMT\)\s([A-Za-z/_]*)/g).exec(scope.timezone)[1];
                 }
 
-                scope.$parent.$watch($parse(attrs.ngDisabled), function(value) {
+                scope.$parent.$watch($parse(attrs.ngDisabled), function (value) {
                     scope.readonlyInput = value;
                 });
 
@@ -37,7 +37,7 @@ angular.module('rmsApp.shared')
                 var hourStep = timepickerConfig.hourStep;
 
                 if (attrs.hourStep) {
-                    scope.$parent.$watch($parse(attrs.hourStep), function(value) {
+                    scope.$parent.$watch($parse(attrs.hourStep), function (value) {
                         hourStep = parseInt(value, 10);
                     });
                 }
@@ -45,14 +45,14 @@ angular.module('rmsApp.shared')
                 var minuteStep = timepickerConfig.minuteStep;
 
                 if (attrs.minuteStep) {
-                    scope.$parent.$watch($parse(attrs.minuteStep), function(value) {
+                    scope.$parent.$watch($parse(attrs.minuteStep), function (value) {
                         minuteStep = parseInt(value, 10);
                     });
                 }
 
                 var secondStep = timepickerConfig.secondStep;
                 if (attrs.secondStep){
-                    scope.$parent.$watch($parse(attrs.secondStep), function(value) {
+                    scope.$parent.$watch($parse(attrs.secondStep), function (value) {
                         secondStep = parseInt(value, 10);
                     });
                 }
@@ -60,7 +60,7 @@ angular.module('rmsApp.shared')
                 // 12H / 24H mode
                 scope.showMeridian = timepickerConfig.showMeridian;
                 if (attrs.showMeridian) {
-                    scope.$parent.$watch($parse(attrs.showMeridian), function(value) {
+                    scope.$parent.$watch($parse(attrs.showMeridian), function (value) {
                         scope.showMeridian = !!value;
 
                         if ( ngModel.$error.time ) {
@@ -77,7 +77,7 @@ angular.module('rmsApp.shared')
                 }
 
                 // Get scope.hours in 24H mode if valid
-                function getHoursFromTemplate ( ) {
+                function getHoursFromTemplate() {
                     var hours = parseInt( scope.hours, 10 );
                     var valid = ( scope.showMeridian ) ? (hours > 0 && hours < 13) : (hours >= 0 && hours < 24);
                     if ( !valid ) {
@@ -101,7 +101,7 @@ angular.module('rmsApp.shared')
                 }
 
 
-                function getSecondsFromTemplete(){
+                function getSecondsFromTemplete() {
                     var seconds = parseInt(scope.seconds ,10);
                     return ( seconds >= 0 && seconds < 60 ) ? seconds : undefined;
                 }
@@ -117,7 +117,7 @@ angular.module('rmsApp.shared')
                 var mousewheel = (angular.isDefined(attrs.mousewheel)) ? scope.$eval(attrs.mousewheel) : timepickerConfig.mousewheel;
                 if ( mousewheel ) {
 
-                    var isScrollingUp = function(e) {
+                    var isScrollingUp = function (e) {
                         if (e.originalEvent) {
                             e = e.originalEvent;
                         }
@@ -126,18 +126,18 @@ angular.module('rmsApp.shared')
                         return (e.detail || delta > 0);
                     };
 
-                    hoursInputEl.bind('mousewheel wheel', function(e) {
+                    hoursInputEl.bind('mousewheel wheel', function (e) {
                         if(scope.readonlyInput) return;
                         scope.$apply( (isScrollingUp(e)) ? scope.incrementHours() : scope.decrementHours() );
                         e.preventDefault();
                     });
 
-                    minutesInputEl.bind('mousewheel wheel', function(e) {
+                    minutesInputEl.bind('mousewheel wheel', function (e) {
                         if(scope.readonlyInput) return;
                         scope.$apply( (isScrollingUp(e)) ? scope.incrementMinutes() : scope.decrementMinutes() );
                         e.preventDefault();
                     });
-                    secondsInputEl.bind('mousewheel wheel',function(e){
+                    secondsInputEl.bind('mousewheel wheel',function (e){
                         if(scope.readonlyInput) return;
                         scope.$apply( (isScrollingUp(e)) ? scope.incrementSeconds() : scope.decrementSeconds() );
                         e.preventDefault();
@@ -148,7 +148,7 @@ angular.module('rmsApp.shared')
                 scope.readonlyInput = (angular.isDefined(attrs.readonlyInput)) ? scope.$eval(attrs.readonlyInput) : timepickerConfig.readonlyInput;
                 if ( ! scope.readonlyInput ) {
 
-                    var invalidate = function(invalidHours, invalidMinutes ,invalidSeconds) {
+                    var invalidate = function (invalidHours, invalidMinutes ,invalidSeconds) {
                         ngModel.$setViewValue( null );
                         ngModel.$setValidity('time', false);
                         if (angular.isDefined(invalidHours)) {
@@ -162,7 +162,7 @@ angular.module('rmsApp.shared')
                         }
                     };
 
-                    scope.updateHours = function() {
+                    scope.updateHours = function () {
                         var hours = getHoursFromTemplate();
 
                         if ( angular.isDefined(hours) ) {
@@ -173,7 +173,7 @@ angular.module('rmsApp.shared')
                         }
                     };
 
-                    hoursInputEl.bind('blur', function(e) {
+                    hoursInputEl.bind('blur', function (e) {
                         if ( !scope.validHours && scope.hours < 10) {
                             scope.$apply( function() {
                                 scope.hours = pad( scope.hours );
@@ -181,7 +181,7 @@ angular.module('rmsApp.shared')
                         }
                     });
 
-                    scope.updateMinutes = function() {
+                    scope.updateMinutes = function () {
                         var minutes = getMinutesFromTemplate();
 
                         if ( angular.isDefined(minutes) ) {
@@ -192,16 +192,16 @@ angular.module('rmsApp.shared')
                         }
                     };
 
-                    minutesInputEl.bind('blur', function(e) {
+                    minutesInputEl.bind('blur', function (e) {
                         if ( !scope.invalidMinutes && scope.minutes < 10 ) {
-                            scope.$apply( function() {
+                            scope.$apply( function () {
                                 scope.minutes = pad( scope.minutes );
                             });
                         }
                     });
 
 
-                    scope.updateSeconds = function() {
+                    scope.updateSeconds = function () {
                         var seconds = getSecondsFromTemplate();
 
                         if ( angular.isDefined(seconds) ) {
@@ -212,9 +212,9 @@ angular.module('rmsApp.shared')
                         }
                     };
 
-                    secondsInputEl.bind('blur',function(e){
+                    secondsInputEl.bind('blur',function (e) {
                         if ( !scope.invalidSeconds && scope.seconds < 10 ) {
-                            scope.$apply( function() {
+                            scope.$apply( function () {
                                 scope.seconds = pad( scope.seconds );
                             });
                         }
@@ -226,7 +226,7 @@ angular.module('rmsApp.shared')
                     scope.updateSeconds = angular.noop;
                 }
 
-                ngModel.$render = function() {
+                ngModel.$render = function () {
                     var date = ngModel.$modelValue ? moment.tz(ngModel.$modelValue, scope.active_timezone) : null;
 
                     if ( isNaN(date) ) {
@@ -242,7 +242,7 @@ angular.module('rmsApp.shared')
                 };
 
                 // Call internally when we know that model is valid.
-                function refresh( keyboardChange ) {
+                function refresh(keyboardChange) {
                     makeValid();
                     ngModel.$setViewValue( moment.tz(selected, scope.active_timezone) );
                     updateTemplate( keyboardChange );
@@ -255,7 +255,7 @@ angular.module('rmsApp.shared')
                     scope.invalidSeconds = false;
                 }
 
-                function updateTemplate( keyboardChange ) {
+                function updateTemplate(keyboardChange) {
                     var hours = selected.hour(), minutes = selected.minute(),seconds = selected.second();
 
                     if ( scope.showMeridian ) {
@@ -267,37 +267,34 @@ angular.module('rmsApp.shared')
                     scope.meridian = selected.hour() < 12 ? meridians[0] : meridians[1];
                 }
 
-                function addTime( seconds ) {
+                function addTime(seconds) {
                     var dt = selected.add(seconds, 's');
                     selected.hour(dt.hour(), dt.minute(), dt.second());
                     refresh();
                 }
 
-
-
-                scope.incrementHours = function() {
+                scope.incrementHours = function () {
                     addTime( secondStep * 60 * 60);
                 };
-                scope.decrementHours = function() {
+                scope.decrementHours = function () {
                     addTime( - secondStep * 60 * 60);
                 };
-                scope.incrementMinutes = function() {
+
+                scope.incrementMinutes = function () {
                     addTime( secondStep * 60);
                 };
-                scope.decrementMinutes = function() {
+                scope.decrementMinutes = function () {
                     addTime( - secondStep * 60 );
                 };
 
-                scope.incrementSeconds = function(){
+                scope.incrementSeconds = function () {
                    addTime(secondStep);
                 };
-
-                scope.decrementSeconds = function(){
+                scope.decrementSeconds = function () {
                     addTime(secondStep);
                 };
 
-
-                scope.toggleMeridian = function() {
+                scope.toggleMeridian = function () {
                     addTime( 12 * 60 * (( selected.hour() < 12 ) ? 1 : -1) * 60 );
                 };
             }

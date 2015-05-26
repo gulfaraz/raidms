@@ -1,4 +1,4 @@
-<section ng-controller="userController">
+<section>
     <header>{{profile.user_name}}</header>
     <div>
         <div>Caption</div>
@@ -6,7 +6,7 @@
     </div>
     <div>
         <div>Seeking</div>
-        <div>{{profile.seeking.platform}} - {{profile.seeking.game}}</div>
+        <div>{{profile.seeking.platform}} {{profile.seeking.game}}</div>
         <div>{{profile.seeking.message}}</div>
     </div>
     <div>

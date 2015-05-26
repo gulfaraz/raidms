@@ -1,7 +1,18 @@
-angular.module('rmsApp.lfg', ['smart-table'])
+angular.module('rmsApp.lfg', ['smart-table', 'ui.router'])
+    .config(['$stateProvider', function ($stateProvider) {
+        $stateProvider
+            .state('list', {
+                'url' : '/list',
+                'params' : {
+                    'filter_state' : {}
+                },
+                'templateUrl' : 'src/rms/lfg/list.html',
+                'controller' : 'listController'
+            });
+    }])
     .controller('listController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
         $scope.$watch('user.user_name', function () {
-            if($scope.$parent.$parent.user.user_name.length > 0) {
+            if($scope.$parent.user.user_name.length > 0) {
                 api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
                     if(user.success) {
                         if(Object.keys($stateParams.filter_state).length <= 0) {

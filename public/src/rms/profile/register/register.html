@@ -1,4 +1,4 @@
-<section ng-controller="signUpController">
+<section>
     <form name="signUp" ng-submit="sign_up()">
         <header>Sign Up</header>
         <div>
@@ -7,7 +7,7 @@
                 <span ng-message="required">Required</span>
                 <span ng-message="duplicate">{{signUp.user_name.$viewValue}} not available</span>
             </span>
-            <input type="text" name="user_name" placeholder="Choose your User Name" ng-model="register_user_name" ng-minlength="5" required available />
+            <input type="text" name="user_name" placeholder="Choose your User Name" ng-model="register_user_name" required available />
         </div>
         <div>
             <label>Passcode</label>

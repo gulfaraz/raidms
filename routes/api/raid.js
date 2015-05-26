@@ -47,8 +47,12 @@ module.exports = function (util, express, Raid, auth) {
             var select = tableState.search.predicateObject || {};
             var found = (select.hasOwnProperty("$") ? ('(' + select['$'].split(' ').join('|') + ')') : '');
             select = util.except(select, ['$']);
-            Raid
-                .find({
+            for(var prop in select) {
+                if(!select[prop]) {
+                    select = util.except(select, [prop]);
+                }
+            }
+            Raid.find({
                     '$and' : [
                         { '$and' : [select] },
                         { '$or' : [

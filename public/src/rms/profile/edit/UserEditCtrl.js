@@ -207,7 +207,7 @@ angular.module('rmsApp.profile')
             };
             api.save({ 'set' : 'user', 'id' : $scope.user.user_name } , updated_profile, function (data_change) {
                 if(data_change.success) {
-                    $scope.$parent.$parent.timezone = '(' + moment.tz(timezone).format('Z')+' GMT) ' + timezone;
+                    $scope.$parent.timezone = '(' + moment.tz(timezone).format('Z')+' GMT) ' + timezone;
                     $scope.models.profile_form_status_message = 'Profile Updated';
                 } else {
                     $scope.models.profile_form_status_message = 'Update Error';

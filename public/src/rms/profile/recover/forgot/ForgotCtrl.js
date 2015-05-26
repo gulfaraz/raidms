@@ -5,10 +5,10 @@ angular.module('rmsApp.profile')
             api.get({ 'set' : 'forgot', 'id' : $scope.models.recover_account_form.lost.$viewValue }, function (data) {
                 if(data.success) {
                     $state.go('list');
-                    $scope.$parent.$parent.message = data.message;
+                    $scope.$parent.message = data.message;
                 } else {
                     $state.go('forgot');
-                    $scope.$parent.$parent.message = 'Recovery Failed';
+                    $scope.$parent.message = 'Recovery Failed';
                 }
             });
         };

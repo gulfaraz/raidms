@@ -11,6 +11,10 @@ module.exports = function (util, express, User, auth) {
             user.timezone = req.body.timezone;
             user.role = 'applicant';
             user.status = 'registered';
+            user.seeking = {
+                'platform' : '',
+                'game' : ''
+            };
             user.karma = 0;
             user.date_joined = Date.now();
             user.date_updated = Date.now();
@@ -86,9 +90,9 @@ module.exports = function (util, express, User, auth) {
                             user.platforms = req.body.platforms || user.platforms;
                             if(req.body.seeking) {
                                 user.seeking = {
-                                    'platform' : (typeof req.body.seeking.platform == 'undefined') ? user.seeking.platform : req.body.seeking.platform,
-                                    'game' : (typeof req.body.seeking.game == 'undefined') ? user.seeking.game : req.body.seeking.game,
-                                    'message' : (typeof req.body.seeking.message == 'undefined') ? user.seeking.message : req.body.seeking.message
+                                    'platform' : ((typeof req.body.seeking.platform == 'string' && (req.body.seeking.platform.length > 0) ) ? req.body.seeking.platform : user.seeking.platform),
+                                    'game' : ((typeof req.body.seeking.game == 'string' && (req.body.seeking.game.length > 0) ) ? req.body.seeking.game : user.seeking.game),
+                                    'message' : ((typeof req.body.seeking.message == 'string' && (req.body.seeking.message.length > 0) ) ? req.body.seeking.message : user.seeking.message)
                                 };
                             }
                             user.timezone = req.body.timezone || user.timezone;

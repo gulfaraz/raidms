@@ -1,4 +1,4 @@
-<section ng-controller="listController">
+<section>
     <table st-set-filter="multiFilter" st-table="show_raids" st-safe-src="raids" st-pipe="get_raids">
         <thead>
         <tr>
@@ -47,7 +47,7 @@
             <td>{{raid.display_time_created}}</td>
             <td>
                 <button type="button">Join</button>
-                <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : '{{filter_state.status}}', 'platform' : '{{filter_state.platform}}', 'game' : '{{filter_state.game}}' } })">View</button>
+                <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">View</button>
             </td>
         </tr>
         <tr ng-if="show_raids.length == 0">

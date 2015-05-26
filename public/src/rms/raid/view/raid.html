@@ -1,5 +1,5 @@
-<section ng-controller="raidController">
-    <div><a ui-sref="list({ 'filter_state' : {{filter_state}} })">Back</a> > <a ui-sref="raid({ 'raid_id': raid._id })">Raid</a></div>
+<section>
+    <div><a ui-sref="list({ 'filter_state' : filter_state })">Back</a> > <a ui-sref="raid({ 'raid_id': raid._id })">Raid</a></div>
     <div>{{raid.status | capitalize}} {{raid.platform}} {{raid.game}}</div>
     <div>
         <div>
@@ -30,7 +30,7 @@
     </div>
     <div>
         <button type="button">Join</button>
-        <button type="button" ui-sref="list({ 'filter_state' : { 'status' : '{{raid.status}}', 'platform' : '{{raid.platform}}', 'game' : '{{raid.game}}' } })">Show Similar</button>
-        <button type="button" ui-sref="list({ 'filter_state' : {{filter_state}} })">Back</button>
+        <button type="button" ui-sref="list({ 'filter_state' : { 'status' : raid.status, 'platform' : raid.platform, 'game' : raid.game } })">Show Similar</button>
+        <button type="button" ui-sref="list({ 'filter_state' : filter_state })">Back</button>
     <div>
 </section>
