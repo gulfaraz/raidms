@@ -17,10 +17,10 @@ module.exports = function (grunt) {
             }
         },
         'jshint' : {
-            'options': {
+            'options' : {
                 'ignores' : '<%= globalConfig.src %>/libs/**/*.js'
             },
-            'all' : ['<%= globalConfig.src %>/rms/js/**/*.js']
+            'all' : ['<%= globalConfig.src %>/rms/**/*.js']
         },
         'uglify' : {
             'options' : {
@@ -28,16 +28,18 @@ module.exports = function (grunt) {
             },
             'build' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/js/rms.min.js': [
+                    '<%= globalConfig.dist %>/js/rms.min.js' : [
                         '<%= globalConfig.src %>/libs/angular/*.js',
                         '<%= globalConfig.src %>/libs/angular-resource/*.js',
                         '<%= globalConfig.src %>/libs/moment/*.js',
                         '<%= globalConfig.src %>/libs/moment-timezone/*.js',
                         '<%= globalConfig.src %>/libs/jstimezonedetect/*.js',
-                        '<%= globalConfig.src %>/libs/angular-moment/*.js',
                         '<%= globalConfig.src %>/libs/**/*.js',
-                        '<%= globalConfig.src %>/rms/js/*.js',
-                        '<%= globalConfig.src %>/rms/js/**/*.js'
+                        '<%= globalConfig.src %>/rms/*.js',
+                        '<%= globalConfig.src %>/rms/*/*.js',
+                        '<%= globalConfig.src %>/rms/**/*.js',
+                        '!<%= globalConfig.src %>/libs/angular-mocks/angular-mocks.js',
+                        '!<%= globalConfig.src %>/rms/**/*.tests.js',
                     ]
                 }
             }
@@ -45,14 +47,14 @@ module.exports = function (grunt) {
         'less' : {
             'build' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/css/style.css': '<%= globalConfig.src %>/rms/css/style.less'
+                    '<%= globalConfig.dist %>/css/style.css' : '<%= globalConfig.src %>/rms/**/*.less'
                 }
             }
         },
         'cssmin' : {
             'build' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/css/style.min.css': ['<%= globalConfig.src %>/libs/**/*.css', '<%= globalConfig.dist %>/css/style.css']
+                    '<%= globalConfig.dist %>/css/style.min.css' : ['<%= globalConfig.src %>/libs/**/*.css', '<%= globalConfig.dist %>/css/style.css']
                 }
             }
         },
@@ -61,11 +63,11 @@ module.exports = function (grunt) {
               'livereload' : true,
             },
             'css' : {
-                'files' : ['<%= globalConfig.src %>/rms/css/**/*.less'],
+                'files' : ['<%= globalConfig.src %>/rms/**/*.less'],
                 'tasks' : ['less', 'cssmin']
             },
             'js' : {
-                'files' : ['<%= globalConfig.src %>/rms/js/**/*.js'],
+                'files' : ['<%= globalConfig.src %>/rms/**/*.js', '<%= globalConfig.src %>/rms/*.js'],
                 'tasks' : ['jshint', 'uglify']
             }
         },
@@ -79,6 +81,27 @@ module.exports = function (grunt) {
             'dev' : {
                 'script' : 'index.js'
             }
+        },
+        'karma' : {
+            'unit' : {
+                'options' : {
+                    'frameworks' : ['jasmine'],
+                    'singleRun' : true,
+                    'browsers' : ['PhantomJS'],
+                    'files' : [
+                        '<%= globalConfig.src %>/libs/angular/*.js',
+                        '<%= globalConfig.src %>/libs/angular-mocks/angular-mocks.js',
+                        '<%= globalConfig.src %>/libs/angular-resource/*.js',
+                        '<%= globalConfig.src %>/libs/moment/*.js',
+                        '<%= globalConfig.src %>/libs/moment-timezone/*.js',
+                        '<%= globalConfig.src %>/libs/jstimezonedetect/*.js',
+                        '<%= globalConfig.src %>/libs/**/*.js',
+                        '<%= globalConfig.src %>/rms/*.js',
+                        '<%= globalConfig.src %>/rms/*/*.js',
+                        '<%= globalConfig.src %>/rms/**/*.js'
+                    ]
+                }
+            }
         }
     });
 
@@ -90,6 +113,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('default', ['bower', 'less', 'cssmin', 'jshint', 'uglify', 'concurrent']);
+    grunt.registerTask('test', ['jshint', 'karma']);
 };
