@@ -1,0 +1,27 @@
+@primaryColor : #EFEFEF;
+
+body {
+    background: @primaryColor;
+}
+
+textarea {
+    resize: none;
+}
+
+.inline > * {
+    display: inline-block;
+}
+
+/* Bootstap CSS */
+
+.st-sort-ascent:before, .timepicker_button_up:before {
+    content: '\25B2';
+}
+.st-sort-descent:before, .timepicker_button_down:before {
+  content: '\25BC';
+}
+:before, :after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}

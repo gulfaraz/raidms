@@ -1,0 +1,18 @@
+<section ng-controller="resetController">
+    <form name="reset" ng-submit="reset_passcode()">
+        <label>New Passcode</label>
+        <span ng-messages="reset.passcode.$error" ng-if="reset.passcode.$touched && reset.passcode.$invalid">
+            <span ng-message="required">Required</span>
+        </span>
+        <div>
+            <input type="{{ show_reset_passcode ? 'text' : 'password' }}" name="passcode" placeholder="passcode" ng-model="passcode" required />
+            <span>
+                <input type="checkbox" ng-model="show_reset_passcode" tabindex="-1" />
+                <label>Show</label>
+            </span>
+        </div>
+        <div>
+            <button type="submit" ng-disabled="reset.$invalid">Reset</button>
+        </div>
+    </form>
+</section>
