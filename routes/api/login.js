@@ -9,14 +9,14 @@ module.exports = function (util, express, User, auth) {
                 res.json({ 'success' : false, 'message' : err.toString() });
             };
             if(!user) {
-                res.json({ 'success' : false, 'message' : 'Invalid user_name' });
+                res.json({ 'success' : false, 'message' : 'Invalid User Name' });
             } else if(user) {
                 user.verifyPassword(req.body.password, function (err, isMatch) {
                     if(err) {
                         res.json({ 'success' : false, 'message' : err.toString() });
                     }
                     if(!isMatch) {
-                        res.json({ 'success' : false, 'message' : 'Invalid password' });
+                        res.json({ 'success' : false, 'message' : 'Invalid Passcode' });
                     } else {
                         var token = auth.jwt.sign(user.user_name, auth.jwt_secret, {
                             expiresInMinutes: (60 * 24 * 14)
