@@ -1,5 +1,6 @@
 angular.module('rmsApp.profile')
     .controller('userController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
+        $scope.$parent.message = $stateParams.message;
         api.get({ 'set' : 'user', 'id' : $stateParams.user_name }, function (user) {
             if(user.success) {
                 $scope.profile = $scope.localize([user.data])[0];

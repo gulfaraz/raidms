@@ -3,21 +3,32 @@ module.exports = function (util, express, Raid, auth) {
     router.route('/')
         .post(auth.isAuthenticated, function (req, res) {
             if(req.user.status == 'active') {
-                var raid = new Raid();
-                raid.platform = req.body.platform;
-                raid.game = req.body.game;
-                raid.strength = req.body.strength;
-                raid.players = req.body.players;
-                raid.time_created = req.body.time_created;
-                raid.play_time = req.body.play_time;
-                raid.status = req.body.status;
-                raid.host = req.user._id;
-                raid.description = req.body.description;
-                raid.save(function (err) {
+                Raid.find({ 'players' : req.user._id }).exec(function (err, exists) {
                     if(err) {
                         res.json({ 'success' : false, 'message' : err.toString() });
                     } else {
-                        res.json({ 'success' : true, 'message' : 'Raid created' });
+                        if(exists.length == 0) {
+                            var raid = new Raid();
+                            raid.platform = req.body.platform;
+                            raid.game = req.body.game;
+                            raid.strength = req.body.strength;
+                            raid.players = [req.user._id];
+                            raid.play_time = req.body.play_time;
+                            raid.status = req.body.status;
+                            raid.host = req.user._id;
+                            raid.description = req.body.description;
+                            raid.queue = [];
+                            raid.time_created = Date.now();
+                            raid.save(function (err) {
+                                if(err) {
+                                    res.json({ 'success' : false, 'message' : err.toString() });
+                                } else {
+                                    res.json({ 'success' : true, 'message' : 'Raid Created', 'raid_id' : raid._id });
+                                }
+                            });
+                        } else {
+                            res.json({ 'success' : false, 'message' : 'You are already in a <a href="#/raid/' + exists[0]._id + '">Raid</a>' });
+                        }
                     }
                 });
             } else {
@@ -85,28 +96,111 @@ module.exports = function (util, express, Raid, auth) {
         })
         .post(auth.isAuthenticated, function (req, res) {
             Raid.find({ '_id' : req.params.raid_id }).limit(1).exec(function (err, raid) {
-                raid = raid[0];
-                if(raid.host.toString() == req.user._id.toString()) {
-                    if(err) {
-                        res.json({ 'success' : false, 'message' : err.toString() });
-                    } else {
-                        raid.platform = req.body.platform;
-                        raid.game = req.body.game;
-                        raid.strength = req.body.strength;
-                        raid.players = req.body.players;
-                        raid.play_time = req.body.play_time;
-                        raid.status = req.body.status;
-                        raid.description = req.body.description;
-                        raid.save(function (err) {
-                            if(err) {
-                                res.json({ 'success' : false, 'message' : err.toString() });
-                            } else {
-                                res.json({ 'success' : true, 'message' : 'Raid updated' });
-                            }
-                        });
-                    }
+                if(err) {
+                    res.json({ 'success' : false, 'message' : err.toString() });
                 } else {
-                    res.json({ 'success' : false, 'message' : 'You can only edit raids that you have created' });
+                    raid = raid[0];
+                    if(raid.host.toString() == req.user._id.toString()) {
+                        if(req.body.action == 'admit') {
+                            if(req.body.player) {
+                                if(raid.queue.indexOf(req.body.player) >= 0 && raid.players.indexOf(req.body.player) < 0) {
+                                    raid.players.push(req.body.player);
+                                    raid.queue.splice(raid.queue.indexOf(req.body.player), 1);
+                                    raid.save(function (err) {
+                                        if(err) {
+                                            res.json({ 'success' : false, 'message' : err.toString() });
+                                        } else {
+                                            res.json({ 'success' : true, 'message' : 'Player Added' });
+                                        }
+                                    });
+                                } else {
+                                    res.json({ 'success' : false, 'message' : 'Invalid Request' });
+                                }
+                            } else {
+                                res.json({ 'success' : false, 'message' : 'Invalid User' });
+                            }
+                        } else if(req.body.action == 'expel') {
+                            if(req.body.player) {
+                                if(raid.players.indexOf(req.body.player) >= 0) {
+                                    raid.players.splice(raid.players.indexOf(req.body.player), 1);
+                                    raid.save(function (err) {
+                                        if(err) {
+                                            res.json({ 'success' : false, 'message' : err.toString() });
+                                        } else {
+                                            res.json({ 'success' : true, 'message' : 'Player Removed' });
+                                        }
+                                    });
+                                } else {
+                                    res.json({ 'success' : false, 'message' : 'Invalid Request' });
+                                }
+                            } else {
+                                res.json({ 'success' : false, 'message' : 'Invalid User' });
+                            }
+                        } else {
+                            raid.platform = req.body.platform;
+                            raid.game = req.body.game;
+                            raid.strength = req.body.strength;
+                            raid.players = (req.body.players.length > 0) ? req.body.players : raid.players;
+                            raid.status = req.body.status;
+                            raid.description = req.body.description;
+                            raid.save(function (err) {
+                                if(err) {
+                                    res.json({ 'success' : false, 'message' : err.toString() });
+                                } else {
+                                    res.json({ 'success' : true, 'message' : 'Raid Updated' });
+                                }
+                            });
+                        }
+                    } else {
+                        if(req.body.action == 'join') {
+                            Raid.find({ 'players' : req.user._id }).exec(function (err, exists) {
+                                if(err) {
+                                    res.json({ 'success' : false, 'message' : err.toString() });
+                                } else {
+                                    if(exists.length == 0) {
+                                        var success_message = 'Raid Updated';
+                                        if(raid.players.indexOf(req.user._id) >= 0) {
+                                            res.json({ 'success' : false, 'message' : 'Already Joined' });
+                                        } else if(raid.queue.indexOf(req.user._id) >= 0) {
+                                            res.json({ 'success' : false, 'message' : 'Request Pending' });
+                                        } else {
+                                            if(raid.status == 'open') {
+                                                raid.players.push(req.user._id);
+                                                success_message = 'Joined Raid';
+                                            } else {
+                                                raid.queue.push(req.user._id);
+                                                success_message = 'Requested to Join';
+                                            }
+                                            raid.save(function (err) {
+                                                if(err) {
+                                                    res.json({ 'success' : false, 'message' : err.toString() });
+                                                } else {
+                                                    res.json({ 'success' : true, 'message' : success_message });
+                                                }
+                                            });
+                                        }
+                                    } else {
+                                        res.json({ 'success' : false, 'message' : 'You are already in a <a href="#/raid/' + exists[0]._id + '">Raid</a>' });
+                                    }
+                                }
+                            });
+                        } else if(req.body.action == 'leave') {
+                            if(raid.players.indexOf(req.user._id) >= 0) {
+                                raid.players.splice(raid.players.indexOf(req.user._id), 1);
+                                raid.save(function (err) {
+                                    if(err) {
+                                        res.json({ 'success' : false, 'message' : err.toString() });
+                                    } else {
+                                        res.json({ 'success' : true, 'message' : 'Abandoned Raid' });
+                                    }
+                                });
+                            } else {
+                                res.json({ 'success' : false, 'message' : 'Not a Member' });
+                            }
+                        } else {
+                            res.json({ 'success' : false, 'message' : 'Access Denied' });
+                        }
+                    }
                 }
             });
         })
@@ -118,7 +212,7 @@ module.exports = function (util, express, Raid, auth) {
                 if(err) {
                     res.json({ 'success' : false, 'message' : err.toString() });
                 } else {
-                    res.json({ 'success' : true, 'message' : 'Raid deleted' });
+                    res.json({ 'success' : true, 'message' : 'Raid Deleted' });
                 }
         });
     });;

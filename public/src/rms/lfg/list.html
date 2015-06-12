@@ -2,7 +2,7 @@
     <table st-set-filter="multiFilter" st-table="show_raids" st-safe-src="raids" st-pipe="get_raids">
         <thead>
         <tr>
-            <th st-sort="status" st-skip-natural="true">Status</th>
+            <th st-sort="status" st-skip-natural="true">Access</th>
             <th st-sort="platform" st-skip-natural="true">Platform</th>
             <th st-sort="game" st-skip-natural="true">Game</th>
             <th st-sort="strength" st-skip-natural="true">Capacity</th>
@@ -45,8 +45,17 @@
             <td>{{raid.description}}</td>
             <td>{{raid.display_play_time}}</td>
             <td>{{raid.display_time_created}}</td>
-            <td>
-                <button type="button">Join</button>
+            <td class="inline">
+                <div ng-hide="user._id == raid.host">
+                    <span ng-show="raid.players.indexOf(user._id) < 0">
+                        <button type="button" ng-show="raid.queue.indexOf(user._id) < 0" ng-click="join_raid(raid._id)">Join</button>
+                        <span ng-show="raid.queue.indexOf(user._id) >= 0">Requested</span>
+                    </span>
+                    <button type="button" ng-show="raid.players.indexOf(user._id) >= 0" ng-click="leave_raid(raid._id)">Leave</button>
+                </div>
+                <div>
+                    <button type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button>
+                </div>
                 <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">View</button>
             </td>
         </tr>
@@ -65,4 +74,5 @@
         </tr>
     </tfoot>
     </table>
+    <button type="button" ui-sref="editRaid({ 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">Create Raid</button>
 </section>

@@ -3,10 +3,10 @@
         <header>Enter your Registered User Name/Mail</header>
         <div>
             <input type="text" placeholder="Registered User Name/Mail" name="lost" ng-model="lost" required available />
-            <span ng-messages="models.recover_account_form.lost.$error" ng-if="models.recover_account_form.lost.$touched && models.recover_account_form.lost.$invalid">
+            <span ng-messages="models.recover_account_form.lost.$error" ng-if="models.recover_account_form.lost.$dirty && models.recover_account_form.lost.$invalid">
                 <span ng-message="required">Required</span>
             </span>
-            <span ng-if="models.recover_account_form.lost.$touched && !models.recover_account_form.lost.$invalid">
+            <span ng-if="models.recover_account_form.lost.$dirty && !models.recover_account_form.lost.$invalid">
                 <span>Unregistered User Name/Mail</span>
             </span>
             <button type="submit" ng-disabled="!models.recover_account_form.lost.$error.duplicate || models.recover_account_form.$pending">Recover</button>

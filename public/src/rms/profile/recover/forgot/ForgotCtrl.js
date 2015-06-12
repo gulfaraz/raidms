@@ -1,14 +1,13 @@
 angular.module('rmsApp.profile')
-    .controller('forgotController', ['$scope', 'api', '$state', function ($scope, api, $state) {
+    .controller('forgotController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
+        $scope.$parent.message = $stateParams.message;
         $scope.models = {};
         $scope.recover_account = function () {
-            api.get({ 'set' : 'forgot', 'id' : $scope.models.recover_account_form.lost.$viewValue }, function (data) {
+            api.cache({ 'set' : 'forgot', 'id' : $scope.models.recover_account_form.lost.$viewValue }, function (data) {
                 if(data.success) {
-                    $state.go('list');
-                    $scope.$parent.message = data.message;
+                    $state.go('list', { 'message' : data.message });
                 } else {
-                    $state.go('forgot');
-                    $scope.$parent.message = 'Recovery Failed';
+                    $state.go('forgot', { 'message' : 'Recovery Failed' });
                 }
             });
         };

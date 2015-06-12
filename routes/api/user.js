@@ -18,13 +18,13 @@ module.exports = function (util, express, User, auth) {
             user.karma = 0;
             user.date_joined = Date.now();
             user.date_updated = Date.now();
-            user.play_start = Date.now();
-            user.play_end = Date.now();
+            user.play_start = Date.now() - (1000 * 60 * 60);
+            user.play_end = Date.now() + (1000 * 60 * 60 * 2);
             user.save(function (err) {
                 if(err) {
                     res.json({ 'success' : false, 'message' : err.toString() });
                 } else {
-                    res.json({ 'success' : true, 'message' : 'User created' });
+                    res.json({ 'success' : true, 'message' : 'User Created' });
                     var validation_token = auth.jwt.sign(user.user_name, auth.jwt_secret, {
                         expiresInMinutes: (60 * 24)
                     });
@@ -57,8 +57,7 @@ module.exports = function (util, express, User, auth) {
                     if(err) {
                         res.json({ 'success' : false, 'message' : err.toString() });
                     } else {
-                        if(status && data.user_name == user.user_name) {
-                        } else {
+                        if(status != 'active' || data.user_name != user.user_name) {
                             user = util.except(user, except.split(' '));
                         }
                         res.json({ 'success' : true, 'data' : user });
@@ -90,9 +89,9 @@ module.exports = function (util, express, User, auth) {
                             user.platforms = req.body.platforms || user.platforms;
                             if(req.body.seeking) {
                                 user.seeking = {
-                                    'platform' : ((typeof req.body.seeking.platform == 'string' && (req.body.seeking.platform.length > 0) ) ? req.body.seeking.platform : user.seeking.platform),
-                                    'game' : ((typeof req.body.seeking.game == 'string' && (req.body.seeking.game.length > 0) ) ? req.body.seeking.game : user.seeking.game),
-                                    'message' : ((typeof req.body.seeking.message == 'string' && (req.body.seeking.message.length > 0) ) ? req.body.seeking.message : user.seeking.message)
+                                    'platform' : ((typeof req.body.seeking.platform == 'object' || (typeof req.body.seeking.platform == 'string' && (req.body.seeking.platform.length > 0)) ) ? req.body.seeking.platform : user.seeking.platform),
+                                    'game' : ((typeof req.body.seeking.game == 'object' || (typeof req.body.seeking.game == 'string' && (req.body.seeking.game.length > 0)) ) ? req.body.seeking.game : user.seeking.game),
+                                    'message' : ((typeof req.body.seeking.message == 'object' || (typeof req.body.seeking.message == 'string' && (req.body.seeking.message.length > 0)) ) ? req.body.seeking.message : user.seeking.message)
                                 };
                             }
                             user.timezone = req.body.timezone || user.timezone;
@@ -112,7 +111,7 @@ module.exports = function (util, express, User, auth) {
                                         util.sendAccountTerminationMail(user.mail, user.user_name);
                                         res.json({ 'success' : true, 'message' : 'Scheduled for termination. You data will be erased in 24 hours.' });
                                     } else {
-                                        res.json({ 'success' : true, 'message' : 'User updated' });
+                                        res.json({ 'success' : true, 'message' : 'User Updated' });
                                     }
                                 });
                             }
@@ -135,7 +134,7 @@ module.exports = function (util, express, User, auth) {
                     res.json({ 'success' : false, 'message' : err.toString() });
                 } else {
                     if(req.user.user_name == user.user_name) {
-                        res.json({ 'success' : true, 'message' : 'User deleted' });
+                        res.json({ 'success' : true, 'message' : 'User Deleted' });
                     } else {
                         res.json({ 'success' : false, 'message' : 'Unauthorized' });
                     }

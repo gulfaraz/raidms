@@ -53,6 +53,7 @@ var RaidSchema = new Schema({
     'game' : String,
     'strength' : { 'type' : Number, 'min' : 2 },
     'players' : [{ 'type' : Schema.Types.ObjectId, 'ref' : 'User' }],
+    'queue' : [{ 'type' : Schema.Types.ObjectId, 'ref' : 'User' }],
     'time_created' : Date,
     'play_time' : Date,
     'status' : String,

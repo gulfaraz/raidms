@@ -1,11 +1,12 @@
-angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.profile'])
-    .controller('mainController', ['$scope', 'api', '$state', '$localStorage', function ($scope, api, $state, $localStorage) {
+angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsApp.lfm'])
+    .controller('mainController', ['$scope', 'api', '$state', '$localStorage', '$sce', function ($scope, api, $state, $localStorage, $sce) {
 
         $state.go('list');
 
         $scope.user = {
             'time' : moment().utc(),
-            'user_name' : ''
+            'user_name' : '',
+            '_id' : ''
         };
 
         $scope.$watch('timezone', function () {
@@ -46,23 +47,17 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
 
         $scope.localize = function (data_array) {
             var format = 'h:mm A (Do MMM)';
+            var play_time_format = 'h:mm A';
             angular.forEach(data_array, function (value, key) {
                 if(value) {
                     value.display_time_created = moment.tz(value.time_created, $scope.active_timezone).format(format);
-                    value.offset_time_created = moment(value.time_created).fromNow();
-
                     value.display_play_time = moment.tz(value.play_time, $scope.active_timezone).format(format);
-                    value.offset_play_time = moment(value.play_time).fromNow();
-                    value.play_start = moment.tz(value.play_start, $scope.active_timezone);
-                    value.display_play_start = value.play_start.format(format);
-                    value.offset_play_start = value.play_start.fromNow();
-
-                    value.play_end = moment.tz(value.play_end, $scope.active_timezone);
-                    value.display_play_end = value.play_end.format(format);
-                    value.offset_play_end = value.play_end.fromNow();
 
                     value.display_date_joined = moment.tz(value.date_joined, $scope.active_timezone).format(format);
-                    value.offset_date_joined = moment(value.date_joined).fromNow();
+                    value.play_start = moment().tz($scope.active_timezone).set({'hour': moment.tz(value.play_start, $scope.active_timezone).hour(), 'minute': moment.tz(value.play_start, $scope.active_timezone).minute()});
+                    value.display_play_start = value.play_start.format(play_time_format);
+                    value.play_end = moment().tz($scope.active_timezone).set({'hour': moment.tz(value.play_end, $scope.active_timezone).hour(), 'minute': moment.tz(value.play_end, $scope.active_timezone).minute()});
+                    value.display_play_end = value.play_end.format(play_time_format);
                 }
             });
             return data_array;
@@ -76,7 +71,8 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
                         $localStorage.token = data.token;
                         $scope.user = {
                             'time' : moment().utc(),
-                            'user_name' : data.user_name
+                            'user_name' : data.user_name,
+                            '_id' : data._id
                         };
                         user_timezone();
                         $scope.message = '';
@@ -86,16 +82,18 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
                         $localStorage.$reset();
                         $scope.user = {
                             'time' : moment().utc(),
-                            'user_name' : ''
+                            'user_name' : '',
+                            '_id' : ''
                         };
-                        $scope.message = 'Invalid Credentials';
+                        $scope.message = data.message;
                     }
                 });
             } else {
                 $localStorage.$reset();
                 $scope.user = {
                     'time' : moment().utc(),
-                    'user_name' : ''
+                    'user_name' : '',
+                    '_id' : ''
                 };
                 $scope.message = 'Invalid Credentials';
             }
@@ -105,7 +103,8 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
             $localStorage.$reset();
             $scope.user = {
                 'time' : moment().utc(),
-                'user_name' : ''
+                'user_name' : '',
+                '_id' : ''
             };
             detect_timezone();
             $state.go('list', { 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } });
@@ -116,7 +115,8 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
                 if(data.success) {
                     $scope.user = {
                         'time' : moment().utc(),
-                        'user_name' : data.user_name
+                        'user_name' : data.user_name,
+                        '_id' : data._id
                     };
                     user_timezone();
                     $state.go('list');
@@ -124,7 +124,8 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
                     $localStorage.$reset();
                     $scope.user = {
                         'time' : moment().utc(),
-                        'user_name' : ''
+                        'user_name' : '',
+                        '_id' : ''
                     };
                 }
             });
@@ -136,5 +137,9 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.lfg', 'rmsApp.raid', 'rmsApp.
                     $scope.timezone = '(' + moment.tz(user.data.timezone).format('Z')+' GMT) ' + user.data.timezone;
                 }
             });
+        };
+
+        $scope.trustAsHtml = function (message) {
+            return $sce.trustAsHtml(message);
         };
     }]);

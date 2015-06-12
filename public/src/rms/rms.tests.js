@@ -63,6 +63,26 @@ describe('mainController', function () {
                 },
                 "timezone": "America/Santiago",
                 "caption": "Yo yo"
+            },
+            {
+                "_id": "5576d514ce4c238f35a2a066",
+                "play_end": "2015-06-09T13:59:16.340Z",
+                "play_start": "2015-06-09T10:59:16.340Z",
+                "date_updated": "2015-06-09T11:59:16.340Z",
+                "date_joined": "2015-06-09T11:59:16.339Z",
+                "karma": 0,
+                "seeking": {
+                    "game": "",
+                    "platform": ""
+                },
+                "status": "registered",
+                "role": "applicant",
+                "timezone": "Asia/Kolkata",
+                "mail": "gulfarazyasin@gmail.com",
+                "password": "password",
+                "user_name": "gulfi",
+                "platforms": [],
+                "__v": 0
             }
         ],
         'raids' : []
@@ -73,7 +93,7 @@ describe('mainController', function () {
         'users' : []
     };
 
-    var token_array = [undefined, test_scope.pay_load.users[Math.floor(Math.random() * test_scope.pay_load.users.length)].user_name];
+    var token_array = [undefined, 'gulfaraz', 'mohsin', 'test', 'gulfi'];
 
     function main_controller_tests(access_token) {
 
@@ -109,7 +129,23 @@ describe('mainController', function () {
                 if($localStorage.token) {
                     $httpBackend
                         .expect('POST', '/api/login/' + $localStorage.token)
-                        .respond(200, { 'success': true, 'message': 'User Authenticated', 'user_name' : $localStorage.token });
+                        .respond(function (method, url, data, headers) {
+                            var response = { 'success' : false, 'message' : 'Invalid Token' };
+                            if(headers.Authorization.split(' ')[1] == $localStorage.token) {
+                                for(var user in test_scope.pay_load.users) {
+                                    user = test_scope.pay_load.users[user];
+                                    if(user.user_name == $localStorage.token) {
+                                        if(user.status == 'active') {
+                                            response = { 'success': true, 'message': 'User Authenticated', 'user_name' : user.user_name, '_id' : user._id };
+                                            break;
+                                        } else {
+                                            response = { 'success' : false, 'message' : 'Invalid Token' };
+                                        }
+                                    }
+                                }
+                            }
+                            return [200, response, {}];
+                        });
                     $httpBackend
                         .when('GET', '/api/user/' + $localStorage.token)
                         .respond(function (method, url, data, headers) {
@@ -143,9 +179,35 @@ describe('mainController', function () {
                 expect(scope.user.user_name).toBe('');
                 $httpBackend.flush();
                 if($localStorage.token) {
-                    expect(scope.user.user_name).toBe($localStorage.token);
+                    expect(scope.user.user_name).toBe(function () {
+                        for(var user in test_scope.pay_load.users) {
+                            user = test_scope.pay_load.users[user];
+                            if(user.user_name == $localStorage.token && user.status == 'active') {
+                                return user.user_name;
+                            }
+                        }
+                        return '';
+                    }());
                 } else {
                     expect(scope.user.user_name).toBe('');
+                }
+            });
+
+            it('user id defaults to an empty string', function () {
+                expect(scope.user._id).toBe('');
+                $httpBackend.flush();
+                if($localStorage.token) {
+                    expect(scope.user._id).toBe(function () {
+                        for(var user in test_scope.pay_load.users) {
+                            user = test_scope.pay_load.users[user];
+                            if(user.user_name == $localStorage.token && user.status == 'active') {
+                                return user._id;
+                            }
+                        }
+                        return '';
+                    }());
+                } else {
+                    expect(scope.user._id).toBe('');
                 }
             });
 
@@ -184,6 +246,7 @@ describe('mainController', function () {
             it('localize adds localized times to input', function () {
                 scope.active_timezone = jstz.olson.timezones[Object.keys(jstz.olson.timezones)[ Math.floor(Math.random() * Object.keys(jstz.olson.timezones).length) ]];
                 var format = 'h:mm A (Do MMM)';
+                var play_time_format = 'h:mm A';
 
                 var test_data_list = [
                         [],
@@ -200,16 +263,11 @@ describe('mainController', function () {
                         if(localized_data[i]) {
                             expect(localized_data[i].display_time_created).toBe(moment.tz(test_data[i].time_created, scope.active_timezone).format(format));
                             expect(localized_data[i].display_play_time).toBe(moment.tz(test_data[i].play_time, scope.active_timezone).format(format));
-                            expect(localized_data[i].offset_time_created).toBe(moment.tz(test_data[i].time_created, scope.active_timezone).fromNow());
-                            expect(localized_data[i].offset_play_time).toBe(moment.tz(test_data[i].play_time, scope.active_timezone).fromNow());
                             expect(localized_data[i].play_start.isSame(moment.tz(test_data[i].play_start, scope.active_timezone))).toBe(true);
                             expect(localized_data[i].play_end.isSame(moment.tz(test_data[i].play_end, scope.active_timezone))).toBe(true);
-                            expect(localized_data[i].display_play_start).toBe(localized_data[i].play_start.format(format));
-                            expect(localized_data[i].display_play_end).toBe(localized_data[i].play_end.format(format));
-                            expect(localized_data[i].offset_play_start).toBe(localized_data[i].play_start.fromNow());
-                            expect(localized_data[i].offset_play_end).toBe(localized_data[i].play_end.fromNow());
+                            expect(localized_data[i].display_play_start).toBe(localized_data[i].play_start.format(play_time_format));
+                            expect(localized_data[i].display_play_end).toBe(localized_data[i].play_end.format(play_time_format));
                             expect(localized_data[i].display_date_joined).toBe(moment.tz(test_data[i].date_joined, scope.active_timezone).format(format));
-                            expect(localized_data[i].offset_date_joined).toBe(moment.tz(test_data[i].date_joined, scope.active_timezone).fromNow());
                         }
                     }
                     expect(localized_data.length).toBe(test_data.length);
@@ -278,7 +336,7 @@ describe('mainController', function () {
                         },
                         'message' : {
                             'pre' : 'Signing In...',
-                            'post' : 'Invalid Credentials'
+                            'post' : 'Invalid Passcode'
                         }
                     },
                     {
@@ -288,7 +346,7 @@ describe('mainController', function () {
                         },
                         'message' : {
                             'pre' : 'Signing In...',
-                            'post' : 'Invalid Credentials'
+                            'post' : 'Invalid User Name'
                         }
                     },
                     {
@@ -310,6 +368,16 @@ describe('mainController', function () {
                             'pre' : 'Signing In...',
                             'post' : ''
                         }
+                    },
+                    {
+                        'credentials' : {
+                            'user_name' : 'gulfi',
+                            'passcode' : 'password'
+                        },
+                        'message' : {
+                            'pre' : 'Signing In...',
+                            'post' : 'Please check your registered mail to complete the registration'
+                        }
                     }
                 ];
 
@@ -321,20 +389,36 @@ describe('mainController', function () {
                                 .expect('POST', '/api/login')
                                 .respond(function (method, url, data, headers) {
                                     var user_name;
+                                    var _id;
+                                    var status;
+                                    var invalid_passcode = false;
                                     data = JSON.parse(data);
                                     for(var user in test_scope.pay_load.users) {
                                         user = test_scope.pay_load.users[user];
                                         if(user.user_name == data.user_name) {
+                                            status = user.status;
                                             user_name = user.user_name;
+                                            _id = user._id;
                                             if(user.password != data.password) {
                                                 user_name = undefined;
+                                                invalid_passcode = true;
                                             }
                                             break;
                                         }
                                     }
                                     var response = { 'success' : false, 'message' : 'Invalid Credentials' };
                                     if(user_name && user_name.length > 0) {
-                                        response = { 'success' : true, 'message' : 'User Authenticated', 'token' : user_name, 'user_name' : user_name };
+                                        if(status == 'active') {
+                                            response = { 'success' : true, 'message' : 'User Authenticated', 'token' : user_name, 'user_name' : user_name, '_id' : _id };
+                                        } else {
+                                            response = { 'success' : false, 'message' : 'Please check your registered mail to complete the registration' };
+                                        }
+                                    } else {
+                                        if(invalid_passcode) {
+                                            response = { 'success' : false, 'message' : 'Invalid Passcode' };
+                                        } else {
+                                            response = { 'success' : false, 'message' : 'Invalid User Name' };
+                                        }
                                     }
                                     return [200, response, {}];
                                 });
@@ -373,6 +457,15 @@ describe('mainController', function () {
                         if(message.post === '') {
                             expect($localStorage.token).toBe(credentials.user_name);
                             expect(scope.user.user_name).toBe(credentials.user_name);
+                            expect(scope.user._id).toBe(function () {
+                                for(var user in test_scope.pay_load.users) {
+                                    user = test_scope.pay_load.users[user];
+                                    if(user.user_name == credentials.user_name) {
+                                        return user._id;
+                                    }
+                                }
+                                return false;
+                            }());
                             expect(scope.timezone).toBe(function () {
                                 for(var user in test_scope.pay_load.users) {
                                     user = test_scope.pay_load.users[user];
@@ -386,6 +479,7 @@ describe('mainController', function () {
                         } else {
                             expect($localStorage.$reset).toHaveBeenCalled();
                             expect(scope.user.user_name).toBe('');
+                            expect(scope.user._id).toBe('');
                         }
                         expect(scope.message).toBe(message.post);
                     });
@@ -402,6 +496,7 @@ describe('mainController', function () {
                 scope.sign_out();
                 expect($localStorage.$reset).toHaveBeenCalled();
                 expect(scope.user.user_name).toBe('');
+                expect(scope.user._id).toBe('');
                 expect(scope.active_timezone).toBe(jstz.determine().name());
                 expect($state.go).toHaveBeenCalledWith('list', { 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } });
                 $httpBackend.flush();

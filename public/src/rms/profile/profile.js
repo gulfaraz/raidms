@@ -3,31 +3,41 @@ angular.module('rmsApp.profile', ['ui.router'])
         $stateProvider
             .state('register', {
                 'url' : '/register',
-                'params' : {},
+                'params' : {
+                    'message' : ''
+                },
                 'templateUrl' : 'src/rms/profile/register/register.html',
                 'controller' : 'signUpController'
             })
             .state('user', {
                 'url' : '/user/:user_name',
-                'params' : {},
+                'params' : {
+                    'message' : ''
+                },
                 'templateUrl' : 'src/rms/profile/view/user.html',
                 'controller' : 'userController'
             })
             .state('editUser', {
                 'url' : '/user/edit/:user_name',
-                'params' : {},
+                'params' : {
+                    'message' : ''
+                },
                 'templateUrl' : 'src/rms/profile/edit/userEdit.html',
                 'controller' : 'userEditController'
             })
             .state('forgot', {
                 'url' : '/forgot',
-                'params' : {},
+                'params' : {
+                    'message' : ''
+                },
                 'templateUrl' : 'src/rms/profile/recover/forgot/forgot.html',
                 'controller' : 'forgotController'
             })
             .state('reset', {
                 'url' : '/reset/:reset_token',
-                'params' : {},
+                'params' : {
+                    'message' : ''
+                },
                 'templateUrl' : 'src/rms/profile/recover/reset/reset.html',
                 'controller' : 'resetController'
             });

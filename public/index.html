@@ -10,10 +10,10 @@
     <section>
         <label for="timezone">Select your Timezone - </label><select ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
     </section>
-    <div>{{message}}</div>
+    <div ng-bind-html="trustAsHtml(message)"></div>
     <div>
         <button ui-sref="list">LFG</button>
-        <button ui-sref="queue">LFM</button>
+        <button ng-hide="true" ui-sref="queue">LFM</button>
     </div>
     <section ng-show="user.user_name.length <= 0">
         <div>

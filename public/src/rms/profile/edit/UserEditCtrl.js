@@ -1,5 +1,6 @@
 angular.module('rmsApp.profile')
     .controller('userEditController', ['$scope', 'api', '$stateParams', '$state', '$interval', function ($scope, api, $stateParams, $state, $interval) {
+        $scope.$parent.message = $stateParams.message;
         $scope.models = {
             'passcode' : {
                 'old_passcode' : '',
@@ -26,7 +27,7 @@ angular.module('rmsApp.profile')
                 'game' : {}
             }
         };
-        api.retrieve({ 'set' : 'user', 'id' : $stateParams.user_name }, function (user) {
+        api.get({ 'set' : 'user', 'id' : $stateParams.user_name }, function (user) {
             $scope.profile = $scope.localize([user.data])[0];
             if(moment().diff($scope.profile.delete) > 0) {
                 $state.go('list');
@@ -171,7 +172,7 @@ angular.module('rmsApp.profile')
             }
         };
         var populate_filters = function () {
-            api.get({ 'set' : 'filter' }, function (filters) {
+            api.cache({ 'set' : 'filter' }, function (filters) {
                 var filter_types = {
                     'game' : filters.data[0].game,
                     'platform' : filters.data[0].platform

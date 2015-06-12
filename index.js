@@ -31,7 +31,7 @@ rms.use(session({ 'secret' : 'gulfaraz', 'saveUninitialized' : true, 'resave' : 
 rms.use(auth.passport_init);
 
 rms.use(express.static(__dirname + '/public'), require('./routes/routes')(util, express, models, auth));
-rms.use('/', function (req, res) { res.sendFile('./public/rms/index.html', { 'root' : __dirname }); });
+rms.use('/', function (req, res) { res.sendFile('../public/rms/index.html', { 'root' : __dirname }); });
 
 rms.listen(port);
 console.log('Port ' + port + ' open and listening for requests');

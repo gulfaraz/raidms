@@ -1,7 +1,7 @@
 <section>
     <form name="reset" ng-submit="reset_passcode()">
         <label>New Passcode</label>
-        <span ng-messages="reset.passcode.$error" ng-if="reset.passcode.$touched && reset.passcode.$invalid">
+        <span ng-messages="reset.passcode.$error" ng-if="reset.passcode.$dirty && reset.passcode.$invalid">
             <span ng-message="required">Required</span>
         </span>
         <div>

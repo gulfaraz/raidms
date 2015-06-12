@@ -1,22 +1,24 @@
-angular.module('rmsApp.lfg', ['smart-table', 'ui.router'])
+angular.module('rmsApp.lfg', ['smart-table', 'ui.router', 'rmsApp.raid'])
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider
             .state('list', {
-                'url' : '/list',
+                'url' : '/lfg',
                 'params' : {
-                    'filter_state' : {}
+                    'filter_state' : {},
+                    'message' : ''
                 },
                 'templateUrl' : 'src/rms/lfg/list.html',
                 'controller' : 'listController'
             });
     }])
     .controller('listController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
+        $scope.$parent.message = $stateParams.message;
         $scope.$watch('user.user_name', function () {
             if($scope.$parent.user.user_name.length > 0) {
                 api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
                     if(user.success) {
                         if(Object.keys($stateParams.filter_state).length <= 0) {
-                            $state.go('list', { 'filter_state' : { 'status' : 'open', 'platform' : user.data.seeking.platform, 'game' : user.data.seeking.game } });
+                            $state.go('list', { 'filter_state' : { 'status' : null, 'platform' : user.data.seeking.platform, 'game' : user.data.seeking.game } });
                         } else {
                             $scope.reset_filter_state = $stateParams.filter_state;
                         }
@@ -57,7 +59,7 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router'])
             }
         };
         var populate_filters = function () {
-            api.get({ 'set' : 'filter' }, function (filters) {
+            api.cache({ 'set' : 'filter' }, function (filters) {
                 if(filters.success) {
                     var filter_types = {
                         'game_filters' : filters.data[0].game,
@@ -72,4 +74,44 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router'])
                 }
             });
         }();
+        $scope.join_raid = function (raid_id) {
+            var raid = get_raid(raid_id);
+            if($scope.user.user_name.length > 0) {
+                api.save({ 'set' : 'raid', 'id' : raid_id }, { 'action' : 'join' }, function (data) {
+                    $scope.$parent.message = data.message;
+                    if(data.success) {
+                        if(raid.status == 'open') {
+                            raid.players.push($scope.user._id);
+                        } else if(raid.status == 'closed') {
+                            raid.queue.push($scope.user._id);
+                        }
+                    }
+                });
+            } else {
+                $state.go('register');
+            }
+        };
+        $scope.leave_raid = function (raid_id) {
+            var raid = get_raid(raid_id);
+            if($scope.user.user_name.length > 0) {
+                api.save({ 'set' : 'raid', 'id' : raid_id }, { 'action' : 'leave' }, function (data) {
+                    $scope.$parent.message = data.message;
+                    if(data.success) {
+                        raid.players.splice(raid.players.indexOf($scope.user._id), 1);
+                    }
+                });
+            } else {
+                $state.go('register');
+            }
+        };
+        var get_raid = function (raid_id) {
+            var matched_raid;
+            for(var raid in $scope.raids) {
+                if($scope.raids[raid]._id == raid_id) {
+                    matched_raid = $scope.raids[raid];
+                    break;
+                }
+            }
+            return matched_raid;
+        };
     }]);

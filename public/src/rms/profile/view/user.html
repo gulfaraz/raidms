@@ -11,29 +11,28 @@
     </div>
     <div>
         <div>{{profile.karma}} Karma</div>
-        <div>Joined RMS {{profile.offset_date_joined}}</div>
+        <div>Joined RMS <span am-time-ago="profile.date_joined"></span></div>
     </div>
     <div>
         <div>Availability</div>
         <div>
             <span ng-repeat="platform in profile.platforms">{{platform}}</span>
-            <span ng-show="profile.platforms.length <= 0">None</span>
         </div>
         <div class="inline">
             <div>
                 <div>Start Time</div>
                 <div>{{profile.display_play_start}}</div>
-                <div>{{profile.offset_play_start}}</div>
+                <div am-time-ago="profile.play_start"></div>
             </div>
             <div>
                 <div>End Time</div>
                 <div>{{profile.display_play_end}}</div>
-                <div>{{profile.offset_play_end}}</div>  
+                <div am-time-ago="profile.play_end"></div>
             </div>
         </div>
     </div>
     <div>
         <button type="button" ui-sref="editUser({ 'user_name' : user.user_name })" ng-if="(profile.user_name == user.user_name)">Edit</button>
-        <button type="button" ui-sref="list">Back</button>
+        <button type="button" ui-sref="list">LFG</button>
     </div>
 </section>

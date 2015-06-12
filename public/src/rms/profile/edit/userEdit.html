@@ -1,6 +1,6 @@
 <section>
     <div ng-if="(profile.user_name == user.user_name)">
-        <header>{{profile.user_name}}</header>
+        <header>Edit Profile</header>
         <section>
             <header>Profile Settings</header>
             <div>
@@ -138,7 +138,7 @@
                         <form name="models.passcode.change_passcode_form" ng-submit="change_passcode()">
                             <div>
                                 <label>Old Passcode</label>
-                                <span ng-messages="models.passcode.change_passcode_form.old_passcode.$error" ng-if="models.passcode.change_passcode_form.old_passcode.$touched && models.passcode.change_passcode_form.old_passcode.$invalid">
+                                <span ng-messages="models.passcode.change_passcode_form.old_passcode.$error" ng-if="models.passcode.change_passcode_form.old_passcode.$dirty && models.passcode.change_passcode_form.old_passcode.$invalid">
                                     <span ng-message="required">Required</span>
                                 </span>
                                 <div>
@@ -151,7 +151,7 @@
                             </div>
                             <div>
                                 <label>New Passcode</label>
-                                <span ng-messages="models.passcode.change_passcode_form.new_passcode.$error" ng-if="models.passcode.change_passcode_form.new_passcode.$touched && models.passcode.change_passcode_form.new_passcode.$invalid">
+                                <span ng-messages="models.passcode.change_passcode_form.new_passcode.$error" ng-if="models.passcode.change_passcode_form.new_passcode.$dirty && models.passcode.change_passcode_form.new_passcode.$invalid">
                                     <span ng-message="required">Required</span>
                                 </span>
                                 <div>
@@ -172,7 +172,7 @@
                     <div ng-init="models.mail.show_change_mail = false" ng-click="toggle('mail')">Change Mail <span>{{models.mail.mail_message}}</span></div>
                     <div ng-show="models.mail.show_change_mail">
                         <form name="models.mail.change_mail_form" ng-submit="change_mail()">
-                            <span ng-messages="models.mail.change_mail_form.new_mail.$error" ng-if="models.mail.change_mail_form.new_mail.$touched && models.mail.change_mail_form.new_mail.$invalid">
+                            <span ng-messages="models.mail.change_mail_form.new_mail.$error" ng-if="models.mail.change_mail_form.new_mail.$dirty && models.mail.change_mail_form.new_mail.$invalid">
                                 <span ng-message="required">Required</span>
                                 <span ng-message="email">Invalid Mail</span>
                                 <span ng-message="duplicate">Registered Mail</span>
@@ -193,7 +193,7 @@
                             <form name="models.delete.change_delete_form" ng-submit="delete_account()">
                                 <div>
                                     <label>Passcode</label>
-                                    <span ng-messages="models.delete.change_delete_form.old_delete.$error" ng-if="models.delete.change_delete_form.old_delete.$touched && models.delete.change_delete_form.old_delete.$invalid">
+                                    <span ng-messages="models.delete.change_delete_form.old_delete.$error" ng-if="models.delete.change_delete_form.old_delete.$dirty && models.delete.change_delete_form.old_delete.$invalid">
                                         <span ng-message="required">Required</span>
                                     </span>
                                     <div>

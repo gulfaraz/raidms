@@ -1,36 +1,69 @@
 <section>
     <div><a ui-sref="list({ 'filter_state' : filter_state })">Back</a> > <a ui-sref="raid({ 'raid_id': raid._id })">Raid</a></div>
     <div>{{raid.status | capitalize}} {{raid.platform}} {{raid.game}}</div>
-    <div>
+    <div class="inline">
         <div>
             <div>Play Time</div>
             <div>{{raid.display_play_time}}</div>
-            <div>{{raid.offset_play_time}}</div>
+            <div am-time-ago="raid.play_time"></div>
         </div>
         <div>
             <div>Time Created</div>
             <div>{{raid.display_time_created}}</div>
-            <div>{{raid.offset_time_created}}</div>
+            <div am-time-ago="raid.time_created"></div>
         </div>
     </div>
     <div>Description</div>
     <div>{{raid.description}}</div>
     <div>
-        Members (Max. Capacity : {{raid.strength}})
+        <span>Members (Max. Capacity : {{raid.strength}})</span>
         <div ng-repeat="player in player_data">
             <div>
-                <div ng-click="player.show=!player.show" title="View Details">{{player.user_name}}</div>
+                <div>
+                    <span>{{player.user_name}}</span>
+                    <span ng-show="raid.host == player._id">Host</span>
+                    <button type="button" ng-hide="user._id != raid.host || raid.host == player._id || player.confirm_expel" ng-click="player.confirm_expel = true">Expel</button>
+                    <div ng-show="player.confirm_expel">
+                        <button type="button" ng-click="expel_player(player._id)">Confim Expel</button>
+                        <button type="button" ng-click="player.confirm_expel = false">Cancel Expel</button>
+                    </div>
+                    <button type="button" ng-click="player.show=!player.show">{{ player.show ? 'Hide' : 'View' }}</button>
+                </div>
                 <div ng-show="player.show">
-                    <div>Seeking - {{player.seeking.platform}} {{player.seeking.game}} - {{player.seeking.message}}</div>
-                    <div>Joined <span>{{player.offset_date_joined}}</span></div>
+                    <div>Seeking {{(player.seeking.platform || player.seeking.game) ? '-' : ''}} {{player.seeking.platform}} {{player.seeking.game}} {{(player.seeking.message) ? '-' : ''}} {{player.seeking.message}}</div>
+                    <div>Joined <span am-time-ago="player.date_joined"></span></div>
                     <div><span ng-repeat="platform in player.platforms">{{platform}}</span></div>
+                    <button type="button" ui-sref="user({ 'user_name' : player.user_name })">Profile</button>
+                </div>
+            </div>
+        </div>
+        <div ng-show="user._id == raid.host">
+            <div ng-repeat="requester in queue_data">
+                <div>
+                    <div>
+                        <span>{{requester.user_name}}</span>
+                        <button type="button" ng-click="requester.show=!requester.show">{{ requester.show ? 'Hide' : 'View' }}</button>
+                        <button type="button" ng-click="approve_request(requester._id)">Add</button>
+                    </div>
+                    <div ng-show="requester.show">
+                        <div>Seeking {{(requester.seeking.platform || requester.seeking.game) ? '-' : ''}} {{requester.seeking.platform}} {{requester.seeking.game}} {{(requester.seeking.message) ? '-' : ''}} {{requester.seeking.message}}</div>
+                        <div>Joined <span am-time-ago="requester.date_joined"></span></div>
+                        <div><span ng-repeat="platform in requester.platforms">{{platform}}</span></div>
+                        <button type="button" ui-sref="user({ 'user_name' : requester.user_name })">Profile</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div>
-        <button type="button">Join</button>
+        <span ng-hide="user._id == raid.host">
+            <button type="button" ng-hide="raid.queue.indexOf(user._id) >= 0 || raid.players.indexOf(user._id) >= 0" ng-click="join_raid()">Join</button>
+            <span ng-hide="raid.queue.indexOf(user._id) < 0">Requested</span>
+            <button type="button" ng-hide="raid.players.indexOf(user._id) < 0" ng-click="leave_raid()">Leave</button>
+        </span>
+        <button type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button>
         <button type="button" ui-sref="list({ 'filter_state' : { 'status' : raid.status, 'platform' : raid.platform, 'game' : raid.game } })">Show Similar</button>
         <button type="button" ui-sref="list({ 'filter_state' : filter_state })">Back</button>
+        <span ng-bind-html="trustAsHtml(action_status)"></span>
     <div>
 </section>
