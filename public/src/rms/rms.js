@@ -1,6 +1,8 @@
 angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsApp.lfm'])
     .controller('mainController', ['$scope', 'api', '$state', '$localStorage', '$sce', function ($scope, api, $state, $localStorage, $sce) {
 
+        document.getElementById('content').style.visibility = "visible";
+
         $state.go('list');
 
         $scope.user = {

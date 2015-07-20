@@ -259,7 +259,7 @@ ng.module('smart-table')
         }, true);
 
         // view -> table state
-        element.bind('input change', function (evt) {
+        element.bind('input', function (evt) {
           evt = evt.originalEvent || evt;
           if (promise !== null) {
             $timeout.cancel(promise);

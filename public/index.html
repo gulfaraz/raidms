@@ -4,59 +4,70 @@
     <meta charset="UTF-8">
     <title>RMS - Gulfaraz Yasin</title>
     <link rel="stylesheet" href="dist/css/style.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body ng-app="rmsApp" ng-controller="mainController">
-    <header>RMS</header>
-    <section>
-        <label for="timezone">Select your Timezone - </label><select ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
+<body ng-app="rmsApp" ng-controller="mainController" ng-class="{ 'disable_scrolling' : message }">
+    <header id="rms">RMS</header>
+    <section id="overlayed_content" ng-show="message" ng-click="message = ''">
+        <div id="overlay"></div>
+        <div id="broadcast_message" ng-bind-html="trustAsHtml(message)">Loading...</div>
     </section>
-    <div ng-bind-html="trustAsHtml(message)"></div>
-    <div>
-        <button ui-sref="list">LFG</button>
-        <button ng-hide="true" ui-sref="queue">LFM</button>
-    </div>
-    <section ng-show="user.user_name.length <= 0">
-        <div>
-            <span>PSN</span>
-            <span>XBOX</span>
-            <span><a href="/auth/facebook">Facebook</a></span>
-            <span><a href="/auth/twitter">Twitter</a></span>
-            <span><a href="/auth/google">Google</a></span>
-        </div>
-        <div>
-            <form name="signIn" ng-submit="sign_in()">
-                <div class="inline">
-                    <div>
-                        <input type="text" name="user_name" placeholder="Enter your User Name" ng-model="user_name" required/>
+    <div id="content" style="visibility: hidden;">
+        <div id="state_controls">
+            <div id="timezone_navigation">
+                <div class="content">
+                    <section id="timezone">
+                        <label for="timezone_select">Select your Timezone </label><select id="timezone_select" ng-model="timezone" ng-options="value for (key , value) in timezones"></select>
+                    </section>
+                    <div id="navigation">
+                        <button ui-sref="list">LFG</button>
+                        <button ng-hide="true" ui-sref="queue">LFM</button>
                     </div>
-                    <div>
-                        <input type="{{ show_login_passcode ? 'text' : 'password' }}" name="passcode" placeholder="Enter your Passcode" ng-model="passcode" required/>
-                        <span>
-                            <input type="checkbox" ng-model="show_login_passcode" tabindex="-1" />
-                            <label>Show</label>
-                        </span>
-                    </div>
-                    <div>
-                        <button type="submit" ng-disabled="signIn.$invalid">Sign In</button>
-                        <button ui-sref="register" type="button">Register</button>
-                        <button ui-sref="forgot" type="button">Forgot Password</button>
-                    </div>
+                    <aside id="statistics">
+                        <div>Server Status - {{ server_status }}</div>
+                        <div>Online Users - {{ online_users }}</div>
+                    </aside>
                 </div>
-            </form>
+            </div><div id="account_portal">
+                <div class="content">
+                    <section ng-show="user.user_name.length <= 0">
+                        <div id="social_login_icons"><a class="psn_logo" href="/auth/facebook"></a><a class="xbox_logo" href="/auth/facebook"></a><a class="facebook_logo" href="/auth/facebook"></a><a class="twitter_logo" href="/auth/twitter"></a><a class="google_logo" href="/auth/google"></a></div>
+                        <div id="sign_in_form">
+                            <form name="signIn" ng-submit="sign_in()">
+                                <div class="inline">
+                                    <div class="user_name_container">
+                                        <input type="text" name="user_name" placeholder="Enter your User Name" ng-model="user_name" required/>
+                                    </div>
+                                    <div class="passcode_container">
+                                        <input type="{{ show_login_passcode ? 'text' : 'password' }}" name="passcode" placeholder="Enter your Passcode" ng-model="passcode" required/>
+                                        <span class="show_passcode_container" ng-show="passcode" ng-click="show_login_passcode = !show_login_passcode">
+                                            <label>{{ show_login_passcode ? 'Hide' : 'Show' }}</label>
+                                        </span>
+                                    </div>
+                                    <div id="sign_in_control">
+                                        <button class="sign_in_button" type="submit" ng-disabled="signIn.$invalid">Sign In</button><button class="register_button" ui-sref="register" type="button">Register</button><button class="recover_button" ui-sref="forgot" type="button">Recover</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                    <section ng-show="user.user_name.length > 0">
+                        <div id="user_information">
+                            <div id="authorized_user_name">{{user.user_name}}</div>
+                            <button class="view_profile_button" type="button" ui-sref="user({ 'user_name' : user.user_name })">Profile</button>
+                            <button class="sign_out_button" type="button" ng-click="sign_out()">Sign Out</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-    </section>
-    <section ng-show="user.user_name.length > 0">
-        <div>
-            <span>{{user.user_name}}</span>
-            <button type="button" ui-sref="user({ 'user_name' : user.user_name })">Profile</button>
-            <button type="button" ng-click="sign_out()">Sign Out</button>
-        </div>
-    </section>
-    <aside>
-        <div>Server Status - {{ server_status }}</div>
-        <div>Online Users - {{ online_users }}</div>
-    </aside>
-    <div ui-view></div>
+        <div class="view" ui-view></div>
+    </div>
     <script src="dist/js/rms.min.js"></script>
+    <footer class="footer">
+        <div>
+            <a href="//gulfaraz.com" title="Gulfaraz Yasin"><span>&copy; Gulfaraz Yasin 2015</span></a>
+        </div>
+    </footer>
 </body>
 </html>

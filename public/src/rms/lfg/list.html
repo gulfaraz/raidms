@@ -1,78 +1,63 @@
-<section>
+<section id="lfg">
     <table st-set-filter="multiFilter" st-table="show_raids" st-safe-src="raids" st-pipe="get_raids">
         <thead>
-        <tr>
-            <th st-sort="status" st-skip-natural="true">Access</th>
-            <th st-sort="platform" st-skip-natural="true">Platform</th>
-            <th st-sort="game" st-skip-natural="true">Game</th>
-            <th st-sort="strength" st-skip-natural="true">Capacity</th>
-            <th>Description</th>
-            <th st-sort="play_time" st-skip-natural="true">Play Time</th>
-            <th st-sort="time_created" st-skip-natural="true" st-sort-default="reverse">Created</th>
-            <th></th>
-        </tr>
-        <tr>
-            <th>
-                <select st-search="status" ng-model="filter_state.status" ng-options="(value | capitalize) for (key , value) in status_filters">
-                    <option value="">All</option>
-                </select>
-            </th>
-            <th>
-                <select st-search="platform" ng-model="filter_state.platform" ng-options="(value | uppercase) for (key , value) in platform_filters">
-                    <option value="">All</option>
-                </select>
-            </th>
-            <th>
-                <select st-search="game" ng-model="filter_state.game" ng-options="(value | capitalize) for (key , value) in game_filters">
-                    <option value="">All</option>
-                </select>
-            </th>
-            <th colspan="4">
-                <input st-search placeholder="Search All" type="search" />
-            </th>
-            <th>
-                <button ui-sref="list" ui-sref-opts="{ 'reload' : true }">Reset</button>
-                <button type="button" ng-click="filter_state = {}" st-reset-search>Clear</button>
-            </th>
-        </tr>
+            <tr>
+                <th st-sort="status" st-skip-natural="true">Access</th>
+                <th st-sort="platform" st-skip-natural="true">Platform</th>
+                <th st-sort="game" st-skip-natural="true">Game</th>
+                <th st-sort="strength" st-skip-natural="true" class="capacity_column">Capacity</th>
+                <th>Description</th>
+                <th st-sort="play_time" st-skip-natural="true">Play Time</th>
+                <th st-sort="time_created" st-skip-natural="true" st-sort-default="reverse">Created</th>
+                <th></th>
+            </tr>
         </thead>
         <tbody ng-show="!isLoading">
-        <tr ng-repeat="raid in show_raids">
-            <td>{{raid.status | capitalize}}</td>
-            <td>{{raid.platform | uppercase}}</td>
-            <td>{{raid.game | capitalize}}</td>
-            <td>{{raid.players.length}}/{{raid.strength}}</td>
-            <td>{{raid.description}}</td>
-            <td>{{raid.display_play_time}}</td>
-            <td>{{raid.display_time_created}}</td>
-            <td class="inline">
-                <div ng-hide="user._id == raid.host">
-                    <span ng-show="raid.players.indexOf(user._id) < 0">
-                        <button type="button" ng-show="raid.queue.indexOf(user._id) < 0" ng-click="join_raid(raid._id)">Join</button>
-                        <span ng-show="raid.queue.indexOf(user._id) >= 0">Requested</span>
-                    </span>
-                    <button type="button" ng-show="raid.players.indexOf(user._id) >= 0" ng-click="leave_raid(raid._id)">Leave</button>
-                </div>
-                <div>
-                    <button type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button>
-                </div>
-                <button type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">View</button>
-            </td>
-        </tr>
-        <tr ng-if="show_raids.length == 0">
-            <td colspan="8">No Raids Found</td>
-        </tr>
+            <tr id="filter_row">
+                <td id="filter_toggle_button" ng-init="filter_toggle = true" ng-class="{'inline_row' : filter_toggle}">
+                    <button type="button" ng-click="filter_toggle = !filter_toggle">{{filter_toggle ? 'Show' : 'Hide'}} Filters</button>
+                </td><td ng-class="{ 'filter_input' : filter_toggle }" class="access_column">
+                    <select st-search="status" ng-model="filter_state.status" ng-options="(value | capitalize) for (key , value) in status_filters">
+                        <option value="">All</option>
+                    </select>
+                </td><td ng-class="{ 'filter_input' : filter_toggle }" class="platform_column">
+                    <select st-search="platform" ng-model="filter_state.platform" ng-options="(value | uppercase) for (key , value) in platform_filters">
+                        <option value="">All</option>
+                    </select>
+                </td><td ng-class="{ 'filter_input' : filter_toggle }" class="game_column">
+                    <select st-search="game" ng-model="filter_state.game" ng-options="(value | capitalize) for (key , value) in game_filters">
+                        <option value="">All</option>
+                    </select>
+                </td><td ng-class="{ 'filter_input' : filter_toggle }" colspan="4" id="search_all_column">
+                    <input st-search st-delay="1000" placeholder="Search All" type="search" />
+                </td><td class="controls_column" ng-class="{'inline_row' : filter_toggle}"><button type="button" ui-sref="list" ui-sref-opts="{ 'reload' : true }" id="reset_button">Reset</button><button type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } })" ui-sref-opts="{ 'reload' : true }" id="clear_button">Clear</button></td>
+            </tr>
+            <tr class="raid_row" ng-repeat="raid in show_raids">
+                <td class="access_column">{{raid.status | capitalize}}</td>
+                <td class="platform_column">{{raid.platform | uppercase}}</td>
+                <td class="game_column">{{raid.game | capitalize}}</td>
+                <td class="capacity_column">{{raid.players.length}}/{{raid.strength}}</td>
+                <td class="description_column">{{raid.description || 'No Description'}}</td>
+                <td class="play_time_column">{{raid.display_play_time}}</td>
+                <td class="created_column">{{raid.display_time_created}}</td>
+                <td class="inline controls_column"><div ng-hide="user._id == raid.host"><span ng-show="raid.players.indexOf(user._id) < 0"><button class="join_button" type="button" ng-show="raid.queue.indexOf(user._id) < 0" ng-click="join_raid(raid._id)">Join</button><span ng-show="raid.queue.indexOf(user._id) >= 0">Requested</span></span><button class="leave_button" type="button" ng-show="raid.players.indexOf(user._id) >= 0" ng-click="leave_raid(raid._id)">Leave</button></div><div><button class="edit_button" type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button></div><button class="view_button" type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">View</button></td>
+            </tr>
+            <tr id="no_raids_found_row" ng-if="show_raids.length == 0">
+                <td colspan="8" id="table_message">No Raids Found</td>
+            </tr>
         </tbody>
         <tbody ng-show="isLoading">
-        <tr>
-            <td colspan="8">Loading ... </td>
-        </tr>
+            <tr id="loading_row">
+                <td colspan="8" id="table_message">Loading...</td>
+            </tr>
         </tbody>
         <tfoot>
-        <tr>
-            <td st-pagination="" st-items-by-page="10" colspan="4"></td>
-        </tr>
-    </tfoot>
+            <tr>
+                <td colspan="8" st-pagination="" st-items-by-page="6"></td>
+            </tr>
+        </tfoot>
     </table>
-    <button type="button" ui-sref="editRaid({ 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">Create Raid</button>
+    <div id="create_raid_button">
+        <button type="button" ui-sref="editRaid({ 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">Create Raid</button>
+    </div>
 </section>

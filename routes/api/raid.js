@@ -56,7 +56,7 @@ module.exports = function (util, express, Raid, auth) {
             var start = parseInt(req.query.start) || 0;
             var number = parseInt(req.query.number) || 10;
             var select = tableState.search.predicateObject || {};
-            var found = (select.hasOwnProperty("$") ? ('(' + select['$'].split(' ').join('|') + ')') : '');
+            var found = (select.hasOwnProperty("$") ? ('(' + select['$'].split(' ').filter(function (item) { return (item.length > 1); }).join('|') + ')') : '');
             select = util.except(select, ['$']);
             for(var prop in select) {
                 if(!select[prop]) {

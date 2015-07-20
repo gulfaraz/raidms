@@ -30,8 +30,10 @@ rms.set('view cache', false);
 rms.use(session({ 'secret' : 'gulfaraz', 'saveUninitialized' : true, 'resave' : true }));
 rms.use(auth.passport_init);
 
+rms.use(require('connect-livereload')({ 'port' : 35729 }));
+
 rms.use(express.static(__dirname + '/public'), require('./routes/routes')(util, express, models, auth));
-rms.use('/', function (req, res) { res.sendFile('../public/rms/index.html', { 'root' : __dirname }); });
+rms.use('/', function (req, res) { res.sendFile('public/index.html', { 'root' : __dirname }); });
 
 rms.listen(port);
 console.log('Port ' + port + ' open and listening for requests');

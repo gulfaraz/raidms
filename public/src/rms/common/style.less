@@ -1,27 +1,344 @@
-@primaryColor : #EFEFEF;
+@import "variables.less";
+@import "mixins.less";
+
+* {
+    box-sizing: border-box;
+    line-height: 1.4;
+    outline: 0;
+    transition: all .25s ease-in-out;
+    font-size: 100%;
+    color: darken(@gray, @darkener * @comparative);
+    -webkit-tap-highlight-color: transparent;
+}
+
+*::-moz-selection {
+    background: darken(@gray, @darkener * @superlative) none repeat scroll 0 0;
+    color: lighten(@gray, @lightener * @superlative);
+}
 
 body {
-    background: @primaryColor;
+    background: lighten(@gray, @lightener * @superlative);
+    margin: auto;
+    font-family: @font_family;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+input, select, button {
+    font-family: @interactable_font_family;
+    border: 1px solid darken(@gray, @darkener);
+}
+
+input:-webkit-autofill {
+    &,
+    &:hover,
+    &:focus {
+        -webkit-box-shadow: 0 0 0 1000px @white inset;
+        -webkit-text-fill-color: darken(@gray, @darkener * @comparative) !important;
+    }
 }
 
 textarea {
     resize: none;
 }
 
-.inline > * {
-    display: inline-block;
+a {
+    text-decoration: none;
 }
 
-/* Bootstap CSS */
+.inline {
+    & > * {
+        display: inline-block;
+    }
+}
 
-.st-sort-ascent:before, .timepicker_button_up:before {
+button {
+    font-size: 100%;
+    border: 1px solid darken(@gray, @darkener * @comparative);
+    background-color: lighten(@gray, @lightener * @comparative);
+    color: darken(@gray, @darkener * @comparative);
+    border-radius: 3px;
+    padding: 0 5px;
+    transition: all .1s ease-in-out;
+    &:hover,
+    &:focus {
+        &:not([disabled="disabled"]) {
+            cursor: pointer;
+            background-color: darken(@gray, @darkener * @comparative);
+            color: lighten(@gray, @lightener * @superlative);
+        }
+    }
+    &[disabled="disabled"] {
+        background-color: lighten(@gray, @lightener * @comparative);
+        border-color: lighten(@gray, @lightener);
+        color: @gray;
+    }
+}
+
+select {
+    padding: 2px 5px;
+    & > option {
+        padding: 5px;
+    }
+}
+
+#rms {
+    height: 50px;
+    background-color: lighten(@blue, @lightener * @superlative);
+    padding-left: 60px;
+}
+
+#overlayed_content {
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        background-color: darken(@gray, @darkener * @superlative);
+        opacity: 0.7;
+        z-index: 1;
+    }
+    #broadcast_message {
+        border: 1px solid darken(@gray, @darkener * @superlative);
+        background-color: lighten(@gray, @lightener * @comparative);
+        color: darken(@gray, @darkener * @superlative);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 3px 8px;
+        z-index: 2;
+        width: 250px;
+    }
+}
+
+#timezone {
+    & > label {
+        font-size: 110%;
+    }
+    & > select {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+#navigation {
+    text-align: center;
+    margin: 10px 0;
+    & > button {
+        padding: 5px;
+        width: 100%;
+    }
+}
+
+#account_portal {
+    margin: 10px auto;
+}
+
+#social_login_icons {
+    display: none;
+    margin: 0 auto;
+    width: 290px;
+    & > a {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        margin: 0 4px;
+        overflow: hidden;
+        background-size: contain;
+        &:focus,
+        &:hover {
+            outline: darken(@gray, @darkener * @superlative) dotted thin;
+        }
+    }
+}
+
+.psn_logo {
+    background-image: url("/media/psn_logo.png");
+}
+
+.xbox_logo {
+    background-image: url("/media/XboxLogo.png");
+}
+
+.facebook_logo {
+    background-image: url("/media/FB-f-Logo__blue_50.png");
+}
+
+.twitter_logo {
+    background-image: url("/media/TwitterLogo.png");
+}
+
+.google_logo {
+    background-image: url("/media/g+64.png");
+}
+
+#sign_in_form {
+    max-width: 280px;
+    margin: auto;
+    .user_name_container,
+    .passcode_container {
+        width: 100%;
+        margin-bottom: 5px;
+        position: relative;
+        & > input {
+            border: 1px solid darken(@gray, @darkener);
+            width: 100%;
+            padding: 5px 10px 5px 10px;
+        }
+    }
+    .passcode_container {
+        & > input {
+            padding: 5px 50px 5px 10px;
+        }
+        .show_passcode_container {
+            position: absolute;
+            right: 4px;
+            top: 7px;
+            width: 45px;
+            height: 100%;
+            padding: 0 0 0 6px;
+            border-left: none;
+            & > label {
+                color: darken(@gray, @darkener);
+                font-family: @interactable_font_family;
+            }
+            & > input {
+                width: 16px;
+                height: 16px;
+                vertical-align: bottom;
+            }
+        }
+    }
+    #sign_in_control {
+        margin: 0 auto;
+        width: 280px;
+        text-align: center;
+        display: block;
+        height: 30px;
+        button {
+            border-radius: 2px;
+            font-size: 100%;
+            padding: 0 7px;
+            margin: 0 3px;
+            &.sign_in_button {
+                &:not([disabled="disabled"]) {
+                    .green_button;
+                }
+            }
+            &.register_button {
+                .blue_button;
+            }
+            &.recover_button {
+                .red_button;
+            }
+        }
+    }
+}
+
+#user_information {
+    text-align: center;
+    #authorized_user_name {
+        display: inline-block;
+        width: 35%;
+        font-weight: bold;
+        text-align: center;
+    }
+    .sign_out_button {
+        .red_button;
+    }
+    .view_profile_button {
+        .blue_button;
+    }
+}
+
+aside {
+    display: none;
+    &#statistics {
+        margin: 10px;
+    }
+}
+
+.view {
+    padding: 5px;
+}
+
+.footer {
+    display: none;
+    font-size: 80%;
+    padding: 5px 8px;
+}
+
+.join_button {
+    .green_button;
+}
+
+.leave_button {
+    .red_button;
+}
+
+.edit_button {
+    .orange_button;
+}
+
+.view_button {
+    .blue_button;
+}
+
+.disable_scrolling {
+    overflow: hidden;
+}
+
+.st-sort-ascent:before,
+.timepicker_button_up:before {
     content: '\25B2';
 }
-.st-sort-descent:before, .timepicker_button_down:before {
+
+.st-sort-descent:before,
+.timepicker_button_down:before {
   content: '\25BC';
 }
-:before, :after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+
+@media only screen and (max-width : 480px) {
+    body {
+        & > #content {
+            width: 300px;
+            margin: auto;
+        }
+    }
+}
+
+@media only screen and (min-width : 481px) {
+    body {
+        font-size: 18px;
+        & > #content {
+            margin: 0 10px;
+        }
+        aside {
+            display: block;
+        }
+    }
+}
+
+@media only screen and (min-width : 650px) {
+    #timezone_navigation,
+    #account_portal {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        .content {
+            max-width: 300px;
+            margin: 0;
+        }
+        &#timezone_navigation > .content {
+            margin-right: auto;
+            max-width: 500px;
+        }
+        &#account_portal > .content {
+            margin-left: auto;
+        }
+    }
 }

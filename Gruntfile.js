@@ -1,7 +1,9 @@
 var globalConfig = {
     'src' : 'public/src',
     'dist' : 'public/dist',
-    'bower' : 'bower_components'
+    'bower' : 'bower_components',
+    'sourceMap' : true, //false
+    'livereload' : true //false
 };
 
 module.exports = function (grunt) {
@@ -10,7 +12,7 @@ module.exports = function (grunt) {
         'bower' : {
             'install' : {
                 'options' : {
-                    'targetDir' : "<%= globalConfig.src %>/libs",
+                    'targetDir' : '<%= globalConfig.src %>/libs',
                     'cleanTargetDir' : true,
                     'cleanBowerDir' : false
                 }
@@ -24,7 +26,7 @@ module.exports = function (grunt) {
         },
         'uglify' : {
             'options' : {
-                'sourceMap' : true //false
+                'sourceMap' : '<%= globalConfig.sourceMap %>'
             },
             'build' : {
                 'files' : {
@@ -45,9 +47,12 @@ module.exports = function (grunt) {
             }
         },
         'less' : {
+            'options' : {
+                'plugins' : [new (require('less-plugin-autoprefix'))({ 'browsers' : ["last 2 versions"] })]
+            },
             'build' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/css/style.css' : '<%= globalConfig.src %>/rms/**/*.less'
+                    '<%= globalConfig.dist %>/css/style.css' : ['<%= globalConfig.src %>/rms/*.less', '<%= globalConfig.src %>/rms/**/*.less', '!<%= globalConfig.src %>/rms/variables.less', '!<%= globalConfig.src %>/rms/mixins.less']
                 }
             }
         },
@@ -60,7 +65,10 @@ module.exports = function (grunt) {
         },
         'watch' : {
             'options' : {
-              'livereload' : true,
+              'livereload' : '<%= globalConfig.livereload %>',
+            },
+            'html' : {
+                'files' : ['public/**/*.html']
             },
             'css' : {
                 'files' : ['<%= globalConfig.src %>/rms/**/*.less'],
@@ -105,15 +113,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-bower-installer');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-concurrent');
-    grunt.loadNpmTasks('grunt-karma');
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', ['bower', 'less', 'cssmin', 'jshint', 'uglify', 'concurrent']);
     grunt.registerTask('test', ['jshint', 'karma']);
