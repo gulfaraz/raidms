@@ -291,8 +291,8 @@ select > option {
   right: 4px;
   top: 7px;
   width: 45px;
-  height: 100%;
-  padding: 0 0 0 6px;
+  height: 25px;
+  padding: 0;
   border-left: none;
 }
 #sign_in_form .passcode_container .show_passcode_container > label {
@@ -346,6 +346,8 @@ select > option {
 }
 #user_information {
   text-align: center;
+  max-width: 290px;
+  margin: auto;
 }
 #user_information #authorized_user_name {
   display: inline-block;
@@ -404,13 +406,13 @@ aside#statistics {
   background-color: #c9302c;
 }
 .edit_button {
-  background-color: #f1b447;
-  border-color: #da9211;
+  background-color: #a66abb;
+  border-color: #7f4495;
   color: #fbfbfb;
 }
 .edit_button:hover:not([disabled="disabled"]),
 .edit_button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+  background-color: #7f4495;
 }
 .view_button {
   background-color: #5697d0;
@@ -693,9 +695,18 @@ aside#statistics {
     border-bottom: none;
     margin: 3px 0 0;
   }
-  #lfg table tbody tr td button {
+  #lfg table tbody tr td.controls_column button {
     margin: 0 4px;
     padding: 0 44px;
+  }
+  #lfg table tbody tr td.controls_column button.leave_button {
+    padding: 0 37px;
+  }
+  #lfg table tbody tr td.controls_column button.join_button {
+    padding: 0 43px;
+  }
+  #lfg table tbody tr td.controls_column .pending_message {
+    width: 125px;
   }
   #lfg table tbody tr#filter_row td {
     margin: 5px 0;
@@ -797,6 +808,10 @@ aside#statistics {
     margin: 0 2px;
     width: 60px;
   }
+  #lfg table tr td .pending_message {
+    padding: 0 8px;
+    font-size: 74%;
+  }
   #lfg table tr:not(#filter_row) th.capacity_column,
   #lfg table tr:not(#filter_row) td.capacity_column {
     text-align: center;
@@ -807,7 +822,19 @@ aside#statistics {
   #lfg table thead th {
     text-align: left;
   }
+  #lfg table tbody tr#filter_row td {
+    padding: 10px 2px;
+  }
+  #lfg table tbody tr#filter_row select {
+    width: 100%;
+  }
+  #lfg table tbody tr.raid_row td {
+    padding: 5px 2px;
+  }
   #lfg table tbody tr.raid_row button {
     padding: 0 8px;
+  }
+  #lfg #create_raid_button {
+    padding: 20px 0 0;
   }
 }

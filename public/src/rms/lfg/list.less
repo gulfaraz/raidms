@@ -154,10 +154,19 @@
                         &.controls_column {
                             .row_without_label;
                             margin: 3px 0 0;
-                        }
-                        button {
-                            margin: 0 4px;
-                            padding: 0 44px;
+                            button {
+                                margin: 0 4px;
+                                padding: 0 44px;
+                                &.leave_button {
+                                    padding: 0 37px;
+                                }
+                                &.join_button {
+                                    padding: 0 43px;
+                                }
+                            }
+                            .pending_message {
+                                width: 125px;
+                            }
                         }
                     }
                     &#filter_row {
@@ -242,32 +251,56 @@
 }
 
 @media only screen and (min-width : 1025px) {
-    #lfg table {
-        tr {
-            td {
-                button {
-                    margin: 0 2px;
-                    width: 60px;
+    #lfg {
+        table {
+            tr {
+                td {
+                    button {
+                        margin: 0 2px;
+                        width: 60px;
+                    }
+                    .pending_message {
+                        padding: 0 8px;
+                        font-size: 74%;
+                    }
+                }
+                &:not(#filter_row) {
+                    th, td {
+                        &.capacity_column {
+                            text-align: center;
+                        }
+                    }
+                }
+                &:nth-child(even) {
+                    background-color: darken(@white, @darkener);
                 }
             }
-            &:not(#filter_row) {
-                th, td {
-                    &.capacity_column {
-                        text-align: center;
+            thead th {
+                text-align: left;
+            }
+            tbody {
+                tr {
+                    &#filter_row {
+                        td {
+                            padding: 10px 2px;
+                        }
+                        select {
+                            width: 100%;
+                        }
+                    }
+                    &.raid_row {
+                        td {
+                            padding: 5px 2px;
+                        }
+                        button {
+                            padding: 0 8px;
+                        }
                     }
                 }
             }
-            &:nth-child(even) {
-                background-color: darken(@white, @darkener);
-            }
         }
-        thead th {
-            text-align: left;
-        }
-        tbody tr.raid_row {
-            button {
-                padding: 0 8px;
-            }
+        #create_raid_button {
+            padding: 20px 0 0;
         }
     }
 }
