@@ -266,6 +266,22 @@ aside {
     &#statistics {
         margin: 10px;
         font-size: 80%;
+        #server_status,
+        #users_online {
+            width: 50%;
+        }
+        #server_status {
+            &.online {
+                color: darken(@green, @darkener);
+            }
+            &.offline {
+                color: darken(@red, @darkener);
+            }
+        }
+        #users_online {
+            color: darken(@blue, @darkener);
+            text-align: right;
+        }
     }
 }
 

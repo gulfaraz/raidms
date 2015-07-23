@@ -25,9 +25,8 @@
                         <button ui-sref="list">LFG</button>
                         <button ng-hide="true" ui-sref="queue">LFM</button>
                     </div>
-                    <aside id="statistics">
-                        <div>Server Status - {{ server_status }}</div>
-                        <div>Online Users - {{ online_users }}</div>
+                    <aside id="statistics" class="inline">
+                        <div id="server_status" ng-class="{'online' : server_status == 'Online', 'offline' : server_status == 'Offline'}">Server {{ server_status }}</div><div id="users_online" ng-show="server_status == 'Online'">{{ online_users || 0 }} Users Online</div>
                     </aside>
                 </div>
             </div><div id="account_portal">

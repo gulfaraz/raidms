@@ -18,7 +18,7 @@ angular.module('rmsApp.profile', ['ui.router'])
                 'controller' : 'userController'
             })
             .state('editUser', {
-                'url' : '/user/edit/:user_name',
+                'url' : '/user/:user_name/edit',
                 'params' : {
                     'message' : ''
                 },

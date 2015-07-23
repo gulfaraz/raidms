@@ -384,6 +384,20 @@ aside#statistics {
   margin: 10px;
   font-size: 80%;
 }
+aside#statistics #server_status,
+aside#statistics #users_online {
+  width: 50%;
+}
+aside#statistics #server_status.online {
+  color: #449d44;
+}
+aside#statistics #server_status.offline {
+  color: #c9302c;
+}
+aside#statistics #users_online {
+  color: #3071a9;
+  text-align: right;
+}
 .view {
   padding: 5px;
 }

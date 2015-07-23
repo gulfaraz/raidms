@@ -101,17 +101,15 @@ describe('mainController', function () {
 
             beforeEach(module('rmsApp'));
 
-            var scope, mainController, $state, $httpBackend, api;
+            var scope, mainController, $httpBackend, api;
 
-            beforeEach(inject(function ($rootScope, $controller, _api_, _$state_, _$httpBackend_, _$localStorage_) {
+            beforeEach(inject(function ($rootScope, $controller, _api_, _$httpBackend_, _$localStorage_) {
 
                 scope = $rootScope.$new();
                 api = _api_;
-                $state = _$state_;
                 $httpBackend = _$httpBackend_;
                 $localStorage = _$localStorage_;
 
-                spyOn($state, 'go');
                 spyOn($localStorage, '$reset');
 
                 $localStorage.token = access_token;
@@ -162,6 +160,9 @@ describe('mainController', function () {
                             return [200, response, {}];
                         });
                 }
+                $httpBackend
+                    .expect('GET', 'src/rms/lfg/list.html')
+                    .respond(200, null);
             }));
 
             afterEach(function () {

@@ -1,4 +1,7 @@
 angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsApp.lfm'])
+    .config(['$urlRouterProvider', function ($urlRouterProvider) {
+        $urlRouterProvider.otherwise('/lfg');
+    }])
     .controller('mainController', ['$scope', 'api', '$state', '$localStorage', '$sce', function ($scope, api, $state, $localStorage, $sce) {
 
         if(document.getElementById('content')) {
