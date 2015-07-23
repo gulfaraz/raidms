@@ -193,6 +193,11 @@ select > option {
   background-color: #cde1f1;
   padding-left: 60px;
 }
+#rms #rms_logo {
+  width: 200px;
+  height: 50px;
+  border: 1px solid black;
+}
 #overlayed_content #overlay {
   position: fixed;
   top: 0;
@@ -346,7 +351,6 @@ select > option {
 }
 #user_information {
   text-align: center;
-  max-width: 290px;
   margin: auto;
 }
 #user_information #authorized_user_name {
@@ -378,6 +382,7 @@ aside {
 }
 aside#statistics {
   margin: 10px;
+  font-size: 80%;
 }
 .view {
   padding: 5px;
@@ -837,4 +842,162 @@ aside#statistics {
   #lfg #create_raid_button {
     padding: 20px 0 0;
   }
+}
+
+.blue_button {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:hover:not([disabled="disabled"]),
+.blue_button:focus:not([disabled="disabled"]) {
+  background-color: #3071a9;
+}
+.red_button {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:hover:not([disabled="disabled"]),
+.red_button:focus:not([disabled="disabled"]) {
+  background-color: #c9302c;
+}
+.green_button {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:hover:not([disabled="disabled"]),
+.green_button:focus:not([disabled="disabled"]) {
+  background-color: #449d44;
+}
+.purple_button {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:hover:not([disabled="disabled"]),
+.purple_button:focus:not([disabled="disabled"]) {
+  background-color: #7f4495;
+}
+.yellow_button {
+  background-color: #f2b866;
+  border-color: #ec971f;
+  color: #fbfbfb;
+}
+.yellow_button:hover:not([disabled="disabled"]),
+.yellow_button:focus:not([disabled="disabled"]) {
+  background-color: #ec971f;
+}
+.orange_button {
+  background-color: #f1b447;
+  border-color: #da9211;
+  color: #fbfbfb;
+}
+.orange_button:hover:not([disabled="disabled"]),
+.orange_button:focus:not([disabled="disabled"]) {
+  background-color: #da9211;
+}
+.user {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.user #user_name {
+  font-weight: bold;
+  font-size: 200%;
+  color: #7f4495;
+}
+.user .caption {
+  color: #9b59b3;
+}
+.user .caption,
+.user .seeking .message {
+  margin: 10px 0;
+  font-style: italic;
+}
+.user .game,
+.user .platform {
+  font-weight: bold;
+}
+.user .game {
+  color: #31b0d5;
+}
+.user .platform {
+  color: #da9211;
+}
+.user .karma_score {
+  font-weight: bold;
+  color: #3071a9;
+}
+.user .karma_score.good_karma {
+  color: darkener(#5cb85c, 10%);
+}
+.user .karma_score.bad_karma {
+  color: darkener(#d9534f, 10%);
+}
+.user #joined {
+  color: #9ca1a7;
+  font-size: 80%;
+  font-style: italic;
+  margin: 10px 0;
+}
+.user #joined span {
+  color: inherit;
+}
+.user .play_information {
+  width: 100%;
+  border: 1px solid #9ca1a7;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px;
+}
+.user .play_information .available_platforms {
+  border: 1px solid #aaaeb3;
+  padding: 5px 10px;
+  border-radius: 50px;
+  margin: 0 0 10px;
+  text-align: center;
+}
+.user .play_information .available_platforms .user_platforms .platform {
+  margin: 0 5px;
+}
+.user .play_information .play_timings {
+  text-align: center;
+}
+.user .play_information .play_timings .play_start_time_container,
+.user .play_information .play_timings .play_end_time_container {
+  width: 50%;
+}
+.user .play_information .play_timings .play_start_time_container .label,
+.user .play_information .play_timings .play_end_time_container .label {
+  font-size: 80%;
+  color: #81878f;
+}
+.user .play_information .play_timings .play_start_time_container .play_time_on,
+.user .play_information .play_timings .play_end_time_container .play_time_on {
+  color: #3071a9;
+}
+.user .play_information .play_timings .play_start_time_container .time_ago,
+.user .play_information .play_timings .play_end_time_container .time_ago {
+  font-size: 80%;
+}
+.user .play_information .play_timings .play_start_time_container .time_ago.early,
+.user .play_information .play_timings .play_end_time_container .time_ago.early {
+  color: #449d44;
+}
+.user .play_information .play_timings .play_start_time_container .time_ago.late,
+.user .play_information .play_timings .play_end_time_container .time_ago.late {
+  color: #c9302c;
+}
+.user .controls {
+  margin: 10px auto;
+  text-align: center;
+}
+.user .controls button {
+  margin: 0 1%;
+  width: 45%;
+}
+.user .controls button.only_button {
+  width: 90%;
 }

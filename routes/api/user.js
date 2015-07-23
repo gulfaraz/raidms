@@ -54,13 +54,17 @@ module.exports = function (util, express, User, auth) {
                 }
                 User.find(query).limit(1).select(select).exec(function (err, user) {
                     user = user[0];
-                    if(err) {
-                        res.json({ 'success' : false, 'message' : err.toString() });
-                    } else {
-                        if(status != 'active' || data.user_name != user.user_name) {
-                            user = util.except(user, except.split(' '));
+                    if(user) {
+                        if(err) {
+                            res.json({ 'success' : false, 'message' : err.toString() });
+                        } else {
+                            if(status != 'active' || data.user_name != user.user_name) {
+                                user = util.except(user, except.split(' '));
+                            }
+                            res.json({ 'success' : true, 'data' : user });
                         }
-                        res.json({ 'success' : true, 'data' : user });
+                    } else {
+                        res.json({ 'success' : false, 'message' : 'User Not Found' });
                     }
                 });
             });

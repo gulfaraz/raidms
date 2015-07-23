@@ -161,18 +161,12 @@ describe('mainController', function () {
                             }
                             return [200, response, {}];
                         });
-                    expect($state.go).toHaveBeenCalledWith('list');
                 }
             }));
 
             afterEach(function () {
                 $httpBackend.verifyNoOutstandingExpectation();
                 $httpBackend.verifyNoOutstandingRequest();
-            });
-
-            it('loads the lfg state into ui-view', function () {
-                expect($state.go).toHaveBeenCalledWith('list');
-                $httpBackend.flush();
             });
 
             it('user name defaults to an empty string', function () {
@@ -475,7 +469,6 @@ describe('mainController', function () {
                                 }
                             }());
                             expect(scope.show_login_passcode).toBe(false);
-                            expect($state.go).toHaveBeenCalledWith('list');
                         } else {
                             expect($localStorage.$reset).toHaveBeenCalled();
                             expect(scope.user.user_name).toBe('');
@@ -498,7 +491,6 @@ describe('mainController', function () {
                 expect(scope.user.user_name).toBe('');
                 expect(scope.user._id).toBe('');
                 expect(scope.active_timezone).toBe(jstz.determine().name());
-                expect($state.go).toHaveBeenCalledWith('list', { 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } });
                 $httpBackend.flush();
             });
         });

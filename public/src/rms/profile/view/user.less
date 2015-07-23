@@ -1,0 +1,103 @@
+@import "../../common/variables.less";
+@import "../../common/mixins.less";
+
+.user {
+    width: 100%;
+    max-width: 600px;
+    font-size: 120%;
+    #user_name {
+        font-weight: bold;
+        font-size: 200%;
+        color: darken(@purple, @darkener);
+    }
+    .caption {
+        color: @purple;
+    }
+    .caption,
+    .seeking .message {
+        margin: 10px 0;
+        font-style: italic;
+    }
+    .game,
+    .platform {
+        font-weight: bold;
+    }
+    .game {
+        color: darken(@aqua, @darkener);
+    }
+    .platform {
+        color: darken(@orange, @darkener);
+    }
+    .karma_score {
+        font-weight: bold;
+        color: darken(@blue, @darkener);
+        &.good_karma {
+            color: darkener(@green, @darkener);
+        }
+        &.bad_karma {
+            color: darkener(@red, @darkener);
+        }
+    }
+    #joined {
+        color: @gray;
+        font-size: 80%;
+        font-style: italic;
+        margin: 10px 0;
+        span {
+            color: inherit;
+        }
+    }
+    .play_information {
+        width: 100%;
+        border: 1px solid @gray;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 10px;
+        .available_platforms {
+            border: 1px solid lighten(@gray, @lightener);
+            padding: 5px 10px;
+            border-radius: 50px;
+            margin: 0 0 10px;
+            text-align: center;
+            .user_platforms {
+                .platform {
+                    margin: 0 5px;
+                }
+            }
+        }
+        .play_timings {
+            text-align: center;
+            .play_start_time_container,
+            .play_end_time_container {
+                width: 50%;
+                .label {
+                    font-size: 80%;
+                    color: darken(@gray, @darkener);
+                }
+                .play_time_on {
+                    color: darken(@blue, @darkener);
+                }
+                .time_ago {
+                    font-size: 80%;
+                    &.early {
+                        color: darken(@green, @darkener);
+                    }
+                    &.late {
+                        color: darken(@red, @darkener);
+                    }
+                }
+            }
+        }
+    }
+    .controls {
+        margin: 10px auto;
+        text-align: center;
+        button {
+            margin: 0 1%;
+            width: 45%;
+            &.only_button {
+                width: 90%;
+            }
+        }
+    }
+}

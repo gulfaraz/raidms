@@ -1,9 +1,9 @@
 angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsApp.lfm'])
     .controller('mainController', ['$scope', 'api', '$state', '$localStorage', '$sce', function ($scope, api, $state, $localStorage, $sce) {
 
-        document.getElementById('content').style.visibility = "visible";
-
-        $state.go('list');
+        if(document.getElementById('content')) {
+            document.getElementById('content').style.visibility = "visible";
+        }
 
         $scope.user = {
             'time' : moment().utc(),
@@ -79,7 +79,6 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsA
                         user_timezone();
                         $scope.message = '';
                         $scope.show_login_passcode = false;
-                        $state.go('list');
                     } else {
                         $localStorage.$reset();
                         $scope.user = {
@@ -109,7 +108,6 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsA
                 '_id' : ''
             };
             detect_timezone();
-            $state.go('list', { 'filter_state' : { 'status' : '', 'platform' : '', 'game' : '' } });
         };
 
         if($localStorage.token) {
@@ -121,7 +119,6 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsA
                         '_id' : data._id
                     };
                     user_timezone();
-                    $state.go('list');
                 } else {
                     $localStorage.$reset();
                     $scope.user = {
