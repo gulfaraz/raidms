@@ -189,14 +189,16 @@ select > option {
   padding: 5px;
 }
 #rms {
-  height: 50px;
-  background-color: #cde1f1;
+  height: 120px;
+  background-color: teal;
   padding-left: 60px;
 }
 #rms #rms_logo {
-  width: 200px;
-  height: 50px;
-  border: 1px solid black;
+  width: 257px;
+  height: 120px;
+  background-image: url("/media/rms.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 #overlayed_content #overlay {
   position: fixed;
@@ -456,6 +458,15 @@ aside#statistics #users_online {
 @media only screen and (max-width: 480px) {
   body > #content {
     width: 300px;
+    margin: auto;
+  }
+  #rms {
+    height: 80px;
+    padding: 0;
+  }
+  #rms #rms_logo {
+    width: 172px;
+    height: 80px;
     margin: auto;
   }
 }
