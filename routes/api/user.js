@@ -58,7 +58,7 @@ module.exports = function (util, express, User, auth) {
                         if(err) {
                             res.json({ 'success' : false, 'message' : err.toString() });
                         } else {
-                            if(status != 'active' || data.user_name != user.user_name) {
+                            if(!status && (user.status != 'active' || data.user_name != user.user_name)) {
                                 user = util.except(user, except.split(' '));
                             }
                             res.json({ 'success' : true, 'data' : user });

@@ -1,0 +1,380 @@
+@import "../../common/variables.less";
+@import "../../common/mixins.less";
+
+.edit {
+    #title {
+        font-weight: bold;
+        font-size: 150%;
+    }
+    .component {
+        border: 1px solid @gray;
+        padding: 20px 10px 0;
+        margin: 20px 0 0;
+        position: relative;
+        border-radius: 5px;
+        .component_header {
+            position: absolute;
+            top: -13px;
+            left: 15px;
+            background-color: lighten(@gray, @lightener * @superlative);
+            border: 1px solid @gray;
+            padding: 0 5px;
+            border-radius: 5px;
+        }
+        .sub_component {
+            margin  : 10px 0;
+        }
+    }
+    #caption {
+        #caption_input {
+            border: none;
+        }
+    }
+    #seeking {
+        label {
+            width: 100px;
+        }
+    }
+    #platforms {
+        #platforms_container {
+            position: relative;
+            overflow: hidden;
+            min-height: 38px;
+            padding: 1px 0;
+            #platform_list {
+                text-align: center;
+                .platform {
+                    .orange_button;
+                    display: inline-block;
+                    border-width: 1px;
+                    border-style: solid;
+                    margin: 0 5px;
+                    padding: 3px 5px;
+                    border-radius: 5px;
+                }
+            }
+            #platform_input {
+                margin: 10px auto 0;
+                text-align: center;
+                select {
+                    height: 38px;
+                }
+                button {
+                    padding: 3px 5px;
+                    &:not(:disabled) {
+                        .orange_button;
+                    }
+                }
+            }
+        }
+    }
+    .play_information {
+        #timezone {
+            label {
+                font-size: 100%;
+            }
+            select {
+                padding: 2px 0;
+            }
+        }
+        .play_start_time_container {
+            border: none;
+            border-right: 1px solid @gray;
+        }
+        .play_start_time_container,
+        .play_end_time_container {
+            vertical-align: top;
+            .label {
+                padding: 5px 0;
+            }
+        }
+        .timepicker_container {
+            table {
+                table-layout: fixed;
+                width: 180px;
+                font-size: 22px;
+                margin: auto;
+                td:nth-child(2) {
+                    width: 10px;
+                }
+                input {
+                    width: 100%;
+                    text-align: center;
+                }
+                .timepicker_button {
+                    font-size: 150%;
+                    color: darken(@gray, @darkener);
+                    &:hover,
+                    &:focus {
+                        color: darken(@gray, @darkener * @comparative);
+                    }
+                }
+                button {
+                    .purple_button;
+                    padding: 3px 7px;
+                }
+            }
+        }
+    }
+    #accounts_linked {
+        padding-top: 25px;
+        padding-bottom: 10px;
+        #social_login_icons {
+            width: 270px;
+            .account_container {
+                font-size: 80%;
+                text-align: center;
+                vertical-align: top;
+                margin: 0 2px;
+                word-break: break-all;
+                button {
+                    font-size: 95%;
+                    &.connect_button {
+                        width: 50px;
+                        .blue_button;
+                    }
+                    &.remove_button {
+                        width: 60px;
+                        .red_button;
+                    }
+                }
+                .account_id {
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+    #account_settings {
+        padding-top: 25px;
+        .form_container {
+            border-bottom: 1px solid gray;
+            margin: 0 -10px 10px;
+            padding: 0 10px 10px;
+            .sub_component_label {
+                font-size: 90%;
+            }
+            .error_message {
+                float: right;
+                font-size: 80%;
+                position: relative;
+                top: 4px;
+                span {
+                    color: @red;
+                }
+            }
+            #old_passcode_container,
+            #new_passcode_container {
+                display: inline-block;
+                width: 50%;
+            }
+            #change_mail_container,
+            #delete_account_container,
+            #old_passcode_container,
+            #new_passcode_container {
+                padding: 0 10px;
+            }
+            #change_mail_input {
+                padding: 5px 5px 5px 10px;
+                width: 100%;
+            }
+            .message {
+                text-align: center;
+                &.extra_margin {
+                    margin-top: 10px;
+                }
+                span {
+                    color: @red;
+                }
+                &.success {
+                    span {
+                        color: @green;
+                    }
+                }
+            }
+            .form_controls {
+                text-align: center;
+                margin: 10px 0 0;
+                button {
+                    padding: 3px 15px;
+                    &:not([disabled="disabled"]) {
+                        &.change_passcode_button {
+                            .blue_button;
+                        }
+                        &.change_mail_button {
+                            .purple_button;
+                        }
+                        &.delete_account_button {
+                            .red_button;
+                        }
+                    }
+                }
+            }
+        }
+        .buttons_array {
+            text-align: center;
+            margin-bottom: 10px;
+            .button_container {
+                button {
+                    width: 200px;
+                    padding: 5px;
+                    &.change_passcode_button {
+                        .blue_button;
+                    }
+                    &.change_mail_button {
+                        .purple_button;
+                    }
+                    &.delete_account_button {
+                        .red_button;
+                    }
+                }
+            }
+        }
+        #termination_countdown_container {
+            text-align: center;
+            .label {
+                font-size: 90%;
+                color: @red;
+            }
+            #countdown {
+                font-size: 200%;
+                color: darken(@red, @darkener);
+            }
+            .cancel_termination_button {
+                .green_button;
+                margin: 10px 0;
+                padding: 5px 15px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    .edit {
+        #platforms {
+            #platforms_container {
+                #platform_input {
+                    select {
+                        height: 34px;
+                    }
+                }
+            }
+        }
+        .play_information {
+            .play_timings {
+                margin: 5px -10px;
+                .play_start_time_container {
+                    border: none;
+                    border-bottom: 1px solid @gray;
+                }
+                .play_start_time_container,
+                .play_end_time_container {
+                    width: 100%;
+                }
+            }
+        }
+        #accounts_linked {
+            #social_login_icons {
+                .account_container {
+                    font-size: 70%;
+                    max-width: 50px;
+                    button {
+                        &.connect_button {
+                            width: 40px;
+                        }
+                        &.remove_button {
+                            width: 50px;
+                        }   
+                    }
+                    a {
+                        height: 40px;
+                        width: 40px;
+                    }
+                }
+            }
+        }
+        #account_settings {
+            .buttons_array {
+                .button_container {
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width : 481px) {
+    .edit {
+        #platforms {
+            #platforms_container {
+                #platform_list {
+                    text-align: left;
+                    .platform {
+                        padding: 3px 10px;
+                    }
+                }
+                #platform_input {
+                    margin: 0;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    button {
+                        padding: 3px 5px;
+                    }
+                }
+            }
+        }
+        #accounts_linked {
+            #social_login_icons {
+                width: 100%;
+                text-align: center;
+                .account_container {
+                    margin: 0 2%;
+                    width: 15%;
+                }
+            }
+        }
+        #account_settings {
+            .buttons_array {
+                .button_container {
+                    display: inline-block;
+                    width: 33%;
+                    button {
+                        width: 95%;
+                        font-size: 70%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width : 650px) {
+    .edit {
+        #account_settings {
+            .form_container {
+                #old_passcode_container,
+                #new_passcode_container {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width : 651px) {
+    .edit {
+        #account_settings {
+            .buttons_array {
+                .button_container {
+                    button {
+                        width: 180px;
+                        font-size: 90%;
+                    }
+                }
+            }
+        }
+    }
+}

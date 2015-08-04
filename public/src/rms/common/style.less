@@ -41,6 +41,7 @@ input:-webkit-autofill {
 
 textarea {
     resize: none;
+    width: 100%;
 }
 
 a {
@@ -59,7 +60,7 @@ button {
     background-color: lighten(@gray, @lightener * @comparative);
     color: darken(@gray, @darkener * @comparative);
     border-radius: 3px;
-    padding: 0 5px;
+    padding: 3px 5px;
     transition: all .1s ease-in-out;
     &:hover,
     &:focus {
@@ -86,7 +87,6 @@ select {
 #rms {
     height: 120px;
     background-color: teal;
-    padding-left: 60px;
     #rms_logo {
         width: 257px;
         height: 120px;
@@ -146,10 +146,9 @@ select {
 }
 
 #social_login_icons {
-    display: none;
     margin: 0 auto;
     width: 290px;
-    & > a {
+    a {
         display: inline-block;
         height: 50px;
         width: 50px;
@@ -183,41 +182,45 @@ select {
     background-image: url("/media/g+64.png");
 }
 
+.user_name_container,
+.passcode_container {
+    width: 100%;
+    margin-bottom: 5px;
+    position: relative;
+    & > input {
+        border: 1px solid darken(@gray, @darkener);
+        width: 100%;
+        padding: 5px 10px 5px 10px;
+    }
+}
+
+.passcode_container {
+    & > input {
+        padding: 5px 50px 5px 10px;
+    }
+    .show_passcode_container {
+        position: absolute;
+        right: 4px;
+        top: 10px;
+        width: 45px;
+        height: 25px;
+        padding: 0;
+        font-size: 90%;
+        text-align: right;
+        & > label {
+            color: darken(@gray, @darkener);
+            font-family: @interactable_font_family;
+        }
+    }
+}
+
 #sign_in_form {
     max-width: 280px;
     margin: auto;
-    .user_name_container,
     .passcode_container {
-        width: 100%;
-        margin-bottom: 5px;
-        position: relative;
-        & > input {
-            border: 1px solid darken(@gray, @darkener);
-            width: 100%;
-            padding: 5px 10px 5px 10px;
-        }
-    }
-    .passcode_container {
-        & > input {
-            padding: 5px 50px 5px 10px;
-        }
         .show_passcode_container {
-            position: absolute;
-            right: 4px;
+            font-size: 18px;
             top: 7px;
-            width: 45px;
-            height: 25px;
-            padding: 0;
-            border-left: none;
-            & > label {
-                color: darken(@gray, @darkener);
-                font-family: @interactable_font_family;
-            }
-            & > input {
-                width: 16px;
-                height: 16px;
-                vertical-align: bottom;
-            }
         }
     }
     #sign_in_control {
@@ -229,7 +232,7 @@ select {
         button {
             border-radius: 2px;
             font-size: 100%;
-            padding: 0 7px;
+            padding: 3px 7px;
             margin: 0 3px;
             &.sign_in_button {
                 &:not([disabled="disabled"]) {
@@ -288,7 +291,18 @@ aside {
 }
 
 .view {
-    padding: 5px;
+    margin: 10px auto;
+}
+
+.full_width {
+    width: 100%;
+    max-width: none;
+}
+
+.unauthorized_message {
+    text-align: center;
+    padding: 20px;
+    color: @red;
 }
 
 .footer {
@@ -297,11 +311,13 @@ aside {
     padding: 5px 8px;
 }
 
-.join_button {
+.join_button,
+.save_button {
     .green_button;
 }
 
-.leave_button {
+.leave_button,
+.back_button {
     .red_button;
 }
 
@@ -334,15 +350,6 @@ aside {
             margin: auto;
         }
     }
-    #rms {
-        height: 80px;
-        padding: 0;
-        #rms_logo {
-            width: 172px;
-            height: 80px;
-            margin: auto;
-        }
-    }
 }
 
 @media only screen and (min-width : 481px) {
@@ -355,9 +362,14 @@ aside {
             display: block;
         }
     }
+    .passcode_container {
+        .show_passcode_container {
+            font-size: 80%;
+        }
+    }
 }
 
-@media only screen and (min-width : 650px) {
+@media only screen and (min-width : 651px) {
     #timezone_navigation,
     #account_portal {
         width: 50%;
@@ -373,6 +385,25 @@ aside {
         }
         &#account_portal > .content {
             margin-left: auto;
+        }
+    }
+}
+
+@media only screen and (max-width : 650px) {
+    #rms {
+        #rms_logo {
+            margin: auto;
+        }
+    }
+}
+
+
+@media only screen and (max-width : 1024px) {
+    #rms {
+        height: 80px;
+        #rms_logo {
+            width: 172px;
+            height: 80px;
         }
     }
 }

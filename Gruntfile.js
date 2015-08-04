@@ -52,7 +52,7 @@ module.exports = function (grunt) {
             },
             'build' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/css/style.css' : ['<%= globalConfig.src %>/rms/*.less', '<%= globalConfig.src %>/rms/**/*.less', '!<%= globalConfig.src %>/rms/variables.less', '!<%= globalConfig.src %>/rms/mixins.less']
+                    '<%= globalConfig.dist %>/css/style.css' : ['<%= globalConfig.src %>/rms/*.less', '<%= globalConfig.src %>/rms/**/view/*.less', '<%= globalConfig.src %>/rms/**/edit/*.less', '<%= globalConfig.src %>/rms/**/*.less', '!<%= globalConfig.src %>/rms/variables.less', '!<%= globalConfig.src %>/rms/mixins.less']
                 }
             }
         },
