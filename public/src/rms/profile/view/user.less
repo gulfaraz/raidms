@@ -18,26 +18,6 @@
         margin: 10px 0;
         font-style: italic;
     }
-    .game,
-    .platform {
-        font-weight: bold;
-    }
-    .game {
-        color: darken(@aqua, @darkener);
-    }
-    .platform {
-        color: darken(@orange, @darkener);
-    }
-    .karma_score {
-        font-weight: bold;
-        color: darken(@blue, @darkener);
-        &.good_karma {
-            color: darkener(@green, @darkener);
-        }
-        &.bad_karma {
-            color: darkener(@red, @darkener);
-        }
-    }
     #joined {
         color: @gray;
         font-size: 80%;
@@ -48,11 +28,7 @@
         }
     }
     .play_information {
-        width: 100%;
-        border: 1px solid @gray;
-        border-radius: 5px;
-        display: inline-block;
-        padding: 10px;
+        padding: 10px 10px 0;
         .available_platforms {
             border: 1px solid lighten(@gray, @lightener);
             padding: 5px 10px;
@@ -60,31 +36,16 @@
             margin: 0 0 10px;
             text-align: center;
             .user_platforms {
-                .platform {
+                .platform_button {
                     margin: 0 5px;
                 }
             }
         }
         .play_timings {
-            text-align: center;
             .play_start_time_container,
             .play_end_time_container {
-                width: 50%;
-                .label {
-                    font-size: 80%;
-                    color: darken(@gray, @darkener);
-                }
                 .play_time_on {
                     color: darken(@blue, @darkener);
-                }
-                .time_ago {
-                    font-size: 80%;
-                    &.early {
-                        color: darken(@green, @darkener);
-                    }
-                    &.late {
-                        color: darken(@red, @darkener);
-                    }
                 }
             }
         }

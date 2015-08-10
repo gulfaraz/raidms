@@ -38,8 +38,8 @@
                 <td class="game_column">{{raid.game | capitalize}}</td>
                 <td class="capacity_column">{{raid.players.length}}/{{raid.strength}}</td>
                 <td class="description_column">{{raid.description || 'No Description'}}</td>
-                <td class="play_time_column">{{raid.display_play_time}}</td>
-                <td class="created_column">{{raid.display_time_created}}</td>
+                <td class="play_time_column">{{raid.display_play_time}} <span class="date">{{raid.display_play_time_date}}</span></td>
+                <td class="created_column">{{raid.display_time_created}} <span class="date">{{raid.display_time_created_date}}</span></td>
                 <td class="inline controls_column"><div ng-hide="user._id == raid.host"><span ng-show="raid.players.indexOf(user._id) < 0"><button class="join_button" type="button" ng-show="raid.queue.indexOf(user._id) < 0" ng-click="join_raid(raid._id)">Join</button><div class="pending_message" ng-show="raid.queue.indexOf(user._id) >= 0">Pending</div></span><button class="leave_button" type="button" ng-show="raid.players.indexOf(user._id) >= 0" ng-click="leave_raid(raid._id)">Leave</button></div><div><button class="edit_button" type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button></div><button class="view_button" type="button" ui-sref="raid({ 'raid_id' : raid._id, 'filter_state' : { 'status' : filter_state.status, 'platform' : filter_state.platform, 'game' : filter_state.game } })">View</button></td>
             </tr>
             <tr id="no_raids_found_row" ng-if="show_raids.length == 0">

@@ -1,15 +1,18 @@
-<section>
+<section id="forgot">
     <form name="models.recover_account_form" ng-submit="recover_account()">
-        <header>Enter your Registered User Name/Mail</header>
-        <div>
-            <input type="text" placeholder="Registered User Name/Mail" name="lost" ng-model="lost" required available />
-            <span ng-messages="models.recover_account_form.lost.$error" ng-if="models.recover_account_form.lost.$dirty && models.recover_account_form.lost.$invalid">
+        <header class="title">Recover Account</header>
+        <div class="user_name_container">
+            <label>User Name/Mail</label>
+            <span class="error_message" ng-messages="models.recover_account_form.lost.$error" ng-if="models.recover_account_form.lost.$dirty && models.recover_account_form.lost.$invalid">
                 <span ng-message="required">Required</span>
             </span>
-            <span ng-if="models.recover_account_form.lost.$dirty && !models.recover_account_form.lost.$invalid">
-                <span>Unregistered User Name/Mail</span>
+            <span class="error_message" ng-if="models.recover_account_form.lost.$dirty && !models.recover_account_form.lost.$invalid">
+                <span>Unregistered</span>
             </span>
-            <button type="submit" ng-disabled="!models.recover_account_form.lost.$error.duplicate || models.recover_account_form.$pending">Recover</button>
+            <input type="text" placeholder="Registered User Name/Mail" name="lost" ng-model="lost" required available />
+        </div>
+        <div class="form_controls">
+            <button class="recover_button" type="submit" ng-disabled="!models.recover_account_form.lost.$error.duplicate || models.recover_account_form.$pending">Recover</button>
         </div>
     </form>
 </section>

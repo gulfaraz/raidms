@@ -51,18 +51,20 @@ angular.module('rmsApp', ['rmsApp.shared', 'rmsApp.profile', 'rmsApp.lfg', 'rmsA
         });
 
         $scope.localize = function (data_array) {
-            var format = 'h:mm A (Do MMM)';
-            var play_time_format = 'h:mm A';
+            var format = 'h:mm A';
+            var date_format = '(Do MMM)';
             angular.forEach(data_array, function (value, key) {
                 if(value) {
                     value.display_time_created = moment.tz(value.time_created, $scope.active_timezone).format(format);
                     value.display_play_time = moment.tz(value.play_time, $scope.active_timezone).format(format);
+                    value.display_time_created_date = moment.tz(value.time_created, $scope.active_timezone).format(date_format);
+                    value.display_play_time_date = moment.tz(value.play_time, $scope.active_timezone).format(date_format);
 
                     value.display_date_joined = moment.tz(value.date_joined, $scope.active_timezone).format(format);
                     value.play_start = moment().tz($scope.active_timezone).set({'hour': moment.tz(value.play_start, $scope.active_timezone).hour(), 'minute': moment.tz(value.play_start, $scope.active_timezone).minute()});
-                    value.display_play_start = value.play_start.format(play_time_format);
+                    value.display_play_start = value.play_start.format(format);
                     value.play_end = moment().tz($scope.active_timezone).set({'hour': moment.tz(value.play_end, $scope.active_timezone).hour(), 'minute': moment.tz(value.play_end, $scope.active_timezone).minute()});
-                    value.display_play_end = value.play_end.format(play_time_format);
+                    value.display_play_end = value.play_end.format(format);
                 }
             });
             return data_array;

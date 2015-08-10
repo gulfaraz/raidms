@@ -1,0 +1,115 @@
+@import "../../common/variables.less";
+@import "../../common/mixins.less";
+
+.raid {
+    max-width: 600px;
+    font-size: 120%;
+    #categories {
+        margin: 20px 10px 10px;
+        button {
+            margin: 0 5px;
+        }
+        #description {
+            display: inline-block;
+            color: darken(@purple, @darkener);
+            font-style: italic;
+            margin: 15px 10px 0;
+            padding: 0 10px;
+        }
+    }
+    .play_information {
+        padding: 0 10px;
+        .play_start_time_container {
+            border-right: 1px solid @gray;
+        }
+        .play_end_time_container {
+            .time,
+            .time_ago {
+                color: darken(@blue, @darkener);
+            }
+        }
+        .label {
+            margin-top: 10px;
+        }
+        .time_ago {
+            margin-bottom: 10px;
+        }
+    }
+    #raid_members {
+        margin: 10px 0;
+        #heading {
+            color: darken(@gray, @darkener);
+            margin: 5px 0;
+        }
+        .user_row {
+            padding: 5px 0;
+            button {
+                margin: 0 5px;
+                &.host_button {
+                    padding-right: 10px;
+                    .player_user_name,
+                    #host_label {
+                        color: lighten(@gray, @lightener * @superlative);
+                    }
+                    #host_label {
+                        font-size: 70%;
+                        position: relative;
+                        top: -2px;
+                        left: 4px;
+                    }
+                }
+                &.player_button {
+                    .player_user_name {
+                        color: lighten(@gray, @lightener * @superlative);
+                    }
+                }
+            }
+            .confirm_expel_container {
+                display: inline-block;
+                .label {
+                    font-size: 90%;
+                    color: darken(@red, @darkener);
+                }
+                .yes_button {
+                    .red_button;
+                }
+                .no_button {
+                    .green_button;
+                }
+            }
+        }
+        #queue {
+            margin-top: 10px;
+        }
+    }
+    .controls {
+        #raid_controls_message {
+            padding: 10px 0;
+            margin-bottom: 10px;
+            a {
+                .red_button;
+                display: inline-block;
+                padding: 2px 5px;
+                border-radius: 5px;
+                border-style: solid;
+                border-width: 1px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width : 480px) {
+    .raid {
+        #categories {
+            text-align: center;
+        }
+        .controls {
+            #raid_controls_message {
+                text-align: center;
+            }
+            .buttons_array {
+                text-align: center;
+            }
+        }
+    }
+}

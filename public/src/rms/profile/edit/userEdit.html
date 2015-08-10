@@ -1,6 +1,6 @@
 <section class="user edit" ng-class="{'full_width' : !(profile.user_name == user.user_name)}">
     <div ng-if="(profile.user_name == user.user_name)">
-        <header id="title">Edit Profile</header>
+        <header class="title">Edit Profile</header>
         <section class="section">
             <header class="section_header">Profile Settings</header>
             <div>
@@ -67,9 +67,9 @@
                     </div>
                 </div>
                 <div class="controls">
+                    <div id="profile_form_status_message" ng-class="{'success' : models.profile_form_status_message_success}">{{models.profile_form_status_message}}</div>
                     <button type="button" class="save_button" ng-click="update_profile()">Save</button>
                     <button type="button" class="back_button" ui-sref="user({ 'user_name' : user.user_name })">Back</button>
-                    <span>{{models.profile_form_status_message}}</span>
                 </div>
             </div>
         </section>

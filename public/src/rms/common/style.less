@@ -11,9 +11,17 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-*::-moz-selection {
+::-moz-selection {
     background: darken(@gray, @darkener * @superlative) none repeat scroll 0 0;
     color: lighten(@gray, @lightener * @superlative);
+}
+
+:focus {
+    outline: none;
+}
+
+::-moz-focus-inner {
+    border: 0;
 }
 
 body {
@@ -23,65 +31,77 @@ body {
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
+    min-width: 300px;
 }
 
-input, select, button {
+input,
+select,
+button {
     font-family: @interactable_font_family;
     border: 1px solid darken(@gray, @darkener);
+    background-color: transparent;
+    color: darken(@gray, @darkener * @comparative);
+    border-style: solid;
 }
 
-input:-webkit-autofill {
-    &,
-    &:hover,
-    &:focus {
-        -webkit-box-shadow: 0 0 0 1000px @white inset;
-        -webkit-text-fill-color: darken(@gray, @darkener * @comparative) !important;
+input {
+    &:required {
+        box-shadow: none;
     }
-}
-
-textarea {
-    resize: none;
-    width: 100%;
-}
-
-a {
-    text-decoration: none;
-}
-
-.inline {
-    & > * {
-        display: inline-block;
+    &:-webkit-autofill {
+        &,
+        &:hover,
+        &:focus {
+            -webkit-box-shadow: 0 0 0 1000px @white inset;
+            -webkit-text-fill-color: darken(@gray, @darkener * @comparative) !important;
+        }
+    }
+    &[type="radio"] {
+        background-color: darken(@gray, @darkener * @comparative);
     }
 }
 
 button {
     font-size: 100%;
     border: 1px solid darken(@gray, @darkener * @comparative);
-    background-color: lighten(@gray, @lightener * @comparative);
-    color: darken(@gray, @darkener * @comparative);
     border-radius: 3px;
     padding: 3px 5px;
     transition: all .1s ease-in-out;
-    &:hover,
-    &:focus {
-        &:not([disabled="disabled"]) {
-            cursor: pointer;
-            background-color: darken(@gray, @darkener * @comparative);
-            color: lighten(@gray, @lightener * @superlative);
-        }
-    }
     &[disabled="disabled"] {
         background-color: lighten(@gray, @lightener * @comparative);
         border-color: lighten(@gray, @lightener);
         color: @gray;
     }
+    &:not([disabled="disabled"]) {
+        background-color: lighten(@gray, @lightener * @comparative);
+        color: darken(@gray, @darkener * @comparative);
+        cursor: pointer;
+        &:hover,
+        &:focus {
+            background-color: darken(@gray, @darkener * @comparative);
+            color: lighten(@gray, @lightener * @superlative);
+        }
+    }
 }
 
 select {
+    -webkit-appearance: menulist;
     padding: 2px 5px;
+    height: 30px;
     & > option {
         padding: 5px;
     }
+}
+
+textarea {
+    background-color: transparent;
+    resize: none;
+    width: 100%;
+    border: 1px solid darken(@gray, @darkener);
+}
+
+a {
+    text-decoration: none;
 }
 
 #rms {
@@ -110,7 +130,7 @@ select {
     }
     #broadcast_message {
         border: 1px solid darken(@gray, @darkener * @superlative);
-        background-color: lighten(@gray, @lightener * @comparative);
+        background-color: lighten(@gray, @lightener * @superlative);
         color: darken(@gray, @darkener * @superlative);
         position: fixed;
         top: 50%;
@@ -119,6 +139,16 @@ select {
         padding: 3px 8px;
         z-index: 2;
         width: 250px;
+        padding: 25px 0;
+        text-align: center;
+        a {
+            .red_button;
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 5px;
+            border-style: solid;
+            border-width: 1px;
+        }
     }
 }
 
@@ -183,7 +213,8 @@ select {
 }
 
 .user_name_container,
-.passcode_container {
+.passcode_container,
+.mail_container {
     width: 100%;
     margin-bottom: 5px;
     position: relative;
@@ -235,9 +266,7 @@ select {
             padding: 3px 7px;
             margin: 0 3px;
             &.sign_in_button {
-                &:not([disabled="disabled"]) {
-                    .green_button;
-                }
+                .green_button;
             }
             &.register_button {
                 .blue_button;
@@ -257,6 +286,8 @@ select {
         width: 35%;
         font-weight: bold;
         text-align: center;
+        font-size: 120%;
+        vertical-align: bottom;
     }
     .sign_out_button {
         .red_button;
@@ -290,6 +321,12 @@ aside {
     }
 }
 
+.inline {
+    & > * {
+        display: inline-block;
+    }
+}
+
 .view {
     margin: 10px auto;
 }
@@ -305,32 +342,138 @@ aside {
     color: @red;
 }
 
+.disable_scrolling {
+    overflow: hidden;
+}
+
 .footer {
     display: none;
     font-size: 80%;
     padding: 5px 8px;
 }
 
+.title {
+    font-weight: bold;
+    font-size: 150%;
+    border-bottom: 1px solid @gray;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.error_message {
+    float: right;
+    font-size: 80%;
+    position: relative;
+    top: 4px;
+    span {
+        color: @red;
+    }
+}
+
 .join_button,
-.save_button {
+.save_button,
+.status_button,
+.add_button,
+.create_button {
     .green_button;
 }
 
 .leave_button,
-.back_button {
+.back_button,
+.expel_button {
     .red_button;
 }
 
-.edit_button {
-    .purple_button;
-}
-
-.view_button {
+.view_button,
+.requester_button {
     .blue_button;
 }
 
-.disable_scrolling {
-    overflow: hidden;
+.game_button,
+.show_similar_button {
+    .aqua_button;
+}
+
+.player_button {
+    .orange_button;
+}
+
+.platform_button {
+    .yellow_button;
+}
+
+.edit_button,
+.host_button {
+    .purple_button;
+}
+
+.success,
+.early {
+    color: darken(@green, @darkener);
+}
+
+.late {
+    color: darken(@red, @darkener);
+}
+
+.karma_score {
+    font-weight: bold;
+    color: darken(@blue, @darkener);
+    &.good_karma {
+        color: @green;/*darkener(@green, @darkener);*/
+    }
+    &.bad_karma {
+        color: @red;/*darkener(@red, @darkener);*/
+    }
+}
+
+.component {
+    border: 1px solid @gray;
+    padding: 20px 10px 0;
+    margin: 20px 0 0;
+    position: relative;
+    border-radius: 5px;
+    .component_header {
+        position: absolute;
+        top: -13px;
+        left: 15px;
+        background-color: lighten(@gray, @lightener * @superlative);
+        border: 1px solid @gray;
+        padding: 0 5px;
+        border-radius: 5px;
+    }
+    .sub_component {
+        margin  : 10px 0;
+    }
+    .sub_component_label {
+        font-size: 90%;
+    }
+}
+
+.play_information {
+    width: 100%;
+    border: 1px solid @gray;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+    .play_timings {
+        text-align: center;
+        .play_start_time_container,
+        .play_end_time_container {
+            width: 50%;
+            .label {
+                font-size: 80%;
+                color: darken(@gray, @darkener);
+            }
+            .time_ago {
+                font-size: 80%;
+            }
+        }
+    }
+}
+
+.date {
+    font-size: 80%;
 }
 
 .st-sort-ascent:before,

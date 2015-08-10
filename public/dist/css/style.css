@@ -1,56 +1,65 @@
-.blue_button {
+.blue_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.blue_button:hover:not([disabled="disabled"]),
-.blue_button:focus:not([disabled="disabled"]) {
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.red_button {
+.red_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.red_button:hover:not([disabled="disabled"]),
-.red_button:focus:not([disabled="disabled"]) {
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.green_button {
+.green_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
 }
-.green_button:hover:not([disabled="disabled"]),
-.green_button:focus:not([disabled="disabled"]) {
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-.purple_button {
+.purple_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.purple_button:hover:not([disabled="disabled"]),
-.purple_button:focus:not([disabled="disabled"]) {
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.yellow_button {
-  background-color: #f2b866;
-  border-color: #ec971f;
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
   color: #fbfbfb;
 }
-.yellow_button:hover:not([disabled="disabled"]),
-.yellow_button:focus:not([disabled="disabled"]) {
-  background-color: #ec971f;
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
 }
-.orange_button {
-  background-color: #f1b447;
-  border-color: #da9211;
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-.orange_button:hover:not([disabled="disabled"]),
-.orange_button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
 }
 .user {
   width: 100%;
@@ -70,26 +79,6 @@
   margin: 10px 0;
   font-style: italic;
 }
-.user .game,
-.user .platform {
-  font-weight: bold;
-}
-.user .game {
-  color: #31b0d5;
-}
-.user .platform {
-  color: #da9211;
-}
-.user .karma_score {
-  font-weight: bold;
-  color: #3071a9;
-}
-.user .karma_score.good_karma {
-  color: darkener(#5cb85c, 10%);
-}
-.user .karma_score.bad_karma {
-  color: darkener(#d9534f, 10%);
-}
 .user #joined {
   color: #9ca1a7;
   font-size: 80%;
@@ -100,11 +89,7 @@
   color: inherit;
 }
 .user .play_information {
-  width: 100%;
-  border: 1px solid #9ca1a7;
-  border-radius: 5px;
-  display: inline-block;
-  padding: 10px;
+  padding: 10px 10px 0;
 }
 .user .play_information .available_platforms {
   border: 1px solid #aaaeb3;
@@ -113,36 +98,12 @@
   margin: 0 0 10px;
   text-align: center;
 }
-.user .play_information .available_platforms .user_platforms .platform {
+.user .play_information .available_platforms .user_platforms .platform_button {
   margin: 0 5px;
-}
-.user .play_information .play_timings {
-  text-align: center;
-}
-.user .play_information .play_timings .play_start_time_container,
-.user .play_information .play_timings .play_end_time_container {
-  width: 50%;
-}
-.user .play_information .play_timings .play_start_time_container .label,
-.user .play_information .play_timings .play_end_time_container .label {
-  font-size: 80%;
-  color: #81878f;
 }
 .user .play_information .play_timings .play_start_time_container .play_time_on,
 .user .play_information .play_timings .play_end_time_container .play_time_on {
   color: #3071a9;
-}
-.user .play_information .play_timings .play_start_time_container .time_ago,
-.user .play_information .play_timings .play_end_time_container .time_ago {
-  font-size: 80%;
-}
-.user .play_information .play_timings .play_start_time_container .time_ago.early,
-.user .play_information .play_timings .play_end_time_container .time_ago.early {
-  color: #449d44;
-}
-.user .play_information .play_timings .play_start_time_container .time_ago.late,
-.user .play_information .play_timings .play_end_time_container .time_ago.late {
-  color: #c9302c;
 }
 .user .controls {
   margin: 10px auto;
@@ -156,102 +117,270 @@
   width: 90%;
 }
 
-.blue_button {
+.blue_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.blue_button:hover:not([disabled="disabled"]),
-.blue_button:focus:not([disabled="disabled"]) {
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.red_button {
+.red_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.red_button:hover:not([disabled="disabled"]),
-.red_button:focus:not([disabled="disabled"]) {
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.green_button {
+.green_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
 }
-.green_button:hover:not([disabled="disabled"]),
-.green_button:focus:not([disabled="disabled"]) {
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-.purple_button {
+.purple_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.purple_button:hover:not([disabled="disabled"]),
-.purple_button:focus:not([disabled="disabled"]) {
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.yellow_button {
-  background-color: #f2b866;
-  border-color: #ec971f;
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
   color: #fbfbfb;
 }
-.yellow_button:hover:not([disabled="disabled"]),
-.yellow_button:focus:not([disabled="disabled"]) {
-  background-color: #ec971f;
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
 }
-.orange_button {
-  background-color: #f1b447;
-  border-color: #da9211;
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-.orange_button:hover:not([disabled="disabled"]),
-.orange_button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
 }
-.edit #title {
-  font-weight: bold;
-  font-size: 150%;
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
 }
-.edit .component {
-  border: 1px solid #9ca1a7;
-  padding: 20px 10px 0;
-  margin: 20px 0 0;
-  position: relative;
-  border-radius: 5px;
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
 }
-.edit .component .component_header {
-  position: absolute;
-  top: -13px;
-  left: 15px;
-  background-color: #fbfbfb;
-  border: 1px solid #9ca1a7;
-  padding: 0 5px;
-  border-radius: 5px;
+.raid {
+  max-width: 600px;
+  font-size: 120%;
 }
-.edit .component .sub_component {
+.raid #categories {
+  margin: 20px 10px 10px;
+}
+.raid #categories button {
+  margin: 0 5px;
+}
+.raid #categories #description {
+  display: inline-block;
+  color: #7f4495;
+  font-style: italic;
+  margin: 15px 10px 0;
+  padding: 0 10px;
+}
+.raid .play_information {
+  padding: 0 10px;
+}
+.raid .play_information .play_start_time_container {
+  border-right: 1px solid #9ca1a7;
+}
+.raid .play_information .play_end_time_container .time,
+.raid .play_information .play_end_time_container .time_ago {
+  color: #3071a9;
+}
+.raid .play_information .label {
+  margin-top: 10px;
+}
+.raid .play_information .time_ago {
+  margin-bottom: 10px;
+}
+.raid #raid_members {
   margin: 10px 0;
 }
-.edit #caption #caption_input {
+.raid #raid_members #heading {
+  color: #81878f;
+  margin: 5px 0;
+}
+.raid #raid_members .user_row {
+  padding: 5px 0;
+}
+.raid #raid_members .user_row button {
+  margin: 0 5px;
+}
+.raid #raid_members .user_row button.host_button {
+  padding-right: 10px;
+}
+.raid #raid_members .user_row button.host_button .player_user_name,
+.raid #raid_members .user_row button.host_button #host_label {
+  color: #fbfbfb;
+}
+.raid #raid_members .user_row button.host_button #host_label {
+  font-size: 70%;
+  position: relative;
+  top: -2px;
+  left: 4px;
+}
+.raid #raid_members .user_row button.player_button .player_user_name {
+  color: #fbfbfb;
+}
+.raid #raid_members .user_row .confirm_expel_container {
+  display: inline-block;
+}
+.raid #raid_members .user_row .confirm_expel_container .label {
+  font-size: 90%;
+  color: #c9302c;
+}
+.raid #raid_members .user_row .confirm_expel_container .yes_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.raid #raid_members .user_row .confirm_expel_container .yes_button:not([disabled="disabled"]):hover,
+.raid #raid_members .user_row .confirm_expel_container .yes_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.raid #raid_members .user_row .confirm_expel_container .no_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.raid #raid_members .user_row .confirm_expel_container .no_button:not([disabled="disabled"]):hover,
+.raid #raid_members .user_row .confirm_expel_container .no_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.raid #raid_members #queue {
+  margin-top: 10px;
+}
+.raid .controls #raid_controls_message {
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+.raid .controls #raid_controls_message a {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+.raid .controls #raid_controls_message a:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.raid .controls #raid_controls_message a:not([disabled="disabled"]):hover,
+.raid .controls #raid_controls_message a:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+@media only screen and (max-width: 480px) {
+  .raid #categories {
+    text-align: center;
+  }
+  .raid .controls #raid_controls_message {
+    text-align: center;
+  }
+  .raid .controls .buttons_array {
+    text-align: center;
+  }
+}
+
+.blue_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+.red_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.green_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.purple_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+.user.edit #caption #caption_input {
   border: none;
 }
-.edit #seeking label {
+.user.edit #seeking label {
   width: 100px;
 }
-.edit #platforms #platforms_container {
+.user.edit #platforms #platforms_container {
   position: relative;
   overflow: hidden;
   min-height: 38px;
   padding: 1px 0;
 }
-.edit #platforms #platforms_container #platform_list {
+.user.edit #platforms #platforms_container #platform_list {
   text-align: center;
 }
-.edit #platforms #platforms_container #platform_list .platform {
-  background-color: #f1b447;
-  border-color: #da9211;
-  color: #fbfbfb;
+.user.edit #platforms #platforms_container #platform_list .platform {
   display: inline-block;
   border-width: 1px;
   border-style: solid;
@@ -259,336 +388,469 @@
   padding: 3px 5px;
   border-radius: 5px;
 }
-.edit #platforms #platforms_container #platform_list .platform:hover:not([disabled="disabled"]),
-.edit #platforms #platforms_container #platform_list .platform:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.user.edit #platforms #platforms_container #platform_list .platform:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
 }
-.edit #platforms #platforms_container #platform_input {
+.user.edit #platforms #platforms_container #platform_list .platform:not([disabled="disabled"]):hover,
+.user.edit #platforms #platforms_container #platform_list .platform:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.user.edit #platforms #platforms_container #platform_input {
   margin: 10px auto 0;
   text-align: center;
 }
-.edit #platforms #platforms_container #platform_input select {
+.user.edit #platforms #platforms_container #platform_input select {
   height: 38px;
 }
-.edit #platforms #platforms_container #platform_input button {
+.user.edit #platforms #platforms_container #platform_input button {
   padding: 3px 5px;
 }
-.edit #platforms #platforms_container #platform_input button:not(:disabled) {
-  background-color: #f1b447;
-  border-color: #da9211;
+.user.edit #platforms #platforms_container #platform_input button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-.edit #platforms #platforms_container #platform_input button:not(:disabled):hover:not([disabled="disabled"]),
-.edit #platforms #platforms_container #platform_input button:not(:disabled):focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.user.edit #platforms #platforms_container #platform_input button:not([disabled="disabled"]):hover,
+.user.edit #platforms #platforms_container #platform_input button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
 }
-.edit .play_information #timezone label {
+.user.edit .play_information {
+  padding-top: 20px;
+}
+.user.edit .play_information #timezone label {
   font-size: 100%;
 }
-.edit .play_information #timezone select {
+.user.edit .play_information #timezone select {
   padding: 2px 0;
+  height: 36px;
 }
-.edit .play_information .play_start_time_container {
+.user.edit .play_information .play_start_time_container {
   border: none;
   border-right: 1px solid #9ca1a7;
 }
-.edit .play_information .play_start_time_container,
-.edit .play_information .play_end_time_container {
+.user.edit .play_information .play_start_time_container,
+.user.edit .play_information .play_end_time_container {
   vertical-align: top;
 }
-.edit .play_information .play_start_time_container .label,
-.edit .play_information .play_end_time_container .label {
+.user.edit .play_information .play_start_time_container .label,
+.user.edit .play_information .play_end_time_container .label {
   padding: 5px 0;
 }
-.edit .play_information .timepicker_container table {
+.user.edit .play_information .timepicker_container table {
   table-layout: fixed;
   width: 180px;
   font-size: 22px;
   margin: auto;
 }
-.edit .play_information .timepicker_container table td:nth-child(2) {
+.user.edit .play_information .timepicker_container table td:nth-child(2) {
   width: 10px;
 }
-.edit .play_information .timepicker_container table input {
+.user.edit .play_information .timepicker_container table input {
   width: 100%;
   text-align: center;
 }
-.edit .play_information .timepicker_container table .timepicker_button {
+.user.edit .play_information .timepicker_container table .timepicker_button {
   font-size: 150%;
   color: #81878f;
 }
-.edit .play_information .timepicker_container table .timepicker_button:hover,
-.edit .play_information .timepicker_container table .timepicker_button:focus {
+.user.edit .play_information .timepicker_container table .timepicker_button:hover,
+.user.edit .play_information .timepicker_container table .timepicker_button:focus {
   color: #50555a;
 }
-.edit .play_information .timepicker_container table button {
+.user.edit .play_information .timepicker_container table button {
+  padding: 3px 7px;
+}
+.user.edit .play_information .timepicker_container table button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
-  padding: 3px 7px;
 }
-.edit .play_information .timepicker_container table button:hover:not([disabled="disabled"]),
-.edit .play_information .timepicker_container table button:focus:not([disabled="disabled"]) {
+.user.edit .play_information .timepicker_container table button:not([disabled="disabled"]):hover,
+.user.edit .play_information .timepicker_container table button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.edit #accounts_linked {
+.user.edit .controls #profile_form_status_message {
+  padding-bottom: 10px;
+}
+.user.edit .controls #profile_form_status_message:not(.success) {
+  color: #d9534f;
+}
+.user.edit #accounts_linked {
   padding-top: 25px;
   padding-bottom: 10px;
 }
-.edit #accounts_linked #social_login_icons {
+.user.edit #accounts_linked #social_login_icons {
   width: 270px;
 }
-.edit #accounts_linked #social_login_icons .account_container {
+.user.edit #accounts_linked #social_login_icons .account_container {
   font-size: 80%;
   text-align: center;
   vertical-align: top;
   margin: 0 2px;
   word-break: break-all;
 }
-.edit #accounts_linked #social_login_icons .account_container button {
+.user.edit #accounts_linked #social_login_icons .account_container button {
   font-size: 95%;
 }
-.edit #accounts_linked #social_login_icons .account_container button.connect_button {
+.user.edit #accounts_linked #social_login_icons .account_container button.connect_button {
   width: 50px;
+}
+.user.edit #accounts_linked #social_login_icons .account_container button.connect_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.edit #accounts_linked #social_login_icons .account_container button.connect_button:hover:not([disabled="disabled"]),
-.edit #accounts_linked #social_login_icons .account_container button.connect_button:focus:not([disabled="disabled"]) {
+.user.edit #accounts_linked #social_login_icons .account_container button.connect_button:not([disabled="disabled"]):hover,
+.user.edit #accounts_linked #social_login_icons .account_container button.connect_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.edit #accounts_linked #social_login_icons .account_container button.remove_button {
+.user.edit #accounts_linked #social_login_icons .account_container button.remove_button {
   width: 60px;
+}
+.user.edit #accounts_linked #social_login_icons .account_container button.remove_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.edit #accounts_linked #social_login_icons .account_container button.remove_button:hover:not([disabled="disabled"]),
-.edit #accounts_linked #social_login_icons .account_container button.remove_button:focus:not([disabled="disabled"]) {
+.user.edit #accounts_linked #social_login_icons .account_container button.remove_button:not([disabled="disabled"]):hover,
+.user.edit #accounts_linked #social_login_icons .account_container button.remove_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.edit #accounts_linked #social_login_icons .account_container .account_id {
+.user.edit #accounts_linked #social_login_icons .account_container .account_id {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.edit #account_settings {
+.user.edit #account_settings {
   padding-top: 25px;
 }
-.edit #account_settings .form_container {
+.user.edit #account_settings .form_container {
   border-bottom: 1px solid gray;
   margin: 0 -10px 10px;
   padding: 0 10px 10px;
 }
-.edit #account_settings .form_container .sub_component_label {
-  font-size: 90%;
-}
-.edit #account_settings .form_container .error_message {
-  float: right;
-  font-size: 80%;
-  position: relative;
-  top: 4px;
-}
-.edit #account_settings .form_container .error_message span {
-  color: #d9534f;
-}
-.edit #account_settings .form_container #old_passcode_container,
-.edit #account_settings .form_container #new_passcode_container {
+.user.edit #account_settings .form_container #old_passcode_container,
+.user.edit #account_settings .form_container #new_passcode_container {
   display: inline-block;
   width: 50%;
 }
-.edit #account_settings .form_container #change_mail_container,
-.edit #account_settings .form_container #delete_account_container,
-.edit #account_settings .form_container #old_passcode_container,
-.edit #account_settings .form_container #new_passcode_container {
+.user.edit #account_settings .form_container #change_mail_container,
+.user.edit #account_settings .form_container #delete_account_container,
+.user.edit #account_settings .form_container #old_passcode_container,
+.user.edit #account_settings .form_container #new_passcode_container {
   padding: 0 10px;
 }
-.edit #account_settings .form_container #change_mail_input {
+.user.edit #account_settings .form_container #change_mail_container #change_mail_input,
+.user.edit #account_settings .form_container #delete_account_container #change_mail_input,
+.user.edit #account_settings .form_container #old_passcode_container #change_mail_input,
+.user.edit #account_settings .form_container #new_passcode_container #change_mail_input {
   padding: 5px 5px 5px 10px;
   width: 100%;
 }
-.edit #account_settings .form_container .message {
+.user.edit #account_settings .form_container .message {
   text-align: center;
 }
-.edit #account_settings .form_container .message.extra_margin {
+.user.edit #account_settings .form_container .message.extra_margin {
   margin-top: 10px;
 }
-.edit #account_settings .form_container .message span {
+.user.edit #account_settings .form_container .message span {
   color: #d9534f;
 }
-.edit #account_settings .form_container .message.success span {
+.user.edit #account_settings .form_container .message.success span {
   color: #5cb85c;
 }
-.edit #account_settings .form_container .form_controls {
+.user.edit #account_settings .form_container .form_controls {
   text-align: center;
   margin: 10px 0 0;
 }
-.edit #account_settings .form_container .form_controls button {
+.user.edit #account_settings .form_container .form_controls button {
   padding: 3px 15px;
 }
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).change_passcode_button {
+.user.edit #account_settings .form_container .form_controls button.change_passcode_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).change_passcode_button:hover:not([disabled="disabled"]),
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).change_passcode_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings .form_container .form_controls button.change_passcode_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .form_container .form_controls button.change_passcode_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).change_mail_button {
+.user.edit #account_settings .form_container .form_controls button.change_mail_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).change_mail_button:hover:not([disabled="disabled"]),
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).change_mail_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings .form_container .form_controls button.change_mail_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .form_container .form_controls button.change_mail_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).delete_account_button {
+.user.edit #account_settings .form_container .form_controls button.delete_account_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).delete_account_button:hover:not([disabled="disabled"]),
-.edit #account_settings .form_container .form_controls button:not([disabled="disabled"]).delete_account_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings .form_container .form_controls button.delete_account_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .form_container .form_controls button.delete_account_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.edit #account_settings .buttons_array {
+.user.edit #account_settings .buttons_array {
   text-align: center;
   margin-bottom: 10px;
 }
-.edit #account_settings .buttons_array .button_container button {
+.user.edit #account_settings .buttons_array .button_container button {
   width: 200px;
   padding: 5px;
 }
-.edit #account_settings .buttons_array .button_container button.change_passcode_button {
+.user.edit #account_settings .buttons_array .button_container button.change_passcode_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.edit #account_settings .buttons_array .button_container button.change_passcode_button:hover:not([disabled="disabled"]),
-.edit #account_settings .buttons_array .button_container button.change_passcode_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings .buttons_array .button_container button.change_passcode_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .buttons_array .button_container button.change_passcode_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.edit #account_settings .buttons_array .button_container button.change_mail_button {
+.user.edit #account_settings .buttons_array .button_container button.change_mail_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.edit #account_settings .buttons_array .button_container button.change_mail_button:hover:not([disabled="disabled"]),
-.edit #account_settings .buttons_array .button_container button.change_mail_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings .buttons_array .button_container button.change_mail_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .buttons_array .button_container button.change_mail_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.edit #account_settings .buttons_array .button_container button.delete_account_button {
+.user.edit #account_settings .buttons_array .button_container button.delete_account_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.edit #account_settings .buttons_array .button_container button.delete_account_button:hover:not([disabled="disabled"]),
-.edit #account_settings .buttons_array .button_container button.delete_account_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings .buttons_array .button_container button.delete_account_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .buttons_array .button_container button.delete_account_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.edit #account_settings #termination_countdown_container {
+.user.edit #account_settings #termination_countdown_container {
   text-align: center;
 }
-.edit #account_settings #termination_countdown_container .label {
+.user.edit #account_settings #termination_countdown_container .label {
   font-size: 90%;
   color: #d9534f;
 }
-.edit #account_settings #termination_countdown_container #countdown {
+.user.edit #account_settings #termination_countdown_container #countdown {
   font-size: 200%;
   color: #c9302c;
 }
-.edit #account_settings #termination_countdown_container .cancel_termination_button {
-  background-color: #6ec06e;
-  border-color: #449d44;
-  color: #fbfbfb;
+.user.edit #account_settings #termination_countdown_container .cancel_termination_button {
   margin: 10px 0;
   padding: 5px 15px;
 }
-.edit #account_settings #termination_countdown_container .cancel_termination_button:hover:not([disabled="disabled"]),
-.edit #account_settings #termination_countdown_container .cancel_termination_button:focus:not([disabled="disabled"]) {
+.user.edit #account_settings #termination_countdown_container .cancel_termination_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.user.edit #account_settings #termination_countdown_container .cancel_termination_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings #termination_countdown_container .cancel_termination_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
 @media only screen and (max-width: 480px) {
-  .edit #platforms #platforms_container #platform_input select {
+  .user.edit #platforms #platforms_container #platform_input select {
     height: 34px;
   }
-  .edit .play_information .play_timings {
+  .user.edit .play_information .play_timings {
     margin: 5px -10px;
   }
-  .edit .play_information .play_timings .play_start_time_container {
+  .user.edit .play_information .play_timings .play_start_time_container {
     border: none;
     border-bottom: 1px solid #9ca1a7;
   }
-  .edit .play_information .play_timings .play_start_time_container,
-  .edit .play_information .play_timings .play_end_time_container {
+  .user.edit .play_information .play_timings .play_start_time_container,
+  .user.edit .play_information .play_timings .play_end_time_container {
     width: 100%;
   }
-  .edit #accounts_linked #social_login_icons .account_container {
+  .user.edit #accounts_linked #social_login_icons .account_container {
     font-size: 70%;
     max-width: 50px;
   }
-  .edit #accounts_linked #social_login_icons .account_container button.connect_button {
+  .user.edit #accounts_linked #social_login_icons .account_container button.connect_button {
     width: 40px;
   }
-  .edit #accounts_linked #social_login_icons .account_container button.remove_button {
+  .user.edit #accounts_linked #social_login_icons .account_container button.remove_button {
     width: 50px;
   }
-  .edit #accounts_linked #social_login_icons .account_container a {
+  .user.edit #accounts_linked #social_login_icons .account_container a {
     height: 40px;
     width: 40px;
   }
-  .edit #account_settings .buttons_array .button_container {
+  .user.edit #account_settings .buttons_array .button_container {
     text-align: center;
     margin-bottom: 10px;
   }
 }
 @media only screen and (min-width: 481px) {
-  .edit #platforms #platforms_container #platform_list {
+  .user.edit #platforms #platforms_container #platform_list {
     text-align: left;
   }
-  .edit #platforms #platforms_container #platform_list .platform {
+  .user.edit #platforms #platforms_container #platform_list .platform {
     padding: 3px 10px;
   }
-  .edit #platforms #platforms_container #platform_input {
+  .user.edit #platforms #platforms_container #platform_input {
     margin: 0;
     position: absolute;
     top: 0;
     right: 0;
   }
-  .edit #platforms #platforms_container #platform_input button {
+  .user.edit #platforms #platforms_container #platform_input button {
     padding: 3px 5px;
   }
-  .edit #accounts_linked #social_login_icons {
+  .user.edit #accounts_linked #social_login_icons {
     width: 100%;
     text-align: center;
   }
-  .edit #accounts_linked #social_login_icons .account_container {
+  .user.edit #accounts_linked #social_login_icons .account_container {
     margin: 0 2%;
     width: 15%;
   }
-  .edit #account_settings .buttons_array .button_container {
+  .user.edit #account_settings .buttons_array .button_container {
     display: inline-block;
     width: 33%;
   }
-  .edit #account_settings .buttons_array .button_container button {
+  .user.edit #account_settings .buttons_array .button_container button {
     width: 95%;
     font-size: 70%;
   }
 }
 @media only screen and (max-width: 650px) {
-  .edit #account_settings .form_container #old_passcode_container,
-  .edit #account_settings .form_container #new_passcode_container {
+  .user.edit #account_settings .form_container #old_passcode_container,
+  .user.edit #account_settings .form_container #new_passcode_container {
     width: 100%;
   }
 }
 @media only screen and (min-width: 651px) {
-  .edit #account_settings .buttons_array .button_container button {
+  .user.edit #account_settings .buttons_array .button_container button {
     width: 180px;
     font-size: 90%;
   }
+}
+
+.blue_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+.red_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.green_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.purple_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+.raid.edit .component {
+  padding-top: 0;
+}
+.raid.edit .component .sub_component .label {
+  width: 100px;
+}
+.raid.edit .component .sub_component select.platform_select {
+  color: #ff9b0c;
+}
+.raid.edit .component .sub_component select.game_select {
+  color: #31b0d5;
+}
+.raid.edit .component .sub_component select.ng-invalid {
+  color: #d9534f;
+}
+.raid.edit .component .sub_component.capacity #capacity_input {
+  text-align: center;
+}
+.raid.edit .component .sub_component.capacity #capacity_limits {
+  font-size: 80%;
+}
+.raid.edit #raid_time {
+  margin: 20px 0;
+}
+.raid.edit #raid_access input {
+  height: 20px;
+  width: 20px;
+  position: relative;
+  top: 3px;
+  margin: 0 10px;
+}
+.raid.edit #raid_access strong {
+  color: #449d44;
+}
+.raid.edit #raid_access .access_description {
+  font-size: 90%;
+}
+.raid.edit #raid_access #access_help_text {
+  margin: 10px 0;
+  font-size: 80%;
+  color: #d9534f;
+  padding: 5px 0 10px;
+}
+.raid.edit #raid_access #access_help_text i {
+  color: inherit;
+}
+.raid.edit .controls {
+  text-align: center;
+  margin: 20px 0;
+}
+.raid.edit .controls button {
+  width: 40%;
+  margin: 0 5%;
+  padding: 5px 10px;
 }
 
 @font-face {
@@ -604,114 +866,132 @@
   font-style: normal;
 }
 
-.blue_button {
+.blue_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.blue_button:hover:not([disabled="disabled"]),
-.blue_button:focus:not([disabled="disabled"]) {
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.red_button {
+.red_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.red_button:hover:not([disabled="disabled"]),
-.red_button:focus:not([disabled="disabled"]) {
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.green_button {
+.green_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
 }
-.green_button:hover:not([disabled="disabled"]),
-.green_button:focus:not([disabled="disabled"]) {
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-.purple_button {
+.purple_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.purple_button:hover:not([disabled="disabled"]),
-.purple_button:focus:not([disabled="disabled"]) {
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.yellow_button {
-  background-color: #f2b866;
-  border-color: #ec971f;
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
   color: #fbfbfb;
 }
-.yellow_button:hover:not([disabled="disabled"]),
-.yellow_button:focus:not([disabled="disabled"]) {
-  background-color: #ec971f;
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
 }
-.orange_button {
-  background-color: #f1b447;
-  border-color: #da9211;
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-.orange_button:hover:not([disabled="disabled"]),
-.orange_button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
 }
 
-.blue_button {
+.blue_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.blue_button:hover:not([disabled="disabled"]),
-.blue_button:focus:not([disabled="disabled"]) {
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.red_button {
+.red_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.red_button:hover:not([disabled="disabled"]),
-.red_button:focus:not([disabled="disabled"]) {
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.green_button {
+.green_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
 }
-.green_button:hover:not([disabled="disabled"]),
-.green_button:focus:not([disabled="disabled"]) {
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-.purple_button {
+.purple_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.purple_button:hover:not([disabled="disabled"]),
-.purple_button:focus:not([disabled="disabled"]) {
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.yellow_button {
-  background-color: #f2b866;
-  border-color: #ec971f;
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
   color: #fbfbfb;
 }
-.yellow_button:hover:not([disabled="disabled"]),
-.yellow_button:focus:not([disabled="disabled"]) {
-  background-color: #ec971f;
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
 }
-.orange_button {
-  background-color: #f1b447;
-  border-color: #da9211;
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-.orange_button:hover:not([disabled="disabled"]),
-.orange_button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
 }
 * {
   box-sizing: border-box;
@@ -722,9 +1002,15 @@
   color: #50555a;
   -webkit-tap-highlight-color: transparent;
 }
-*::-moz-selection {
+::-moz-selection {
   background: #000000 none repeat scroll 0 0;
   color: #fbfbfb;
+}
+:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
 }
 body {
   background: #fbfbfb;
@@ -733,12 +1019,19 @@ body {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
+  min-width: 300px;
 }
 input,
 select,
 button {
   font-family: 'Lato', monospace;
   border: 1px solid #81878f;
+  background-color: transparent;
+  color: #50555a;
+  border-style: solid;
+}
+input:required {
+  box-shadow: none;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -746,41 +1039,47 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
   -webkit-text-fill-color: #50555a !important;
 }
-textarea {
-  resize: none;
-  width: 100%;
-}
-a {
-  text-decoration: none;
-}
-.inline > * {
-  display: inline-block;
+input[type="radio"] {
+  background-color: #50555a;
 }
 button {
   font-size: 100%;
   border: 1px solid #50555a;
-  background-color: #c5c7cb;
-  color: #50555a;
   border-radius: 3px;
   padding: 3px 5px;
   transition: all 0.1s ease-in-out;
-}
-button:hover:not([disabled="disabled"]),
-button:focus:not([disabled="disabled"]) {
-  cursor: pointer;
-  background-color: #50555a;
-  color: #fbfbfb;
 }
 button[disabled="disabled"] {
   background-color: #c5c7cb;
   border-color: #aaaeb3;
   color: #9ca1a7;
 }
+button:not([disabled="disabled"]) {
+  background-color: #c5c7cb;
+  color: #50555a;
+  cursor: pointer;
+}
+button:not([disabled="disabled"]):hover,
+button:not([disabled="disabled"]):focus {
+  background-color: #50555a;
+  color: #fbfbfb;
+}
 select {
+  -webkit-appearance: menulist;
   padding: 2px 5px;
+  height: 30px;
 }
 select > option {
   padding: 5px;
+}
+textarea {
+  background-color: transparent;
+  resize: none;
+  width: 100%;
+  border: 1px solid #81878f;
+}
+a {
+  text-decoration: none;
 }
 #rms {
   height: 120px;
@@ -806,7 +1105,7 @@ select > option {
 }
 #overlayed_content #broadcast_message {
   border: 1px solid #000000;
-  background-color: #c5c7cb;
+  background-color: #fbfbfb;
   color: #000000;
   position: fixed;
   top: 50%;
@@ -816,6 +1115,24 @@ select > option {
   padding: 3px 8px;
   z-index: 2;
   width: 250px;
+  padding: 25px 0;
+  text-align: center;
+}
+#overlayed_content #broadcast_message a {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+#overlayed_content #broadcast_message a:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+#overlayed_content #broadcast_message a:not([disabled="disabled"]):hover,
+#overlayed_content #broadcast_message a:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
 }
 #timezone > label {
   font-size: 110%;
@@ -867,13 +1184,15 @@ select > option {
   background-image: url("/media/g+64.png");
 }
 .user_name_container,
-.passcode_container {
+.passcode_container,
+.mail_container {
   width: 100%;
   margin-bottom: 5px;
   position: relative;
 }
 .user_name_container > input,
-.passcode_container > input {
+.passcode_container > input,
+.mail_container > input {
   border: 1px solid #81878f;
   width: 100%;
   padding: 5px 10px 5px 10px;
@@ -921,26 +1240,26 @@ select > option {
   border-color: #449d44;
   color: #fbfbfb;
 }
-#sign_in_form #sign_in_control button.sign_in_button:not([disabled="disabled"]):hover:not([disabled="disabled"]),
-#sign_in_form #sign_in_control button.sign_in_button:not([disabled="disabled"]):focus:not([disabled="disabled"]) {
+#sign_in_form #sign_in_control button.sign_in_button:not([disabled="disabled"]):hover,
+#sign_in_form #sign_in_control button.sign_in_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-#sign_in_form #sign_in_control button.register_button {
+#sign_in_form #sign_in_control button.register_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-#sign_in_form #sign_in_control button.register_button:hover:not([disabled="disabled"]),
-#sign_in_form #sign_in_control button.register_button:focus:not([disabled="disabled"]) {
+#sign_in_form #sign_in_control button.register_button:not([disabled="disabled"]):hover,
+#sign_in_form #sign_in_control button.register_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-#sign_in_form #sign_in_control button.recover_button {
+#sign_in_form #sign_in_control button.recover_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-#sign_in_form #sign_in_control button.recover_button:hover:not([disabled="disabled"]),
-#sign_in_form #sign_in_control button.recover_button:focus:not([disabled="disabled"]) {
+#sign_in_form #sign_in_control button.recover_button:not([disabled="disabled"]):hover,
+#sign_in_form #sign_in_control button.recover_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
 #user_information {
@@ -952,23 +1271,25 @@ select > option {
   width: 35%;
   font-weight: bold;
   text-align: center;
+  font-size: 120%;
+  vertical-align: bottom;
 }
-#user_information .sign_out_button {
+#user_information .sign_out_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-#user_information .sign_out_button:hover:not([disabled="disabled"]),
-#user_information .sign_out_button:focus:not([disabled="disabled"]) {
+#user_information .sign_out_button:not([disabled="disabled"]):hover,
+#user_information .sign_out_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-#user_information .view_profile_button {
+#user_information .view_profile_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-#user_information .view_profile_button:hover:not([disabled="disabled"]),
-#user_information .view_profile_button:focus:not([disabled="disabled"]) {
+#user_information .view_profile_button:not([disabled="disabled"]):hover,
+#user_information .view_profile_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
 aside {
@@ -992,6 +1313,9 @@ aside#statistics #users_online {
   color: #3071a9;
   text-align: right;
 }
+.inline > * {
+  display: inline-block;
+}
 .view {
   margin: 10px auto;
 }
@@ -1004,55 +1328,186 @@ aside#statistics #users_online {
   padding: 20px;
   color: #d9534f;
 }
+.disable_scrolling {
+  overflow: hidden;
+}
 .footer {
   display: none;
   font-size: 80%;
   padding: 5px 8px;
 }
-.join_button,
-.save_button {
+.title {
+  font-weight: bold;
+  font-size: 150%;
+  border-bottom: 1px solid #9ca1a7;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.error_message {
+  float: right;
+  font-size: 80%;
+  position: relative;
+  top: 4px;
+}
+.error_message span {
+  color: #d9534f;
+}
+.join_button:not([disabled="disabled"]),
+.save_button:not([disabled="disabled"]),
+.status_button:not([disabled="disabled"]),
+.add_button:not([disabled="disabled"]),
+.create_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
 }
-.join_button:hover:not([disabled="disabled"]),
-.save_button:hover:not([disabled="disabled"]),
-.join_button:focus:not([disabled="disabled"]),
-.save_button:focus:not([disabled="disabled"]) {
+.join_button:not([disabled="disabled"]):hover,
+.save_button:not([disabled="disabled"]):hover,
+.status_button:not([disabled="disabled"]):hover,
+.add_button:not([disabled="disabled"]):hover,
+.create_button:not([disabled="disabled"]):hover,
+.join_button:not([disabled="disabled"]):focus,
+.save_button:not([disabled="disabled"]):focus,
+.status_button:not([disabled="disabled"]):focus,
+.add_button:not([disabled="disabled"]):focus,
+.create_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-.leave_button,
-.back_button {
+.leave_button:not([disabled="disabled"]),
+.back_button:not([disabled="disabled"]),
+.expel_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.leave_button:hover:not([disabled="disabled"]),
-.back_button:hover:not([disabled="disabled"]),
-.leave_button:focus:not([disabled="disabled"]),
-.back_button:focus:not([disabled="disabled"]) {
+.leave_button:not([disabled="disabled"]):hover,
+.back_button:not([disabled="disabled"]):hover,
+.expel_button:not([disabled="disabled"]):hover,
+.leave_button:not([disabled="disabled"]):focus,
+.back_button:not([disabled="disabled"]):focus,
+.expel_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.edit_button {
-  background-color: #a66abb;
-  border-color: #7f4495;
-  color: #fbfbfb;
-}
-.edit_button:hover:not([disabled="disabled"]),
-.edit_button:focus:not([disabled="disabled"]) {
-  background-color: #7f4495;
-}
-.view_button {
+.view_button:not([disabled="disabled"]),
+.requester_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.view_button:hover:not([disabled="disabled"]),
-.view_button:focus:not([disabled="disabled"]) {
+.view_button:not([disabled="disabled"]):hover,
+.requester_button:not([disabled="disabled"]):hover,
+.view_button:not([disabled="disabled"]):focus,
+.requester_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.disable_scrolling {
-  overflow: hidden;
+.game_button:not([disabled="disabled"]),
+.show_similar_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.game_button:not([disabled="disabled"]):hover,
+.show_similar_button:not([disabled="disabled"]):hover,
+.game_button:not([disabled="disabled"]):focus,
+.show_similar_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+.player_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.player_button:not([disabled="disabled"]):hover,
+.player_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.platform_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.platform_button:not([disabled="disabled"]):hover,
+.platform_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.edit_button:not([disabled="disabled"]),
+.host_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.edit_button:not([disabled="disabled"]):hover,
+.host_button:not([disabled="disabled"]):hover,
+.edit_button:not([disabled="disabled"]):focus,
+.host_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.success,
+.early {
+  color: #449d44;
+}
+.late {
+  color: #c9302c;
+}
+.karma_score {
+  font-weight: bold;
+  color: #3071a9;
+}
+.karma_score.good_karma {
+  color: #5cb85c;
+  /*darkener(@green, @darkener);*/
+}
+.karma_score.bad_karma {
+  color: #d9534f;
+  /*darkener(@red, @darkener);*/
+}
+.component {
+  border: 1px solid #9ca1a7;
+  padding: 20px 10px 0;
+  margin: 20px 0 0;
+  position: relative;
+  border-radius: 5px;
+}
+.component .component_header {
+  position: absolute;
+  top: -13px;
+  left: 15px;
+  background-color: #fbfbfb;
+  border: 1px solid #9ca1a7;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+.component .sub_component {
+  margin: 10px 0;
+}
+.component .sub_component_label {
+  font-size: 90%;
+}
+.play_information {
+  width: 100%;
+  border: 1px solid #9ca1a7;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 10px;
+}
+.play_information .play_timings {
+  text-align: center;
+}
+.play_information .play_timings .play_start_time_container,
+.play_information .play_timings .play_end_time_container {
+  width: 50%;
+}
+.play_information .play_timings .play_start_time_container .label,
+.play_information .play_timings .play_end_time_container .label {
+  font-size: 80%;
+  color: #81878f;
+}
+.play_information .play_timings .play_start_time_container .time_ago,
+.play_information .play_timings .play_end_time_container .time_ago {
+  font-size: 80%;
+}
+.date {
+  font-size: 80%;
 }
 .st-sort-ascent:before,
 .timepicker_button_up:before {
@@ -1120,59 +1575,68 @@ aside#statistics #users_online {
 }
 
 
-.blue_button {
+.blue_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-.blue_button:hover:not([disabled="disabled"]),
-.blue_button:focus:not([disabled="disabled"]) {
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
-.red_button {
+.red_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-.red_button:hover:not([disabled="disabled"]),
-.red_button:focus:not([disabled="disabled"]) {
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.green_button {
+.green_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
 }
-.green_button:hover:not([disabled="disabled"]),
-.green_button:focus:not([disabled="disabled"]) {
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
-.purple_button {
+.purple_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-.purple_button:hover:not([disabled="disabled"]),
-.purple_button:focus:not([disabled="disabled"]) {
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
-.yellow_button {
-  background-color: #f2b866;
-  border-color: #ec971f;
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
   color: #fbfbfb;
 }
-.yellow_button:hover:not([disabled="disabled"]),
-.yellow_button:focus:not([disabled="disabled"]) {
-  background-color: #ec971f;
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
 }
-.orange_button {
-  background-color: #f1b447;
-  border-color: #da9211;
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-.orange_button:hover:not([disabled="disabled"]),
-.orange_button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
 }
 #lfg table {
   width: 100%;
@@ -1188,22 +1652,22 @@ aside#statistics #users_online {
 #lfg table tbody tr#filter_row td#search_all_column input {
   width: 90%;
 }
-#lfg table tbody tr#filter_row td button {
-  background-color: #f1b447;
-  border-color: #da9211;
+#lfg table tbody tr#filter_row td button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
   color: #fbfbfb;
 }
-#lfg table tbody tr#filter_row td button:hover:not([disabled="disabled"]),
-#lfg table tbody tr#filter_row td button:focus:not([disabled="disabled"]) {
-  background-color: #da9211;
+#lfg table tbody tr#filter_row td button:not([disabled="disabled"]):hover,
+#lfg table tbody tr#filter_row td button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
 }
-#lfg table tbody tr#filter_row td#filter_toggle_button button {
+#lfg table tbody tr#filter_row td#filter_toggle_button button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
-#lfg table tbody tr#filter_row td#filter_toggle_button button:hover:not([disabled="disabled"]),
-#lfg table tbody tr#filter_row td#filter_toggle_button button:focus:not([disabled="disabled"]) {
+#lfg table tbody tr#filter_row td#filter_toggle_button button:not([disabled="disabled"]):hover,
+#lfg table tbody tr#filter_row td#filter_toggle_button button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
 #lfg table tfoot ul.pagination {
@@ -1218,7 +1682,7 @@ aside#statistics #users_online {
   margin: 0 5px;
   border: 1px solid #ffffff;
   cursor: pointer;
-  background-color: #f6ce95;
+  background-color: #ffcf8c;
 }
 #lfg table tfoot ul.pagination li a {
   display: block;
@@ -1232,8 +1696,8 @@ aside#statistics #users_online {
 }
 #lfg table tfoot ul.pagination li:not(.active):hover,
 #lfg table tfoot ul.pagination li:not(.active):active {
-  background-color: #f6ce95;
-  border-color: #f6ce95;
+  background-color: #ffcf8c;
+  border-color: #ffcf8c;
 }
 #lfg table tfoot ul.pagination li:not(.active):hover a,
 #lfg table tfoot ul.pagination li:not(.active):active a {
@@ -1248,12 +1712,14 @@ aside#statistics #users_online {
 #lfg #create_raid_button button {
   width: 290px;
   padding: 10px;
+}
+#lfg #create_raid_button button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-#lfg #create_raid_button button:hover:not([disabled="disabled"]),
-#lfg #create_raid_button button:focus:not([disabled="disabled"]) {
+#lfg #create_raid_button button:not([disabled="disabled"]):hover,
+#lfg #create_raid_button button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
 .row_without_label {
@@ -1342,7 +1808,7 @@ aside#statistics #users_online {
   }
   #lfg table tbody tr td.controls_column button {
     margin: 0 4px;
-    padding: 3px 44px;
+    padding: 3px 40px;
   }
   #lfg table tbody tr td.controls_column button.leave_button {
     padding: 3px 37px;
@@ -1372,6 +1838,15 @@ aside#statistics #users_online {
     content: "";
     display: none;
   }
+  #lfg table tbody tr#filter_row td#filter_toggle_button button:not([disabled="disabled"]) {
+    background-color: #a66abb;
+    border-color: #7f4495;
+    color: #fbfbfb;
+  }
+  #lfg table tbody tr#filter_row td#filter_toggle_button button:not([disabled="disabled"]):hover,
+  #lfg table tbody tr#filter_row td#filter_toggle_button button:not([disabled="disabled"]):focus {
+    background-color: #7f4495;
+  }
   #lfg table tbody tr#filter_row td.access_column:before {
     content: "Access";
   }
@@ -1398,6 +1873,9 @@ aside#statistics #users_online {
     width: 50%;
     margin: 5px auto;
   }
+  #lfg table tbody tr#filter_row td.inline_row#filter_toggle_button {
+    padding-left: 10px !important;
+  }
   #lfg table tbody tr#filter_row td.inline_row button {
     padding: 3px 5px;
   }
@@ -1405,23 +1883,14 @@ aside#statistics #users_online {
   #lfg table tbody tr#filter_row td.inline_row button#clear_button {
     width: 40%;
   }
-  #lfg table tbody tr#filter_row td button {
-    background-color: #f1b447;
-    border-color: #da9211;
+  #lfg table tbody tr#filter_row td button:not([disabled="disabled"]) {
+    background-color: #fb9347;
+    border-color: #f16805;
     color: #fbfbfb;
   }
-  #lfg table tbody tr#filter_row td button:hover:not([disabled="disabled"]),
-  #lfg table tbody tr#filter_row td button:focus:not([disabled="disabled"]) {
-    background-color: #da9211;
-  }
-  #lfg table tbody tr#filter_row td#filter_toggle_button button {
-    background-color: #a66abb;
-    border-color: #7f4495;
-    color: #fbfbfb;
-  }
-  #lfg table tbody tr#filter_row td#filter_toggle_button button:hover:not([disabled="disabled"]),
-  #lfg table tbody tr#filter_row td#filter_toggle_button button:focus:not([disabled="disabled"]) {
-    background-color: #7f4495;
+  #lfg table tbody tr#filter_row td button:not([disabled="disabled"]):hover,
+  #lfg table tbody tr#filter_row td button:not([disabled="disabled"]):focus {
+    background-color: #f16805;
   }
   #lfg table tbody tr#filter_row td.filter_input {
     display: none;
@@ -1482,4 +1951,268 @@ aside#statistics #users_online {
   #lfg #create_raid_button {
     padding: 20px 0 0;
   }
+}
+
+.blue_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+.red_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.green_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.purple_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+#forgot {
+  font-size: 120%;
+}
+#forgot .form_controls {
+  margin: 10px 0;
+}
+#forgot .form_controls .recover_button {
+  padding: 10px;
+  width: 100%;
+}
+#forgot .form_controls .recover_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+#forgot .form_controls .recover_button:not([disabled="disabled"]):hover,
+#forgot .form_controls .recover_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+
+.blue_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+.red_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.green_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.purple_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+#reset {
+  font-size: 120%;
+  max-width: 600px;
+}
+#reset .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+#reset .form_controls button {
+  padding: 5px 0;
+  width: 100%;
+}
+#reset .form_controls button.reset_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+#reset .form_controls button.reset_button:not([disabled="disabled"]):hover,
+#reset .form_controls button.reset_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+
+.blue_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+.red_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.green_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.purple_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+#register {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+#register .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+#register .form_controls button {
+  width: 40%;
+  margin: 0 5%;
+  padding: 5px 0;
+}
+#register .form_controls button.register_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+#register .form_controls button.register_button:not([disabled="disabled"]):hover,
+#register .form_controls button.register_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+#register .form_controls button.cancel_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+#register .form_controls button.cancel_button:not([disabled="disabled"]):hover,
+#register .form_controls button.cancel_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
 }

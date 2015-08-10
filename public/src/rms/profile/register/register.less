@@ -1,0 +1,23 @@
+@import "../../common/variables.less";
+@import "../../common/mixins.less";
+
+#register {
+    width: 100%;
+    max-width: 600px;
+    font-size: 120%;
+    .form_controls {
+        text-align: center;
+        padding: 10px 0;
+        button {
+            width: 40%;
+            margin: 0 5%;
+            padding: 5px 0;
+            &.register_button {
+                .green_button;
+            }
+            &.cancel_button {
+                .red_button;
+            }
+        }
+    }
+}

@@ -1,10 +1,18 @@
     angular.module('rmsApp.raid')
-    .controller('raidController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
+    .controller('raidController', ['$scope', 'api', '$stateParams', '$state', '$timeout', function ($scope, api, $stateParams, $state, $timeout) {
         $scope.$parent.message = $stateParams.message;
         $scope.filter_state = $stateParams.filter_state || { 'status' : '', 'platform' : '', 'game' : '' };
         api.get({ 'set' : 'raid', 'id' : $stateParams.raid_id }, function (raid) {
             if(raid.success) {
                 $scope.raid = $scope.localize([raid.data])[0];
+                if(moment().diff($scope.raid.play_time) < 0) {
+                    $scope.play_time_passed = false;
+                    $timeout(function () {
+                        $scope.play_time_passed = true;
+                    }, Math.abs(moment().diff($scope.raid.play_time)) + 1);
+                } else {
+                    $scope.play_time_passed = true;
+                }
                 $scope.player_data = {};
                 $scope.queue_data = {};
                 angular.forEach($scope.raid.players, function (player) {

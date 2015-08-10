@@ -1,59 +1,57 @@
-<section>
-    <div ng-show="raid._id"><a ui-sref="list({ 'filter_state' : filter_state })">Back</a> > <a ui-sref="raid({ 'raid_id': raid._id })">Raid</a></div>
-    <header>{{ raid._id ? 'Update' : 'Create' }} Raid</header>
+<section class="raid edit">
+    <header class="title">{{ raid._id ? 'Update' : 'Create' }} Raid</header>
     <form name="raidForm">
-        <div class="inline">
-            <div>
-                <div>Platform</div>
+        <div class="component">
+            <div class="sub_component inline">
+                <div class="label">Platform</div>
                 <div>
-                    <select ng-model="raid.platform" ng-options="(value | capitalize) for (key , value) in models.filter.platform" name="platform" required>
+                    <select class="platform_select" ng-model="raid.platform" ng-options="(value | capitalize) for (key , value) in models.filter.platform" name="platform" required>
                         <option ng-if="!raid.platform" value="">Required</option>
                     </select>
                 </div>
             </div>
-            <div>
-                <div>Game</div>
+            <div class="sub_component inline">
+                <div class="label">Game</div>
                 <div>
-                    <select ng-model="raid.game" ng-options="(value | capitalize) for (key , value) in models.filter.game" name="game" required>
+                    <select class="game_select" ng-model="raid.game" ng-options="(value | capitalize) for (key , value) in models.filter.game" name="game" required>
                         <option ng-if="!raid.game" value="">Required</option>
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="inline">
-            <div>Capacity</div>
-            <div>
-                <input type="number" ng-model="raid.strength" name="strength" min="{{((raid.players.length < 3) ? 3 : raid.players.length) || 3}}" max="12" />
+            <div class="sub_component inline capacity">
+                <div class="label">Capacity</div>
+                <div>
+                    <input id="capacity_input" type="number" ng-model="raid.strength" name="strength" min="{{((raid.players.length < 3) ? 3 : raid.players.length) || 3}}" max="12" />
+                </div>
+                <div id="capacity_limits">(Min: {{((raid.players.length < 3) ? 3 : raid.players.length) || 3}}; Max: 12)</div>
             </div>
-            <div>(Min: {{((raid.players.length < 3) ? 3 : raid.players.length)}}; Max: 12)</div>
+            <div class="sub_component">
+                <div>Description</div>
+                <div><textarea rows="3" cols="50" maxlength="90" ng-maxlength="90" ng-model="raid.description" name="description"></textarea></div>
+            </div>
         </div>
-        <div>
-            <div>Description</div>
-            <div><textarea rows="3" cols="50" maxlength="90" ng-maxlength="90" ng-model="raid.description" name="description"></textarea></div>
+        <div id="raid_time">
+            <div ng-hide="raid._id">
+                <span>Raid will begin in <select ng-model="raid.time.hour" ng-options="value for (key , value) in raid_times.hour" name="raid.time.hour"></select> hour{{raid.time.hour > 1 ? 's' : ' '}} and <select ng-model="raid.time.minute" ng-options="value for (key , value) in raid_times.minute" name="raid.time.minute"></select> minute{{raid.time.minute > 1 ? 's' : ' '}} after creation.</span>
+            </div>
+            <div ng-show="raid._id">
+                <span>Raid will begin in <span am-time-ago="raid.play_time"></span></span>
+            </div>
         </div>
-        <div ng-hide="raid._id">
-            Raid will begin in
-            <select ng-model="raid.time.hour" ng-options="value for (key , value) in raid_times.hour" name="raid.time.hour"></select> hour{{raid.time.hour > 1 ? 's' : ' '}} and
-            <select ng-model="raid.time.minute" ng-options="value for (key , value) in raid_times.minute" name="raid.time.minute"></select> minute{{raid.time.minute > 1 ? 's' : ' '}} after creation.
+        <div id="raid_access">
+            <div>
+                <input type="radio" name="raid.status" ng-model="raid.status" value="open" /><strong>Open</strong><span class="access_description"> - Players can become <i>raid members</i>, without the <i>host's approval</i>.</span>
+            </div>
+            <div>
+                <input type="radio" name="raid.status" ng-model="raid.status" value="closed" /><strong>Closed</strong><span class="access_description"> - Players can only request to become <i>raid members</i>.</span>
+            </div>
+            <div id="access_help_text"><i>Raid members</i> can be approved/removed in the Raid details page.</div>
         </div>
         <div ng-show="raid._id">
-            Raid will begin in <span am-time-ago="raid.play_time"></span>
+            <span>Members ({{raid.players.length}}/{{raid.strength || ((raid.players.length < 3) ? 3 : ((raid.players.length > 12) ? 12 : raid.players.length))}})</span>
         </div>
-        <div>
-            <div>
-                <input type="radio" name="raid.status" ng-model="raid.status" value="open" /><strong>Open</strong> - Players can become <i>raid members</i>, without the <i>host's approval</i>.
-            </div>
-            <div>
-                <input type="radio" name="raid.status" ng-model="raid.status" value="closed" /><strong>Closed</strong> - Players can only request to become <i>raid members</i>.
-            </div>
-            <div><i>Raid members</i> can be approved/removed in the Edit Raid page.</div>
-        </div>
-        <div ng-show="raid._id">
-            <span>{{raid.players.length}} Members (Max. Capacity : {{raid.strength || ((raid.players.length < 3) ? 3 : ((raid.players.length > 12) ? 12 : raid.players.length))}})</span>
-        </div>
-        <div>
-            <button type="button" ng-disabled="raidForm.$invalid" ng-click="create_update_raid()">{{ raid._id ? 'Update' : 'Create' }}</button>
-            <button type="button" ui-sref="list({ 'filter_state' : filter_state })">Back</button>
+        <div class="controls">
+            <button class="create_button" type="button" ng-disabled="raidForm.$invalid" ng-click="create_update_raid()">{{ raid._id ? 'Update' : 'Create' }}</button><button class="back_button" type="button" ui-sref="list({ 'filter_state' : filter_state })">Back</button>
         </div>
     </form>
 </section>

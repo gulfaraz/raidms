@@ -2,7 +2,7 @@
     <header id="user_name">{{profile.user_name}}</header>
     <div class="caption">{{profile.caption ? "\"" + profile.caption + "\"" : ""}}</div>
     <div class="seeking">
-        <div ng-show="profile.seeking.game && profile.seeking.platform">Looking to play <span class="game">{{profile.seeking.game}}</span> on <span class="platform">{{profile.seeking.platform}}</span></div>
+        <div ng-show="profile.seeking.game && profile.seeking.platform">Looking to play <button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : '', 'game' : profile.seeking.game } })">{{profile.seeking.game}}</button> on <button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : profile.seeking.platform, 'game' : '' } })">{{profile.seeking.platform}}</button></div>
         <div class="message">{{profile.seeking.message ? "\"" + profile.seeking.message + "\"" : ""}}</div>
     </div>
     <div>
@@ -13,7 +13,7 @@
         <div class="inline available_platforms" ng-show="profile.platforms.length">
             <div>Available on</div>
             <div class="user_platforms">
-                <span class="platform" ng-repeat="platform in profile.platforms">{{platform}}</span>
+                <button class="platform_button" type="button" ng-repeat="platform in profile.platforms">{{platform}}</button>
             </div>
         </div>
         <div class="inline play_timings">

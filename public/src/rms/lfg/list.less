@@ -156,7 +156,7 @@
                             margin: 3px 0 0;
                             button {
                                 margin: 0 4px;
-                                padding: 3px 44px;
+                                padding: 3px 40px;
                                 &.leave_button {
                                     padding: 3px 37px;
                                 }
@@ -185,6 +185,9 @@
                                     content: "";
                                     display: none;
                                 }
+                                button {
+                                    .purple_button;
+                                }
                             }
                             &.access_column:before { content: "Access"; }
                             &.platform_column:before { content: "Platform"; }
@@ -203,6 +206,9 @@
                                 display: inline-block;
                                 width: 50%;
                                 margin: 5px auto;
+                                &#filter_toggle_button {
+                                    padding-left: 10px !important;
+                                }
                                 button {
                                     padding: 3px 5px;
                                     &#reset_button,
@@ -213,11 +219,6 @@
                             }
                             button {
                                 .orange_button;
-                            }
-                            &#filter_toggle_button {
-                                button {
-                                    .purple_button;
-                                }
                             }
                             &.filter_input {
                                 display: none;

@@ -51,6 +51,7 @@ angular.module('rmsApp.profile')
         });
         $scope.$watchGroup(['models.play_start', 'models.play_end', 'profile.timezone', 'profile.seeking.platform', 'profile.seeking.game', 'profile.seeking.message', 'profile.caption', 'profile.platforms'], function () {
             $scope.models.profile_form_status_message = '';
+            $scope.models.profile_form_status_message_success = true;
         });
         $scope.update_to_active_timezone = function () {
             if($scope.profile) {
@@ -224,8 +225,10 @@ angular.module('rmsApp.profile')
                 if(data_change.success) {
                     $scope.$parent.timezone = '(' + moment.tz(timezone).format('Z')+' GMT) ' + timezone;
                     $scope.models.profile_form_status_message = 'Profile Updated';
+                    $scope.models.profile_form_status_message_success = true;
                 } else {
                     $scope.models.profile_form_status_message = 'Update Error';
+                    $scope.models.profile_form_status_message_success = false;
                 }
             });
         };

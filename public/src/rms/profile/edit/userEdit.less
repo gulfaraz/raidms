@@ -1,30 +1,7 @@
 @import "../../common/variables.less";
 @import "../../common/mixins.less";
 
-.edit {
-    #title {
-        font-weight: bold;
-        font-size: 150%;
-    }
-    .component {
-        border: 1px solid @gray;
-        padding: 20px 10px 0;
-        margin: 20px 0 0;
-        position: relative;
-        border-radius: 5px;
-        .component_header {
-            position: absolute;
-            top: -13px;
-            left: 15px;
-            background-color: lighten(@gray, @lightener * @superlative);
-            border: 1px solid @gray;
-            padding: 0 5px;
-            border-radius: 5px;
-        }
-        .sub_component {
-            margin  : 10px 0;
-        }
-    }
+.user.edit {
     #caption {
         #caption_input {
             border: none;
@@ -44,7 +21,7 @@
             #platform_list {
                 text-align: center;
                 .platform {
-                    .orange_button;
+                    .yellow_button;
                     display: inline-block;
                     border-width: 1px;
                     border-style: solid;
@@ -61,20 +38,20 @@
                 }
                 button {
                     padding: 3px 5px;
-                    &:not(:disabled) {
-                        .orange_button;
-                    }
+                    .orange_button;
                 }
             }
         }
     }
     .play_information {
+        padding-top: 20px;
         #timezone {
             label {
                 font-size: 100%;
             }
             select {
                 padding: 2px 0;
+                height: 36px;
             }
         }
         .play_start_time_container {
@@ -116,6 +93,14 @@
             }
         }
     }
+    .controls {
+        #profile_form_status_message {
+            padding-bottom: 10px;
+            &:not(.success) {
+                color: @red;
+            }
+        }
+    }
     #accounts_linked {
         padding-top: 25px;
         padding-bottom: 10px;
@@ -152,18 +137,6 @@
             border-bottom: 1px solid gray;
             margin: 0 -10px 10px;
             padding: 0 10px 10px;
-            .sub_component_label {
-                font-size: 90%;
-            }
-            .error_message {
-                float: right;
-                font-size: 80%;
-                position: relative;
-                top: 4px;
-                span {
-                    color: @red;
-                }
-            }
             #old_passcode_container,
             #new_passcode_container {
                 display: inline-block;
@@ -174,10 +147,10 @@
             #old_passcode_container,
             #new_passcode_container {
                 padding: 0 10px;
-            }
-            #change_mail_input {
-                padding: 5px 5px 5px 10px;
-                width: 100%;
+                #change_mail_input {
+                    padding: 5px 5px 5px 10px;
+                    width: 100%;
+                }
             }
             .message {
                 text-align: center;
@@ -198,16 +171,14 @@
                 margin: 10px 0 0;
                 button {
                     padding: 3px 15px;
-                    &:not([disabled="disabled"]) {
-                        &.change_passcode_button {
-                            .blue_button;
-                        }
-                        &.change_mail_button {
-                            .purple_button;
-                        }
-                        &.delete_account_button {
-                            .red_button;
-                        }
+                    &.change_passcode_button {
+                        .blue_button;
+                    }
+                    &.change_mail_button {
+                        .purple_button;
+                    }
+                    &.delete_account_button {
+                        .red_button;
                     }
                 }
             }
@@ -251,7 +222,7 @@
 }
 
 @media only screen and (max-width : 480px) {
-    .edit {
+    .user.edit {
         #platforms {
             #platforms_container {
                 #platform_input {
@@ -306,7 +277,7 @@
 }
 
 @media only screen and (min-width : 481px) {
-    .edit {
+    .user.edit {
         #platforms {
             #platforms_container {
                 #platform_list {
@@ -352,7 +323,7 @@
 }
 
 @media only screen and (max-width : 650px) {
-    .edit {
+    .user.edit {
         #account_settings {
             .form_container {
                 #old_passcode_container,
@@ -365,7 +336,7 @@
 }
 
 @media only screen and (min-width : 651px) {
-    .edit {
+    .user.edit {
         #account_settings {
             .buttons_array {
                 .button_container {
