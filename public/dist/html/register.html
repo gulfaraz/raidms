@@ -1,0 +1,37 @@
+<section id="register">
+    <form name="signUp" ng-submit="sign_up()">
+        <header class="title">Sign Up</header>
+        <div class="user_name_container">
+            <label>User Name</label>
+            <span class="error_message" ng-messages="signUp.user_name.$error" ng-if="showMessages('user_name')">
+                <span ng-message="required">Required</span>
+                <span ng-message="duplicate">{{signUp.user_name.$viewValue}} not available</span>
+            </span>
+            <input type="text" name="user_name" placeholder="Choose your User Name" ng-model="register_user_name" required available />
+        </div>
+        <div class="passcode_container">
+            <label>Passcode</label>
+            <span class="error_message" ng-messages="signUp.passcode.$error" ng-if="showMessages('passcode')">
+                <span ng-message="required">Required</span>
+            </span>
+            <div class="passcode_container">
+                <input type="{{ show_register_passcode ? 'text' : 'password' }}" name="passcode" placeholder="Choose your Passcode" ng-model="register_passcode" required />
+                <span class="show_passcode_container" ng-show="register_passcode" ng-click="show_register_passcode = !show_register_passcode">
+                    <label>{{ show_register_passcode ? 'Hide' : 'Show' }}</label>
+                </span>
+            </div>
+        </div>
+        <div class="mail_container">
+            <label>Mail</label>
+            <span class="error_message" ng-messages="signUp.mail.$error" ng-if="showMessages('mail')">
+                <span ng-message="required">Required</span>
+                <span ng-message="email">Invalid Mail</span>
+                <span ng-message="duplicate">Registered Mail</span>
+            </span>
+            <input type="email" name="mail" placeholder="name@rms.com" ng-model="mail" required available />
+        </div>
+        <div class="form_controls">
+            <button class="register_button" type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button><button class="cancel_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : '', 'game' : '' } })">Cancel</button>
+        </div>
+    </form>
+</section>

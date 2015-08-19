@@ -1,0 +1,565 @@
+@import "variables.less";
+@import "mixins.less";
+
+* {
+    box-sizing: border-box;
+    line-height: 1.4;
+    outline: 0;
+    transition: all .25s ease-in-out;
+    font-size: 100%;
+    color: darken(@gray, @darkener * @comparative);
+    -webkit-tap-highlight-color: transparent;
+}
+
+::-moz-selection {
+    background: darken(@gray, @darkener * @superlative) none repeat scroll 0 0;
+    color: lighten(@gray, @lightener * @superlative);
+}
+
+:focus {
+    outline: none;
+}
+
+::-moz-focus-inner {
+    border: 0;
+}
+
+body {
+    background: lighten(@gray, @lightener * @superlative);
+    margin: auto;
+    font-family: @font_family;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    min-width: 300px;
+}
+
+input,
+select,
+button {
+    font-family: @interactable_font_family;
+    border: 1px solid darken(@gray, @darkener);
+    background-color: transparent;
+    color: darken(@gray, @darkener * @comparative);
+    border-style: solid;
+}
+
+input {
+    &:required {
+        box-shadow: none;
+    }
+    &:-webkit-autofill {
+        &,
+        &:hover,
+        &:focus {
+            -webkit-box-shadow: 0 0 0 1000px @white inset;
+            -webkit-text-fill-color: darken(@gray, @darkener * @comparative) !important;
+        }
+    }
+    &[type="radio"] {
+        background-color: darken(@gray, @darkener * @comparative);
+    }
+}
+
+button {
+    font-size: 100%;
+    border: 1px solid darken(@gray, @darkener * @comparative);
+    border-radius: 3px;
+    padding: 3px 5px;
+    transition: all .1s ease-in-out;
+    &[disabled="disabled"] {
+        background-color: lighten(@gray, @lightener * @comparative);
+        border-color: lighten(@gray, @lightener);
+        color: @gray;
+    }
+    &:not([disabled="disabled"]) {
+        background-color: lighten(@gray, @lightener * @comparative);
+        color: darken(@gray, @darkener * @comparative);
+        cursor: pointer;
+        &:hover,
+        &:focus {
+            background-color: darken(@gray, @darkener * @comparative);
+            color: lighten(@gray, @lightener * @superlative);
+        }
+    }
+}
+
+select {
+    -webkit-appearance: menulist;
+    padding: 2px 5px;
+    height: 30px;
+    & > option {
+        padding: 5px;
+    }
+}
+
+textarea {
+    background-color: transparent;
+    resize: none;
+    width: 100%;
+    border: 1px solid darken(@gray, @darkener);
+}
+
+a {
+    text-decoration: none;
+}
+
+#rms {
+    height: 120px;
+    background-color: teal;
+    #rms_logo {
+        width: 257px;
+        height: 120px;
+        background-image: url("/media/rms.svg");
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+#overlayed_content {
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        background-color: darken(@gray, @darkener * @superlative);
+        opacity: 0.7;
+        z-index: 1;
+    }
+    #broadcast_message {
+        border: 1px solid darken(@gray, @darkener * @superlative);
+        background-color: lighten(@gray, @lightener * @superlative);
+        color: darken(@gray, @darkener * @superlative);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 3px 8px;
+        z-index: 2;
+        width: 250px;
+        padding: 25px 0;
+        text-align: center;
+        a {
+            .red_button;
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 5px;
+            border-style: solid;
+            border-width: 1px;
+        }
+    }
+}
+
+#timezone {
+    & > label {
+        font-size: 110%;
+    }
+    & > select {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+#navigation {
+    text-align: center;
+    margin: 10px 0;
+    & > button {
+        padding: 5px;
+        width: 100%;
+    }
+}
+
+#account_portal {
+    margin: 10px auto;
+}
+
+#social_login_icons {
+    margin: 0 auto;
+    width: 290px;
+    a {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        margin: 0 4px;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-image: url("/media/social_login_icons.png");
+        &:focus,
+        &:hover {
+            outline: darken(@gray, @darkener * @superlative) dotted thin;
+        }
+    }
+}
+
+.psn_logo {
+    background-position: 0px 0px;
+}
+
+.xbox_logo {
+    background-position: 0px -50px;
+}
+
+.facebook_logo {
+    background-position: 0px -100px;
+}
+
+.twitter_logo {
+    background-position: 0px -150px;
+}
+
+.google_logo {
+    background-position: 0px -200px;
+}
+
+.user_name_container,
+.passcode_container,
+.mail_container {
+    width: 100%;
+    margin-bottom: 5px;
+    position: relative;
+    & > input {
+        border: 1px solid darken(@gray, @darkener);
+        width: 100%;
+        padding: 5px 10px 5px 10px;
+    }
+}
+
+.passcode_container {
+    & > input {
+        padding: 5px 50px 5px 10px;
+    }
+    .show_passcode_container {
+        position: absolute;
+        right: 4px;
+        top: 10px;
+        width: 45px;
+        height: 25px;
+        padding: 0;
+        font-size: 90%;
+        text-align: right;
+        & > label {
+            color: darken(@gray, @darkener);
+            font-family: @interactable_font_family;
+        }
+    }
+}
+
+#sign_in_form {
+    max-width: 280px;
+    margin: auto;
+    .passcode_container {
+        .show_passcode_container {
+            font-size: 18px;
+            top: 7px;
+        }
+    }
+    #sign_in_control {
+        margin: 0 auto;
+        width: 280px;
+        text-align: center;
+        display: block;
+        height: 30px;
+        button {
+            border-radius: 2px;
+            font-size: 100%;
+            padding: 3px 7px;
+            margin: 0 3px;
+            &.sign_in_button {
+                .green_button;
+            }
+            &.register_button {
+                .blue_button;
+            }
+            &.recover_button {
+                .red_button;
+            }
+        }
+    }
+}
+
+#user_information {
+    text-align: center;
+    margin: auto;
+    #authorized_user_name {
+        display: inline-block;
+        width: 35%;
+        font-weight: bold;
+        text-align: center;
+        font-size: 120%;
+        vertical-align: bottom;
+    }
+    .sign_out_button {
+        .red_button;
+    }
+    .view_profile_button {
+        .blue_button;
+    }
+}
+
+aside {
+    display: none;
+    &#statistics {
+        margin: 10px;
+        font-size: 80%;
+        #server_status,
+        #users_online {
+            width: 50%;
+        }
+        #server_status {
+            &.online {
+                color: darken(@green, @darkener);
+            }
+            &.offline {
+                color: darken(@red, @darkener);
+            }
+        }
+        #users_online {
+            color: darken(@blue, @darkener);
+            text-align: right;
+        }
+    }
+}
+
+.inline {
+    & > * {
+        display: inline-block;
+    }
+}
+
+.view {
+    margin: 10px auto;
+}
+
+.full_width {
+    width: 100%;
+    max-width: none;
+}
+
+.unauthorized_message {
+    text-align: center;
+    padding: 20px;
+    color: @red;
+}
+
+.disable_scrolling {
+    overflow: hidden;
+}
+
+.footer {
+    display: none;
+    font-size: 80%;
+    padding: 5px 8px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 150%;
+    border-bottom: 1px solid @gray;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.error_message {
+    float: right;
+    font-size: 80%;
+    position: relative;
+    top: 4px;
+    span {
+        color: @red;
+    }
+}
+
+.join_button,
+.save_button,
+.access_button,
+.add_button,
+.create_button {
+    .green_button;
+}
+
+.leave_button,
+.back_button,
+.expel_button {
+    .red_button;
+}
+
+.view_button,
+.requester_button {
+    .blue_button;
+}
+
+.game_button,
+.show_similar_button {
+    .aqua_button;
+}
+
+.player_button {
+    .orange_button;
+}
+
+.platform_button {
+    .yellow_button;
+}
+
+.edit_button,
+.host_button {
+    .purple_button;
+}
+
+.success,
+.early {
+    color: darken(@green, @darkener);
+}
+
+.late {
+    color: darken(@red, @darkener);
+}
+
+.karma_score {
+    font-weight: bold;
+    color: darken(@blue, @darkener);
+    &.good_karma {
+        color: @green;/*darkener(@green, @darkener);*/
+    }
+    &.bad_karma {
+        color: @red;/*darkener(@red, @darkener);*/
+    }
+}
+
+.component {
+    border: 1px solid @gray;
+    padding: 20px 10px 0;
+    margin: 20px 0 0;
+    position: relative;
+    border-radius: 5px;
+    .component_header {
+        position: absolute;
+        top: -13px;
+        left: 15px;
+        background-color: lighten(@gray, @lightener * @superlative);
+        border: 1px solid @gray;
+        padding: 0 5px;
+        border-radius: 5px;
+    }
+    .sub_component {
+        margin  : 10px 0;
+    }
+    .sub_component_label {
+        font-size: 90%;
+    }
+}
+
+.play_information {
+    width: 100%;
+    border: 1px solid @gray;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px;
+    .play_timings {
+        text-align: center;
+        .play_start_time_container,
+        .play_end_time_container {
+            width: 50%;
+            .label {
+                font-size: 80%;
+                color: darken(@gray, @darkener);
+            }
+            .time_ago {
+                font-size: 80%;
+            }
+        }
+    }
+}
+
+.date {
+    font-size: 80%;
+}
+
+.sortable_column:after {
+    content: '\25B3';
+    margin: 0 10px;
+    position: relative;
+    top: -2px;
+}
+
+.st-sort-ascent:after,
+.timepicker_button_up:after {
+    content: '\25B2';
+}
+
+.st-sort-descent:after,
+.timepicker_button_down:after {
+  content: '\25BC';
+}
+
+.show_meridian_button {
+    text-align: right;
+    width: 55px;
+}
+
+@media only screen and (max-width : 480px) {
+    body {
+        & > #content {
+            width: 300px;
+            margin: auto;
+        }
+    }
+}
+
+@media only screen and (min-width : 481px) {
+    body {
+        font-size: 18px;
+        & > #content {
+            margin: 0 10px;
+        }
+        aside {
+            display: block;
+        }
+    }
+    .passcode_container {
+        .show_passcode_container {
+            font-size: 80%;
+        }
+    }
+}
+
+@media only screen and (min-width : 651px) {
+    #timezone_navigation,
+    #account_portal {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        .content {
+            max-width: 300px;
+            margin: 0;
+        }
+        &#timezone_navigation > .content {
+            margin-right: auto;
+            max-width: 500px;
+        }
+        &#account_portal > .content {
+            margin-left: auto;
+        }
+    }
+}
+
+@media only screen and (max-width : 650px) {
+    #rms {
+        #rms_logo {
+            margin: auto;
+        }
+    }
+}
+
+
+@media only screen and (max-width : 1024px) {
+    #rms {
+        height: 80px;
+        #rms_logo {
+            width: 172px;
+            height: 80px;
+        }
+    }
+}

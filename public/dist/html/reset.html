@@ -1,0 +1,18 @@
+<section id="reset">
+    <header class="title">Set New Passcode</header>
+    <form name="reset" ng-submit="reset_passcode()">
+        <label>New Passcode</label>
+        <span class="error_message" ng-messages="reset.passcode.$error" ng-if="reset.passcode.$dirty && reset.passcode.$invalid">
+            <span ng-message="required">Required</span>
+        </span>
+        <div class="passcode_container">
+            <input type="{{ show_reset_passcode ? 'text' : 'password' }}" name="passcode" placeholder="New Passcode" ng-model="passcode" required />
+            <span class="show_passcode_container" ng-show="passcode" ng-click="show_reset_passcode = !show_reset_passcode">
+                <label>{{ show_reset_passcode ? 'Hide' : 'Show' }}</label>
+            </span>
+        </div>
+        <div class="form_controls">
+            <button class="reset_button" type="submit" ng-disabled="reset.$invalid">Reset</button>
+        </div>
+    </form>
+</section>

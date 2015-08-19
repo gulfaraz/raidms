@@ -1,0 +1,21 @@
+@import "variables.less";
+
+@colors: e('blue'), e('red'), e('green'), e('purple'), e('yellow'), e('orange'), e('aqua');
+ 
+.creatcolorclasses(@iterator:1) when(@iterator <= length(@colors)) {
+    @name: extract(@colors, @iterator);
+    .@{name}_button {
+        &:not([disabled="disabled"]) {
+            background-color: lighten(@@name, @lightener);
+            border-color: darken(@@name, @darkener);
+            color: lighten(@gray, @lightener * @superlative);
+            &:hover,
+            &:focus {
+                background-color: darken(@@name, @darkener);
+            }
+        }
+    }
+    .creatcolorclasses((@iterator + 1));
+}
+ 
+.creatcolorclasses();
