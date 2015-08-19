@@ -7,7 +7,7 @@ angular.module('rmsApp.raid', ['ui.router'])
                     'filter_state' : {},
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/raid/view/raid.html',
+                'templateUrl' : '/html/raid.html',
                 'controller' : 'raidController'
             })
             .state('editRaid', {
@@ -16,7 +16,7 @@ angular.module('rmsApp.raid', ['ui.router'])
                     'filter_state' : {},
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/raid/edit/raidEdit.html',
+                'templateUrl' : '/html/raidEdit.html',
                 'controller' : 'raidEditController'
             });
     }]);

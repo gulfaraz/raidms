@@ -1,5 +1,4 @@
-module.exports = function (util, express, Raid, auth) {
-    var router = express.Router();
+module.exports = function (util, router, Raid, auth) {
     router.route('/')
         .post(auth.isAuthenticated, function (req, res) {
             if(req.user.status == 'active') {
@@ -14,7 +13,7 @@ module.exports = function (util, express, Raid, auth) {
                             raid.strength = req.body.strength;
                             raid.players = [req.user._id];
                             raid.play_time = req.body.play_time;
-                            raid.status = req.body.status;
+                            raid.access = req.body.access;
                             raid.host = req.user._id;
                             raid.description = req.body.description;
                             raid.queue = [];
@@ -69,7 +68,7 @@ module.exports = function (util, express, Raid, auth) {
                         { '$or' : [
                                 { 'platform' : new RegExp(found, "ig") },
                                 { 'game' : new RegExp(found, "ig") },
-                                { 'status' : new RegExp(found, "ig") },
+                                { 'access' : new RegExp(found, "ig") },
                                 { 'description' : new RegExp(found, "ig") }
                             ]
                         }
@@ -141,7 +140,7 @@ module.exports = function (util, express, Raid, auth) {
                             raid.game = req.body.game;
                             raid.strength = req.body.strength;
                             raid.players = (req.body.players.length > 0) ? req.body.players : raid.players;
-                            raid.status = req.body.status;
+                            raid.access = req.body.access;
                             raid.description = req.body.description;
                             raid.save(function (err) {
                                 if(err) {
@@ -164,7 +163,7 @@ module.exports = function (util, express, Raid, auth) {
                                         } else if(raid.queue.indexOf(req.user._id) >= 0) {
                                             res.json({ 'success' : false, 'message' : 'Request Pending' });
                                         } else {
-                                            if(raid.status == 'open') {
+                                            if(raid.access == 'open') {
                                                 raid.players.push(req.user._id);
                                                 success_message = 'Joined Raid';
                                             } else {

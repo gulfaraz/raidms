@@ -161,7 +161,7 @@ describe('mainController', function () {
                         });
                 }
                 $httpBackend
-                    .expect('GET', 'src/rms/lfg/list.html')
+                    .expect('GET', '/html/list.html')
                     .respond(200, null);
             }));
 
@@ -240,8 +240,8 @@ describe('mainController', function () {
 
             it('localize adds localized times to input', function () {
                 scope.active_timezone = jstz.olson.timezones[Object.keys(jstz.olson.timezones)[ Math.floor(Math.random() * Object.keys(jstz.olson.timezones).length) ]];
-                var format = 'h:mm A (Do MMM)';
-                var play_time_format = 'h:mm A';
+                var format = 'h:mm A';
+                var date_format = '(Do MMM)';
 
                 var test_data_list = [
                         [],
@@ -258,10 +258,12 @@ describe('mainController', function () {
                         if(localized_data[i]) {
                             expect(localized_data[i].display_time_created).toBe(moment.tz(test_data[i].time_created, scope.active_timezone).format(format));
                             expect(localized_data[i].display_play_time).toBe(moment.tz(test_data[i].play_time, scope.active_timezone).format(format));
+                            expect(localized_data[i].display_time_created_date).toBe(moment.tz(test_data[i].time_created, scope.active_timezone).format(date_format));
+                            expect(localized_data[i].display_play_time_date).toBe(moment.tz(test_data[i].play_time, scope.active_timezone).format(date_format));
                             expect(localized_data[i].play_start.isSame(moment.tz(test_data[i].play_start, scope.active_timezone))).toBe(true);
                             expect(localized_data[i].play_end.isSame(moment.tz(test_data[i].play_end, scope.active_timezone))).toBe(true);
-                            expect(localized_data[i].display_play_start).toBe(localized_data[i].play_start.format(play_time_format));
-                            expect(localized_data[i].display_play_end).toBe(localized_data[i].play_end.format(play_time_format));
+                            expect(localized_data[i].display_play_start).toBe(localized_data[i].play_start.format(format));
+                            expect(localized_data[i].display_play_end).toBe(localized_data[i].play_end.format(format));
                             expect(localized_data[i].display_date_joined).toBe(moment.tz(test_data[i].date_joined, scope.active_timezone).format(format));
                         }
                     }

@@ -1,5 +1,4 @@
-module.exports = function (util, express, User, auth) {
-    var router = express.Router();
+module.exports = function (util, router, User, auth) {
     router.get('/check/:query', function (req, res) {
         var query = { 'user_name' : req.params.query };
         if(util.validateEmail(req.params.query)) {
@@ -35,7 +34,7 @@ module.exports = function (util, express, User, auth) {
                                 if(err) {
                                     res.json({ 'success' : false, 'message' : err.toString() });
                                 } else {
-                                    res.redirect(util.config.protocol + util.config.domain + '#/user/' + user.user_name);
+                                    res.redirect(util.config.scheme + '://' + util.config.domain + '/#/user/' + user.user_name);
                                 }
                             });
                         } else {
@@ -64,7 +63,7 @@ module.exports = function (util, express, User, auth) {
                             if(err) {
                                 res.json({ 'success' : false, 'message' : err.toString() });
                             } else {
-                                res.redirect(util.config.protocol + util.config.domain + '#/user/' + user.user_name);
+                                res.redirect(util.config.scheme + '://' + util.config.domain + '/#/user/' + user.user_name);
                             }
                         });
                     }
@@ -119,3 +118,4 @@ module.exports = function (util, express, User, auth) {
     });
     return router;
 }
+

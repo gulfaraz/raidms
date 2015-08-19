@@ -6,7 +6,7 @@ angular.module('rmsApp.profile', ['ui.router'])
                 'params' : {
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/profile/register/register.html',
+                'templateUrl' : '/html/register.html',
                 'controller' : 'signUpController'
             })
             .state('user', {
@@ -14,7 +14,7 @@ angular.module('rmsApp.profile', ['ui.router'])
                 'params' : {
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/profile/view/user.html',
+                'templateUrl' : '/html/user.html',
                 'controller' : 'userController'
             })
             .state('editUser', {
@@ -22,7 +22,7 @@ angular.module('rmsApp.profile', ['ui.router'])
                 'params' : {
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/profile/edit/userEdit.html',
+                'templateUrl' : '/html/userEdit.html',
                 'controller' : 'userEditController'
             })
             .state('forgot', {
@@ -30,7 +30,7 @@ angular.module('rmsApp.profile', ['ui.router'])
                 'params' : {
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/profile/recover/forgot/forgot.html',
+                'templateUrl' : '/html/forgot.html',
                 'controller' : 'forgotController'
             })
             .state('reset', {
@@ -38,7 +38,7 @@ angular.module('rmsApp.profile', ['ui.router'])
                 'params' : {
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/profile/recover/reset/reset.html',
+                'templateUrl' : '/html/reset.html',
                 'controller' : 'resetController'
             });
     }]);

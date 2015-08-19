@@ -1,7 +1,7 @@
     angular.module('rmsApp.raid')
     .controller('raidController', ['$scope', 'api', '$stateParams', '$state', '$timeout', function ($scope, api, $stateParams, $state, $timeout) {
         $scope.$parent.message = $stateParams.message;
-        $scope.filter_state = $stateParams.filter_state || { 'status' : '', 'platform' : '', 'game' : '' };
+        $scope.filter_state = $stateParams.filter_state || { 'access' : '', 'platform' : '', 'game' : '' };
         api.get({ 'set' : 'raid', 'id' : $stateParams.raid_id }, function (raid) {
             if(raid.success) {
                 $scope.raid = $scope.localize([raid.data])[0];
@@ -46,7 +46,7 @@
                 api.save({ 'set' : 'raid', 'id' : $stateParams.raid_id }, { 'action' : 'join' }, function (raid) {
                     $scope.action_status = raid.message;
                     if(raid.success) {
-                        if($scope.raid.status == 'open') {
+                        if($scope.raid.access == 'open') {
                             $scope.raid.players.push($scope.user._id);
                             api.cache({ 'set' : 'user', 'id' : $scope.user._id }, function (user) {
                                 if(user.success) {
@@ -54,7 +54,7 @@
                                     $scope.player_data[$scope.user._id].show = false;
                                 }
                             });
-                        } else if($scope.raid.status == 'closed') {
+                        } else if($scope.raid.access == 'closed') {
                             $scope.raid.queue.push($scope.user._id);
                             api.cache({ 'set' : 'user', 'id' : $scope.user._id }, function (user) {
                                 if(user.success) {

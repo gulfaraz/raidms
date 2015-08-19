@@ -7,7 +7,7 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router', 'rmsApp.raid'])
                     'filter_state' : {},
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/lfg/list.html',
+                'templateUrl' : '/html/list.html',
                 'controller' : 'listController'
             });
     }])
@@ -18,7 +18,7 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router', 'rmsApp.raid'])
                 api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
                     if(user.success) {
                         if(Object.keys($stateParams.filter_state).length <= 0) {
-                            $state.go('list', { 'filter_state' : { 'status' : null, 'platform' : user.data.seeking.platform, 'game' : user.data.seeking.game } });
+                            $state.go('list', { 'filter_state' : { 'access' : null, 'platform' : user.data.seeking.platform, 'game' : user.data.seeking.game } });
                         } else {
                             $scope.reset_filter_state = $stateParams.filter_state;
                         }
@@ -26,8 +26,8 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router', 'rmsApp.raid'])
                 });
             }
         });
-        $scope.filter_state = angular.extend({ 'status' : '', 'platform' : '', 'game' : '' }, $stateParams.filter_state);
-        $scope.status_filters = {};
+        $scope.filter_state = angular.extend({ 'access' : '', 'platform' : '', 'game' : '' }, $stateParams.filter_state);
+        $scope.access_filters = {};
         $scope.platform_filters = {};
         $scope.game_filters = {};
         $scope.get_raids = function get_raids(tableState) {
@@ -63,7 +63,7 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router', 'rmsApp.raid'])
                 if(filters.success) {
                     var filter_types = {
                         'game_filters' : filters.data[0].game,
-                        'status_filters' : filters.data[0].status,
+                        'access_filters' : filters.data[0].access,
                         'platform_filters' : filters.data[0].platform
                     };
                     angular.forEach(filter_types, function (filter_values, filter_type) {
@@ -80,9 +80,9 @@ angular.module('rmsApp.lfg', ['smart-table', 'ui.router', 'rmsApp.raid'])
                 api.save({ 'set' : 'raid', 'id' : raid_id }, { 'action' : 'join' }, function (data) {
                     $scope.$parent.message = data.message;
                     if(data.success) {
-                        if(raid.status == 'open') {
+                        if(raid.access == 'open') {
                             raid.players.push($scope.user._id);
-                        } else if(raid.status == 'closed') {
+                        } else if(raid.access == 'closed') {
                             raid.queue.push($scope.user._id);
                         }
                     }

@@ -2,7 +2,7 @@
     <header id="user_name">{{profile.user_name}}</header>
     <div class="caption">{{profile.caption ? "\"" + profile.caption + "\"" : ""}}</div>
     <div class="seeking">
-        <div ng-show="profile.seeking.game && profile.seeking.platform">Looking to play <button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : '', 'game' : profile.seeking.game } })">{{profile.seeking.game}}</button> on <button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : profile.seeking.platform, 'game' : '' } })">{{profile.seeking.platform}}</button></div>
+        <div ng-show="profile.seeking.game && profile.seeking.platform">Looking to play <button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : '', 'game' : profile.seeking.game } })">{{profile.seeking.game}}</button> on <button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : profile.seeking.platform, 'game' : '' } })">{{profile.seeking.platform}}</button></div>
         <div class="message">{{profile.seeking.message ? "\"" + profile.seeking.message + "\"" : ""}}</div>
     </div>
     <div>

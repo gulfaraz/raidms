@@ -1,5 +1,4 @@
-module.exports = function (util, express, User, auth) {
-    var router = express.Router();
+module.exports = function (util, router, User, auth) {
     var select = 'user_name mail role status caption karma play_start play_end platforms seeking date_joined date_updated social delete timezone';
     var except = 'mail status social delete timezone';
     router.route('/')

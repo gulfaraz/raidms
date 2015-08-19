@@ -1,9 +1,7 @@
 var globalConfig = {
     'src' : 'public/src',
     'dist' : 'public/dist',
-    'bower' : 'bower_components',
-    'sourceMap' : true, //false
-    'livereload' : true //false
+    'bower' : 'bower_components'
 };
 
 module.exports = function (grunt) {
@@ -22,60 +20,123 @@ module.exports = function (grunt) {
             'options' : {
                 'ignores' : '<%= globalConfig.src %>/libs/**/*.js'
             },
-            'all' : ['<%= globalConfig.src %>/rms/**/*.js']
+            'rms' : ['<%= globalConfig.src %>/rms/**/*.js']
         },
         'uglify' : {
             'options' : {
-                'sourceMap' : '<%= globalConfig.sourceMap %>'
+                'sourceMap' : true
             },
-            'build' : {
+            'development' : {
                 'files' : {
                     '<%= globalConfig.dist %>/js/rms.min.js' : [
-                        '<%= globalConfig.src %>/libs/angular/*.js',
-                        '<%= globalConfig.src %>/libs/angular-resource/*.js',
-                        '<%= globalConfig.src %>/libs/moment/*.js',
-                        '<%= globalConfig.src %>/libs/moment-timezone/*.js',
-                        '<%= globalConfig.src %>/libs/jstimezonedetect/*.js',
-                        '<%= globalConfig.src %>/libs/**/*.js',
-                        '<%= globalConfig.src %>/rms/*.js',
-                        '<%= globalConfig.src %>/rms/*/*.js',
-                        '<%= globalConfig.src %>/rms/**/*.js',
-                        '!<%= globalConfig.src %>/libs/angular-mocks/angular-mocks.js',
-                        '!<%= globalConfig.src %>/rms/**/*.tests.js',
-                    ]
+                            '<%= globalConfig.src %>/libs/angular/*.js',
+                            '<%= globalConfig.src %>/libs/angular-resource/*.js',
+                            '<%= globalConfig.src %>/libs/moment/*.js',
+                            '<%= globalConfig.src %>/libs/moment-timezone/*.js',
+                            '<%= globalConfig.src %>/libs/jstimezonedetect/*.js',
+                            '<%= globalConfig.src %>/libs/**/*.js',
+                            '<%= globalConfig.src %>/rms/*.js',
+                            '<%= globalConfig.src %>/rms/*/*.js',
+                            '<%= globalConfig.src %>/rms/**/*.js',
+                            '!<%= globalConfig.src %>/libs/angular-mocks/angular-mocks.js',
+                            '!<%= globalConfig.src %>/rms/**/*.tests.js',
+                        ]
+                }
+            },
+            'production' : {
+                'options' : {
+                    'sourceMap' : false
+                },
+                'files' : {
+                    '<%= globalConfig.dist %>/js/rms.min.js' : [
+                            '<%= globalConfig.src %>/libs/angular/*.js',
+                            '<%= globalConfig.src %>/libs/angular-resource/*.js',
+                            '<%= globalConfig.src %>/libs/moment/*.js',
+                            '<%= globalConfig.src %>/libs/moment-timezone/*.js',
+                            '<%= globalConfig.src %>/libs/jstimezonedetect/*.js',
+                            '<%= globalConfig.src %>/libs/**/*.js',
+                            '<%= globalConfig.src %>/rms/*.js',
+                            '<%= globalConfig.src %>/rms/*/*.js',
+                            '<%= globalConfig.src %>/rms/**/*.js',
+                            '!<%= globalConfig.src %>/libs/angular-mocks/angular-mocks.js',
+                            '!<%= globalConfig.src %>/rms/**/*.tests.js',
+                        ]
                 }
             }
         },
         'less' : {
             'options' : {
-                'plugins' : [new (require('less-plugin-autoprefix'))({ 'browsers' : ["last 2 versions"] })]
+                'plugins' : [new (require('less-plugin-autoprefix'))({'browsers':["last 2 versions"]})]
             },
-            'build' : {
+            'rms' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/css/style.css' : ['<%= globalConfig.src %>/rms/*.less', '<%= globalConfig.src %>/rms/**/view/*.less', '<%= globalConfig.src %>/rms/**/edit/*.less', '<%= globalConfig.src %>/rms/**/*.less', '!<%= globalConfig.src %>/rms/variables.less', '!<%= globalConfig.src %>/rms/mixins.less']
+                    '<%= globalConfig.dist %>/css/style.css' : [
+                            '<%= globalConfig.src %>/rms/common/styles/style.less',
+                            '<%= globalConfig.src %>/rms/**/view/*.less',
+                            '<%= globalConfig.src %>/rms/**/edit/*.less',
+                            '<%= globalConfig.src %>/rms/**/*.less',
+                            '!<%= globalConfig.src %>/rms/common/styles/variables.less',
+                            '!<%= globalConfig.src %>/rms/common/styles/mixins.less'
+                        ]
                 }
             }
         },
         'cssmin' : {
-            'build' : {
+            'all' : {
                 'files' : {
-                    '<%= globalConfig.dist %>/css/style.min.css' : ['<%= globalConfig.src %>/libs/**/*.css', '<%= globalConfig.dist %>/css/style.css']
+                    '<%= globalConfig.dist %>/css/style.min.css' : [
+                            '<%= globalConfig.src %>/libs/**/*.css',
+                            '<%= globalConfig.dist %>/css/style.css'
+                        ]
                 }
+            }
+        },
+        'copy' : {
+            'html' : {
+                'files' : [
+                    {
+                        'expand' : true,
+                        'flatten' : true,
+                        'src' : ['<%= globalConfig.src %>/rms/**/*.html'],
+                        'dest' : '<%= globalConfig.dist %>/html/',
+                        'filter' : 'isFile'
+                    }
+                ]
+            },
+            'media' : {
+                'files' : [
+                    {
+                        'expand' : true,
+                        'flatten' : true,
+                        'src' : [
+                                '<%= globalConfig.src %>/rms/**/*.jpg',
+                                '<%= globalConfig.src %>/rms/**/*.png',
+                                '<%= globalConfig.src %>/rms/**/*.gif',
+                                '<%= globalConfig.src %>/rms/**/*.svg'
+                            ],
+                        'dest' : '<%= globalConfig.dist %>/media/',
+                        'filter' : 'isFile'
+                    }
+                ]
             }
         },
         'watch' : {
             'options' : {
-              'livereload' : '<%= globalConfig.livereload %>',
+              'livereload' : true,
             },
             'html' : {
-                'files' : ['public/**/*.html']
+                'files' : ['public/**/*.html'],
+                'tasks' : ['copy']
             },
             'css' : {
                 'files' : ['<%= globalConfig.src %>/rms/**/*.less'],
                 'tasks' : ['less', 'cssmin']
             },
             'js' : {
-                'files' : ['<%= globalConfig.src %>/rms/**/*.js', '<%= globalConfig.src %>/rms/*.js'],
+                'files' : [
+                        '<%= globalConfig.src %>/rms/**/*.js',
+                        '<%= globalConfig.src %>/rms/*.js'
+                    ],
                 'tasks' : ['jshint', 'uglify']
             }
         },
@@ -83,11 +144,17 @@ module.exports = function (grunt) {
             'options' : {
                 'logConcurrentOutput' : true
             },
-            'tasks' : ['nodemon', 'watch']
+            'tasks' : ['nodemon:development', 'watch']
         },
         'nodemon' : {
-            'dev' : {
+            'development' : {
                 'script' : 'index.js'
+            },
+            'production' : {
+                'script' : 'index.js',
+                'options' : {
+                    'ignore' : ['**/*.*']
+                }
             }
         },
         'karma' : {
@@ -115,6 +182,26 @@ module.exports = function (grunt) {
 
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    grunt.registerTask('default', ['bower', 'less', 'cssmin', 'jshint', 'uglify', 'concurrent']);
-    grunt.registerTask('test', ['jshint', 'karma']);
+    grunt.registerTask('default', [
+        'bower',
+        'less',
+        'cssmin',
+        'jshint',
+        'uglify:development',
+        'copy',
+        'concurrent'
+    ]);
+    grunt.registerTask('test', [
+        'jshint',
+        'karma'
+    ]);
+    grunt.registerTask('production', [
+        'bower',
+        'less',
+        'cssmin',
+        'jshint',
+        'uglify:production',
+        'copy',
+        'nodemon:production'
+    ]);
 };

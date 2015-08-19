@@ -56,7 +56,7 @@ var RaidSchema = new Schema({
     'queue' : [{ 'type' : Schema.Types.ObjectId, 'ref' : 'User' }],
     'time_created' : Date,
     'play_time' : Date,
-    'status' : String,
+    'access' : String,
     'host' : { 'type' : Schema.Types.ObjectId, 'ref' : 'User' },
     'description' : String
 });
@@ -64,27 +64,8 @@ var RaidSchema = new Schema({
 var FilterSchema = new Schema({
     'game' : [String],
     'platform' : [String],
-    'status' : [String]
+    'access' : [String]
 });
 
-var ClientSchema = new Schema({
-    'name' : { 'type' : String, 'unique' : true, 'required' : true },
-    'id' : { 'type' : String, 'required' : true },
-    'secret' : { 'type' : String, 'required' : true },
-    'user_id' : { 'type' : String, 'required' : true }
-});
+module.exports = {'User' : mongoose.model('User', UserSchema), 'Raid' : mongoose.model('Raid', RaidSchema), 'Filter' : mongoose.model('Filter', FilterSchema) };
 
-var CodeSchema = new Schema({
-    'value' : { 'type' : String, 'required' : true },
-    'redirect_uri' : { 'type' : String, 'required' : true },
-    'user_id' : { 'type' : String, 'required' : true },
-    'client_id' : { 'type' : String, 'required' : true }
-});
-
-var TokenSchema = new Schema({
-    'value' : { 'type' : String, 'required' : true },
-    'user_id' : { 'type' : String, 'required' : true },
-    'client_id' : { 'type' : String, 'required' : true }
-});
-
-module.exports = {'User' : mongoose.model('User', UserSchema), 'Raid' : mongoose.model('Raid', RaidSchema), 'Filter' : mongoose.model('Filter', FilterSchema), 'Client' : mongoose.model('Client', ClientSchema), 'Code' : mongoose.model('Code', CodeSchema), 'Token' : mongoose.model('Token', TokenSchema) };

@@ -1,9 +1,4 @@
-module.exports = function (auth) {
-
-    var config = {
-        'protocol' : 'http://',
-        'domain' : '54.169.119.195/'
-    };
+module.exports = function (auth, web_config) {
 
     var nodemailer = require('nodemailer');
 
@@ -14,7 +9,7 @@ module.exports = function (auth) {
     }
 
     function sendRegistrationMail(to, token) {
-        var url = config.protocol + config.domain + "registration/" + token;
+        var url = web_config.scheme + "://" + web_config.domain + "/registration/" + token;
         var html = "<b>Welcome</b><br/>\
         <p>Please click the following link to complete your registration.</p>\
         <p><a href='" + url + "' title='RMS Registration'>" + url + "</a></p>";
@@ -22,7 +17,7 @@ module.exports = function (auth) {
     }
 
     function sendMailChangeMail(to, token) {
-        var url = config.protocol + config.domain + "mail/" + token;
+        var url = web_config.scheme + "://" + web_config.domain + "/mail/" + token;
         var html = "<b>Hello</b><br/>\
         <p>Please click the following link to validate your mail address.</p>\
         <p><a href='" + url + "' title='RMS Mail Change'>" + url + "</a></p>";
@@ -30,8 +25,8 @@ module.exports = function (auth) {
     }
 
     function sendAccountTerminationMail(to, user_name) {
-        var url_profile_edit = config.protocol + config.domain + "#/user/edit/" + user_name;
-        var url_profile = config.protocol + config.domain + "#/user/" + user_name;
+        var url_profile_edit = web_config.scheme + "://" + web_config.domain + "/#/user/" + user_name + "/edit";
+        var url_profile = web_config.scheme + "://" + web_config.domain + "/#/user/" + user_name;
         var html = "<b>Hello</b><br/>\
         <p>As per your request, your RMS account has been scheduled for termination.</p>\
         <p>Your data will be erased from our records in 24 hours.</p>\
@@ -44,7 +39,7 @@ module.exports = function (auth) {
     }
 
     function sendForgotPasscodeMail(to, token) {
-        var url = config.protocol + config.domain + "#/reset/" + token;
+        var url = web_config.scheme + "://" + web_config.domain + "/#/reset/" + token;
         var html = "<b>Hello</b><br/>\
         <p>Please click the following link to set a new passcode for your RMS account.</p>\
         <p><a href='" + url + "' title='RMS Reset Passcode'>" + url + "</a></p>";
@@ -52,7 +47,7 @@ module.exports = function (auth) {
     }
 
     return {
-        'config' : config,
+        'config' : web_config,
         'except' : function (object, arguments) {
             if (object.constructor.name === 'model') {
                 object = object.toObject();

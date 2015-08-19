@@ -1,3 +1,5 @@
+var config = require('./config')();
+
 var express = require('express');
 var rms = express();
 
@@ -6,7 +8,7 @@ rms.use(bodyParser.urlencoded({ 'extended' : true }));
 rms.use(bodyParser.json());
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rmsdev');
+mongoose.connect(config.database.scheme + '://' + config.database.domain + '/' + config.database.dbname);
 
 var models = require('./architecture/models');
 
@@ -17,9 +19,9 @@ var session = require('express-session');
 var swig = require('swig');
 swig.setDefaults({ 'cache' : false });
 
-var util = require('./util')(auth);
+var util = require('./util')(auth, config.web);
 
-var port = process.env.PORT || 8080;
+var port = config.web.port || process.env.PORT || 8080;
 
 rms.engine('html', swig.renderFile);
 
@@ -32,8 +34,8 @@ rms.use(auth.passport_init);
 
 rms.use(require('connect-livereload')({ 'port' : 35729 }));
 
-rms.use(express.static(__dirname + '/public'), require('./routes/routes')(util, express, models, auth));
-rms.use('/', function (req, res) { res.sendFile('public/index.html', { 'root' : __dirname }); });
+rms.use(express.static(__dirname + '/public/dist'), require('./routes/routes')(util, express, models, auth));
+rms.use('/', function (req, res) { res.sendFile('public/dist/html/index.html', { 'root' : __dirname }); });
 
 rms.listen(port);
 console.log('Port ' + port + ' open and listening for requests');

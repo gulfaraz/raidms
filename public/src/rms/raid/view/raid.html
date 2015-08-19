@@ -1,6 +1,6 @@
 <section class="raid">
     <div id="categories">
-        <button class="status_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : raid.status, 'platform' : '', 'game' : '' } })">{{(raid.status || 'Status') | capitalize}}</button><button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : raid.platform, 'game' : '' } })">{{(raid.platform || 'Platform')}}</button><button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : '', 'platform' : '', 'game' : raid.game } })">{{(raid.game || 'Game')}}</button><div id="description" ng-show="raid.description">"{{raid.description}}"</div>
+        <button class="access_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : raid.access, 'platform' : '', 'game' : '' } })">{{(raid.access || 'Access') | capitalize}}</button><button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : raid.platform, 'game' : '' } })">{{(raid.platform || 'Platform')}}</button><button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : '', 'game' : raid.game } })">{{(raid.game || 'Game')}}</button><div id="description" ng-show="raid.description">"{{raid.description}}"</div>
     </div>
     <div class="play_information">
         <div class="play_timings inline">
@@ -42,7 +42,7 @@
                 <button class="leave_button" type="button" ng-hide="raid.players.indexOf(user._id) < 0" ng-click="leave_raid()">Leave</button>
             </span>
             <button class="edit_button" type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button>
-            <button class="show_similar_button" type="button" ui-sref="list({ 'filter_state' : { 'status' : raid.status, 'platform' : raid.platform, 'game' : raid.game } })">Show Similar</button>
+            <button class="show_similar_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : raid.access, 'platform' : raid.platform, 'game' : raid.game } })">Show Similar</button>
             <button type="button" ui-sref="list({ 'filter_state' : filter_state })">LFG</button>
         </div>
     <div>

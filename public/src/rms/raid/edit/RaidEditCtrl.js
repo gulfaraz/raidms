@@ -1,7 +1,7 @@
 angular.module('rmsApp.raid')
     .controller('raidEditController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
         $scope.$parent.message = $stateParams.message;
-        $scope.filter_state = $stateParams.filter_state || { 'status' : '', 'platform' : '', 'game' : '' };
+        $scope.filter_state = $stateParams.filter_state || { 'access' : '', 'platform' : '', 'game' : '' };
         if($scope.user.user_name.length <= 0) {
             $state.go('register');
         }
@@ -24,7 +24,7 @@ angular.module('rmsApp.raid')
                 'hour' : '0',
                 'minute' : '15'
             },
-            'status' : 'open'
+            'access' : 'open'
         };
         $scope.models = {
             'filter' : {

@@ -1,11 +1,10 @@
-module.exports = function (util, express, Filter) {
-    var router = express.Router();
+module.exports = function (router, Filter) {
     router.route('/')
         .post(function (req, res) {
             var filter = new Filter();
             filter.game = req.body.game;
             filter.platform = req.body.platform;
-            filter.status = req.body.status;
+            filter.access = req.body.access;
             filter.save(function (err) {
                 if(err) {
                     res.json({ 'success' : false, 'message' : err.toString() });

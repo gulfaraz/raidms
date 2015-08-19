@@ -1,5 +1,4 @@
-module.exports = function (util, express, User, auth) {
-    var router = express.Router();
+module.exports = function (router, User, auth) {
     router.post('/', function (req, res) {
         User.find({
             'user_name' : req.body.user_name

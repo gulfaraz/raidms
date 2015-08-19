@@ -7,7 +7,7 @@ angular.module('rmsApp.lfm', ['ui.router'])
                     'filter_state' : {},
                     'message' : ''
                 },
-                'templateUrl' : 'src/rms/lfm/queue.html',
+                'templateUrl' : '/html/queue.html',
                 'controller' : 'queueController'
             });
     }])
