@@ -1,97 +1,84 @@
-angular.module('rmsApp.raid')
-    .controller('raidEditController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
-        $scope.$parent.message = $stateParams.message;
-        $scope.filter_state = $stateParams.filter_state || { 'access' : '', 'platform' : '', 'game' : '' };
-        if($scope.user.user_name.length <= 0) {
-            $state.go('register');
+angular.module("rmsApp.raid")
+    .controller("raidEditController",
+        ["$scope", "api", "$stateParams", "$state", "BroadcastMessage", "SessionControl", "util",
+        function ($scope, api, $stateParams, $state, BroadcastMessage, SessionControl, util) {
+
+        $scope.get_filter_list = util.get_filter_list;
+
+        $scope.is_authenticated_user = SessionControl.is_authenticated_user;
+
+        if(!$scope.is_authenticated_user()) {
+            $state.go("register");
         }
+
         $scope.raid_times = {
-            'hour' : {
-                '0' : '0',
-                '1' : '1',
-                '2' : '2'
-            },
-            'minute' : {
-                '05' : '05',
-                '15' : '15',
-                '30' : '30',
-                '45' : '45'
-            }
+            "hour" : ["0", "1", "2"],
+            "minute" : ["05", "15", "30", "45"]
         };
+
+        $scope.capacity = {
+            "min" : 3,
+            "max" : 12
+        };
+
         $scope.raid = {
-            'strength' : 6,
-            'time' : {
-                'hour' : '0',
-                'minute' : '15'
+            "strength" : 6,
+            "time" : {
+                "hour" : $scope.raid_times.hour[0],
+                "minute" : $scope.raid_times.minute[1]
             },
-            'access' : 'open'
+            "access" : "open"
         };
-        $scope.models = {
-            'filter' : {
-                'platform' : {},
-                'game' : {}
-            }
-        };
+
         if($stateParams.raid_id) {
-            api.get({ 'set' : 'raid', 'id' : $stateParams.raid_id }, function (raid) {
-                if(raid.success) {
-                    $scope.raid = angular.extend($scope.raid, $scope.localize([raid.data])[0]);
-                    $scope.player_data = {};
-                    angular.forEach($scope.raid.players, function (player) {
-                        api.cache({ 'set' : 'user', 'id' : player }, function (user) {
-                            if(user.success) {
-                                $scope.player_data[player] = $scope.localize([user.data])[0];
-                                $scope.player_data[player].show = false;
-                            }
+            api.get({ "set" : "raid", "id" : $stateParams.raid_id },
+                function (raid) {
+                    if(raid.success) {
+                        $scope.raid = raid.data;
+                        $scope.player_data = {};
+                        $scope.capacity.min = Math.max($scope.raid.players.length, 3);
+                        angular.forEach($scope.raid.players, function (player) {
+                            api.cache({ "set" : "user", "id" : player }, function (user) {
+                                if(user.success) {
+                                    $scope.player_data[player] = user.data;
+                                    $scope.player_data[player].show = false;
+                                }
+                            });
                         });
-                    });
-                }
-            });
-        } else if($scope.user.user_name.length > 0) {
-            api.get({ 'set' : 'user', 'id' : $scope.user.user_name }, function (user) {
-                if(user.success) {
-                    $scope.raid.platform = user.data.seeking.platform;
-                    $scope.raid.game = user.data.seeking.game;
-                    $scope.raid.description = user.data.seeking.message;
-                }
-            });
+                    }
+                });
+        } else if($scope.is_authenticated_user()) {
+            api.get({ "set" : "user", "id" : SessionControl.get_user_name() },
+                function (user) {
+                    if(user.success) {
+                        $scope.raid.platform = user.data.seeking.platform;
+                        $scope.raid.game = user.data.seeking.game;
+                        $scope.raid.description = user.data.seeking.message;
+                    }
+                });
         }
-        var populate_filters = function () {
-            api.cache({ 'set' : 'filter' }, function (filters) {
-                var filter_types = {
-                    'game' : filters.data[0].game,
-                    'platform' : filters.data[0].platform
-                };
-                angular.forEach(filter_types, function (filter_values, filter_type) {
-                    angular.forEach(filter_values, function (value) {
-                        $scope.models.filter[filter_type][value] = value;
-                    });
-                });
-            });
-        }();
+
         $scope.create_update_raid = function () {
-            var raid = angular.extend($scope.raid,
-                    {
-                        'user_name' : $scope.user.user_name,
-                        'play_time' : moment.utc().add($scope.raid.time.hour, 'hour').add($scope.raid.time.minute, 'minute')
-                    }
-                );
+            var raid = angular.copy($scope.raid);
+            raid.user_name = SessionControl.get_user_name();
+            var raid_api_path = { "set" : "raid" };
+
             if($stateParams.raid_id) {
-                api.save({ 'set' : 'raid', 'id' : $stateParams.raid_id } , raid, function (data) {
-                    if(data.success) {
-                        $state.go('raid', { 'raid_id' : $stateParams.raid_id, 'message' : data.message });
-                    } else {
-                        $scope.$parent.message = data.message;
-                    }
-                });
+                raid_api_path.id = $stateParams.raid_id;
             } else {
-                api.save({ 'set' : 'raid' } , raid, function (data) {
-                    if(data.success) {
-                        $state.go('raid', { 'raid_id' : data.raid_id, 'message' : data.message });
-                    } else {
-                        $scope.$parent.message = data.message;
-                    }
-                });
+                raid.play_time = moment.utc().add($scope.raid.time.hour, "hour").add($scope.raid.time.minute, "minute");
             }
+
+            api.save(raid_api_path, raid, function (data) {
+                if(data.success) {
+                    $state.go("raid", {
+                        "raid_id" : $stateParams.raid_id || data.raid_id,
+                        "message" : data.message
+                    });
+                } else {
+                    BroadcastMessage.broadcast_message = data.message;
+                }
+            });
         };
+
     }]);

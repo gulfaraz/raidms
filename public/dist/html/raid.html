@@ -1,18 +1,18 @@
 <section class="raid">
     <div id="categories">
-        <button class="access_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : raid.access, 'platform' : '', 'game' : '' } })">{{(raid.access || 'Access') | capitalize}}</button><button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : raid.platform, 'game' : '' } })">{{(raid.platform || 'Platform')}}</button><button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : '', 'game' : raid.game } })">{{(raid.game || 'Game')}}</button><div id="description" ng-show="raid.description">"{{raid.description}}"</div>
+        <button class="access_button" type="button" ng-click="set_filter('access', raid.access);set_filter('platform', null);set_filter('game', null);" ui-sref="lfg">{{(raid.access || 'Access') | capitalize}}</button><button class="platform_button" type="button" ng-click="set_filter('access', null);set_filter('platform', raid.platform);set_filter('game', null);" ui-sref="lfg">{{(raid.platform || 'Platform')}}</button><button class="game_button" type="button" ng-click="set_filter('access', null);set_filter('platform', null);set_filter('game', raid.game);" ui-sref="lfg">{{(raid.game || 'Game')}}</button><div id="description" ng-show="raid.description">"{{raid.description}}"</div>
     </div>
     <div class="play_information">
         <div class="play_timings inline">
             <div class="play_start_time_container">
                 <div class="label">Play Time</div>
-                <div ng-class="{'early' : !play_time_passed, 'late' : play_time_passed}">{{raid.display_play_time}}</div>
-                <div class="date">{{raid.display_play_time_date}}</div>
+                <div ng-class="{'early' : !play_time_passed, 'late' : play_time_passed}">{{ raid.play_time | amDateFormat:rms_constants.time_format }}</div>
+                <div class="date">{{ raid.play_time | amDateFormat:rms_constants.date_format }}</div>
                 <div class="time_ago" ng-class="{'early' : !play_time_passed, 'late' : play_time_passed}" am-time-ago="raid.play_time"></div>
             </div><div class="play_end_time_container">
                 <div class="label">Time Created</div>
-                <div class="time">{{raid.display_time_created}}</div>
-                <div class="date">{{raid.display_time_created_date}}</div>
+                <div class="time">{{ raid.time_created | amDateFormat:rms_constants.time_format }}</div>
+                <div class="date">{{ raid.time_created | amDateFormat:rms_constants.date_format }}</div>
                 <div class="time_ago" am-time-ago="raid.time_created"></div>
             </div>
         </div>
@@ -23,11 +23,11 @@
             <button class="player_button" type="button" ng-class="{'host_button' : raid.host === player._id}" ui-sref="user({ 'user_name' : player.user_name })">
                 <span class="player_user_name">{{player.user_name}}</span>
                 <span id="host_label" ng-show="raid.host == player._id">(Host)</span>
-            </button><span class="karma_score" ng-class="{'good_karma' : player.karma > 0, 'bad_karma' : player.karma < 0}">({{player.karma || 0}})</span><button type="button" class="expel_button" ng-hide="user._id != raid.host || raid.host == player._id || player.confirm_expel" ng-click="player.confirm_expel = true">Expel</button><div class="confirm_expel_container" ng-show="player.confirm_expel">
+            </button><span class="karma_score" ng-class="{'good_karma' : player.karma > 0, 'bad_karma' : player.karma < 0}">({{player.karma || 0}})</span><button type="button" class="expel_button" ng-hide="session_user_id() != raid.host || raid.host == player._id || player.confirm_expel" ng-click="player.confirm_expel = true">Expel</button><div class="confirm_expel_container" ng-show="player.confirm_expel">
                 <span class="label">Expel?</span><button class="yes_button" type="button" ng-click="expel_player(player._id)">Yes</button><button class="no_button" type="button" ng-click="player.confirm_expel = false">No</button>
             </div>
         </div>
-        <div id="queue" ng-show="user._id == raid.host">
+        <div id="queue" ng-show="session_user_id() == raid.host">
             <div class="user_row" ng-repeat="requester in queue_data">
                 <button class="requester_button" type="button" ui-sref="user({ 'user_name' : requester.user_name })">{{requester.user_name}}</button><span class="karma_score" ng-class="{'good_karma' : requester.karma > 0, 'bad_karma' : requester.karma < 0}">({{requester.karma || 0}})</span><button class="add_button" type="button" ng-click="approve_request(requester._id)">Add</button>
             </div>
@@ -36,14 +36,14 @@
     <div class="controls">
         <div id="raid_controls_message" ng-show="action_status" ng-bind-html="trustAsHtml(action_status)"></div>
         <div class="buttons_array">
-            <span ng-hide="user._id == raid.host">
-                <button class="join_button" type="button" ng-hide="raid.queue.indexOf(user._id) >= 0 || raid.players.indexOf(user._id) >= 0" ng-click="join_raid()">Join</button>
-                <span class="pending_message" ng-hide="raid.queue.indexOf(user._id) < 0">Pending</span>
-                <button class="leave_button" type="button" ng-hide="raid.players.indexOf(user._id) < 0" ng-click="leave_raid()">Leave</button>
+            <span ng-hide="session_user_id() == raid.host">
+                <button class="join_button" type="button" ng-hide="raid.queue.indexOf(session_user_id()) >= 0 || raid.players.indexOf(session_user_id()) >= 0" ng-click="join_raid()">Join</button>
+                <span class="pending_message" ng-hide="raid.queue.indexOf(session_user_id()) < 0">Pending</span>
+                <button class="leave_button" type="button" ng-hide="raid.players.indexOf(session_user_id()) < 0" ng-click="leave_raid()">Leave</button>
             </span>
-            <button class="edit_button" type="button" ng-show="user._id == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id, 'filter_state' : filter_state })">Edit</button>
-            <button class="show_similar_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : raid.access, 'platform' : raid.platform, 'game' : raid.game } })">Show Similar</button>
-            <button type="button" ui-sref="list({ 'filter_state' : filter_state })">LFG</button>
+            <button class="edit_button" type="button" ng-show="session_user_id() == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id })">Edit</button>
+            <button class="show_similar_button" type="button" ng-click="set_filter('access', raid.access);set_filter('platform', raid.platform);set_filter('game', raid.game);" ui-sref="lfg">Show Similar</button>
+            <button type="button" ui-sref="lfg">LFG</button>
         </div>
     <div>
 </section>

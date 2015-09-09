@@ -24,6 +24,10 @@
     border: 0;
 }
 
+[ng-cloak] {
+    display: none !important;
+}
+
 body {
     background: lighten(@gray, @lightener * @superlative);
     margin: auto;
@@ -87,7 +91,7 @@ button {
 select {
     -webkit-appearance: menulist;
     padding: 2px 5px;
-    height: 30px;
+    height: 32px;
     & > option {
         padding: 5px;
     }
@@ -308,11 +312,9 @@ aside {
             width: 50%;
         }
         #server_status {
+            color: darken(@red, @darkener);
             &.online {
                 color: darken(@green, @darkener);
-            }
-            &.offline {
-                color: darken(@red, @darkener);
             }
         }
         #users_online {
@@ -478,7 +480,7 @@ aside {
 }
 
 .sortable_column:after {
-    content: '\25B3';
+    content: '\25B5';
     margin: 0 10px;
     position: relative;
     top: -2px;
@@ -486,12 +488,12 @@ aside {
 
 .st-sort-ascent:after,
 .timepicker_button_up:after {
-    content: '\25B2';
+    content: '\25B4';
 }
 
 .st-sort-descent:after,
 .timepicker_button_down:after {
-  content: '\25BC';
+    content: '\25BE';
 }
 
 .show_meridian_button {
@@ -501,9 +503,10 @@ aside {
 
 @media only screen and (max-width : 480px) {
     body {
-        & > #content {
+        & > #content,
+        .view {
             width: 300px;
-            margin: auto;
+            margin: 10px auto;
         }
     }
 }
@@ -511,8 +514,9 @@ aside {
 @media only screen and (min-width : 481px) {
     body {
         font-size: 18px;
-        & > #content {
-            margin: 0 10px;
+        & > #content,
+        .view {
+            margin: 10px;
         }
         aside {
             display: block;

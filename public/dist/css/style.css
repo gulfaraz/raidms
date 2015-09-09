@@ -80,6 +80,9 @@
 ::-moz-focus-inner {
   border: 0;
 }
+[ng-cloak] {
+  display: none !important;
+}
 body {
   background: #fbfbfb;
   margin: auto;
@@ -135,7 +138,7 @@ button:not([disabled="disabled"]):focus {
 select {
   -webkit-appearance: menulist;
   padding: 2px 5px;
-  height: 30px;
+  height: 32px;
 }
 select > option {
   padding: 5px;
@@ -372,11 +375,11 @@ aside#statistics #server_status,
 aside#statistics #users_online {
   width: 50%;
 }
+aside#statistics #server_status {
+  color: #c9302c;
+}
 aside#statistics #server_status.online {
   color: #449d44;
-}
-aside#statistics #server_status.offline {
-  color: #c9302c;
 }
 aside#statistics #users_online {
   color: #3071a9;
@@ -579,35 +582,37 @@ aside#statistics #users_online {
   font-size: 80%;
 }
 .sortable_column:after {
-  content: '\25B3';
+  content: '\25B5';
   margin: 0 10px;
   position: relative;
   top: -2px;
 }
 .st-sort-ascent:after,
 .timepicker_button_up:after {
-  content: '\25B2';
+  content: '\25B4';
 }
 .st-sort-descent:after,
 .timepicker_button_down:after {
-  content: '\25BC';
+  content: '\25BE';
 }
 .show_meridian_button {
   text-align: right;
   width: 55px;
 }
 @media only screen and (max-width: 480px) {
-  body > #content {
+  body > #content,
+  body .view {
     width: 300px;
-    margin: auto;
+    margin: 10px auto;
   }
 }
 @media only screen and (min-width: 481px) {
   body {
     font-size: 18px;
   }
-  body > #content {
-    margin: 0 10px;
+  body > #content,
+  body .view {
+    margin: 10px;
   }
   body aside {
     display: block;
@@ -1029,7 +1034,7 @@ aside#statistics #users_online {
 .user.edit #platforms #platforms_container {
   position: relative;
   overflow: hidden;
-  min-height: 38px;
+  min-height: 40px;
   padding: 1px 0;
 }
 .user.edit #platforms #platforms_container #platform_list {
@@ -1052,12 +1057,19 @@ aside#statistics #users_online {
 .user.edit #platforms #platforms_container #platform_list .platform:not([disabled="disabled"]):focus {
   background-color: #ff9b0c;
 }
+.user.edit #platforms #platforms_container #platform_help_message {
+  line-height: 2;
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 90%;
+  text-indent: 10px;
+}
 .user.edit #platforms #platforms_container #platform_input {
   margin: 10px auto 0;
   text-align: center;
 }
 .user.edit #platforms #platforms_container #platform_input select {
-  height: 38px;
+  height: 40px;
 }
 .user.edit #platforms #platforms_container #platform_input button {
   padding: 3px 5px;
@@ -1190,6 +1202,10 @@ aside#statistics #users_online {
 .user.edit #account_settings .form_container #new_passcode_container {
   display: inline-block;
   width: 50%;
+}
+.user.edit #account_settings .form_container #old_passcode_container .passcode_container,
+.user.edit #account_settings .form_container #new_passcode_container .passcode_container {
+  margin-bottom: 0;
 }
 .user.edit #account_settings .form_container #change_mail_container,
 .user.edit #account_settings .form_container #delete_account_container,
@@ -1328,15 +1344,11 @@ aside#statistics #users_online {
     font-size: 70%;
     max-width: 50px;
   }
-  .user.edit #accounts_linked #social_login_icons .account_container button.connect_button {
-    width: 40px;
-  }
-  .user.edit #accounts_linked #social_login_icons .account_container button.remove_button {
+  .user.edit #accounts_linked #social_login_icons .account_container button {
     width: 50px;
   }
   .user.edit #accounts_linked #social_login_icons .account_container a {
-    height: 40px;
-    width: 40px;
+    margin: 0;
   }
   .user.edit #account_settings .buttons_array .button_container {
     text-align: center;
@@ -1476,6 +1488,9 @@ aside#statistics #users_online {
 .raid.edit #raid_time {
   margin: 20px 0;
 }
+.raid.edit #raid_time select {
+  padding-right: 2px;
+}
 .raid.edit #raid_access input {
   height: 20px;
   width: 20px;
@@ -1587,15 +1602,19 @@ aside#statistics #users_online {
 #lfg table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 #lfg table tbody tr td#table_message {
   text-align: center;
-  padding: 96px 0;
+  padding: 9px 0;
 }
 #lfg table tbody tr td.controls_column {
   text-align: center;
 }
 #lfg table tbody tr#filter_row td#search_all_column input {
+  width: 90%;
+}
+#lfg table tbody tr#filter_row td button {
   width: 90%;
 }
 #lfg table tbody tr#filter_row td button:not([disabled="disabled"]) {
@@ -1724,6 +1743,7 @@ aside#statistics #users_online {
     padding-right: 10px;
     white-space: nowrap;
     border-right: 1px solid #c5c7cb;
+    height: 100%;
   }
   #lfg table tbody tr td.access_column:before {
     content: "Access";
@@ -1822,12 +1842,11 @@ aside#statistics #users_online {
   #lfg table tbody tr#filter_row td.inline_row#filter_toggle_button {
     padding-left: 10px !important;
   }
+  #lfg table tbody tr#filter_row td.inline_row#clear_button {
+    padding-right: 10px !important;
+  }
   #lfg table tbody tr#filter_row td.inline_row button {
     padding: 3px 5px;
-  }
-  #lfg table tbody tr#filter_row td.inline_row button#reset_button,
-  #lfg table tbody tr#filter_row td.inline_row button#clear_button {
-    width: 40%;
   }
   #lfg table tbody tr#filter_row td button:not([disabled="disabled"]) {
     background-color: #fb9347;
@@ -1866,7 +1885,7 @@ aside#statistics #users_online {
 @media only screen and (min-width: 1025px) {
   #lfg table tr td button {
     margin: 0 2px;
-    width: 60px;
+    width: 56px;
   }
   #lfg table tr td .pending_message {
     padding: 0 8px;
@@ -1885,14 +1904,17 @@ aside#statistics #users_online {
   #lfg table tbody tr#filter_row td {
     padding: 10px 2px;
   }
-  #lfg table tbody tr#filter_row select {
+  #lfg table tbody tr#filter_row td select {
     width: 100%;
+  }
+  #lfg table tbody tr#filter_row td button {
+    width: 112px;
   }
   #lfg table tbody tr.raid_row td {
     padding: 5px 2px;
   }
   #lfg table tbody tr.raid_row button {
-    padding: 3px 8px;
+    padding: 3px 0;
   }
   #lfg #create_raid_button {
     padding: 20px 0 0;

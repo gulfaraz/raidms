@@ -2,7 +2,7 @@
     <header id="user_name">{{profile.user_name}}</header>
     <div class="caption">{{profile.caption ? "\"" + profile.caption + "\"" : ""}}</div>
     <div class="seeking">
-        <div ng-show="profile.seeking.game && profile.seeking.platform">Looking to play <button class="game_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : '', 'game' : profile.seeking.game } })">{{profile.seeking.game}}</button> on <button class="platform_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : profile.seeking.platform, 'game' : '' } })">{{profile.seeking.platform}}</button></div>
+        <div ng-show="profile.seeking.game && profile.seeking.platform">I'm playing <button class="game_button" type="button" ui-sref="lfg" ng-click="set_filter('access', null);set_filter('platform', null);set_filter('game', profile.seeking.game);">{{profile.seeking.game}}</button> on <button class="platform_button" type="button" ui-sref="lfg" ng-click="set_filter('access', null);set_filter('platform', profile.seeking.platform);set_filter('game', null);">{{profile.seeking.platform}}</button></div>
         <div class="message">{{profile.seeking.message ? "\"" + profile.seeking.message + "\"" : ""}}</div>
     </div>
     <div>
@@ -13,22 +13,22 @@
         <div class="inline available_platforms" ng-show="profile.platforms.length">
             <div>Available on</div>
             <div class="user_platforms">
-                <button class="platform_button" type="button" ng-repeat="platform in profile.platforms">{{platform}}</button>
+                <button class="platform_button" type="button" ng-repeat="platform in profile.platforms" ui-sref="lfg" ng-click="set_filter('access', null);set_filter('platform', platform);set_filter('game', null);">{{platform}}</button>
             </div>
         </div>
         <div class="inline play_timings">
             <div class="play_start_time_container">
                 <div class="label">Start Time</div>
-                <div ng-class="{'play_time_on' : user_play_time}">{{profile.display_play_start}}</div>
-                <div class="time_ago" ng-class="play_start_pivot" am-time-ago="profile.play_start"></div>
+                <div ng-class="{'play_time_on' : user_play_time}">{{ profile.play_start | amDateFormat:rms_constants.time_format }}</div>
+                <div class="time_ago" ng-class="{'early' : is_now_ahead(profile.play_start), 'late' : !is_now_ahead(profile.play_start)}" am-time-ago="profile.play_start"></div>
             </div><div class="play_end_time_container">
                 <div class="label">End Time</div>
-                <div ng-class="{'play_time_on' : user_play_time}">{{profile.display_play_end}}</div>
-                <div class="time_ago" ng-class="play_end_pivot" am-time-ago="profile.play_end"></div>
+                <div ng-class="{'play_time_on' : user_play_time}">{{ profile.play_end | amDateFormat:rms_constants.time_format }}</div>
+                <div class="time_ago" ng-class="{'early' : is_now_ahead(profile.play_end), 'late' : !is_now_ahead(profile.play_end)}" am-time-ago="profile.play_end"></div>
             </div>
         </div>
     </div>
     <div class="controls">
-        <button type="button" class="edit_button" ui-sref="editUser({ 'user_name' : user.user_name })" ng-if="(profile.user_name == user.user_name)">Edit</button><button type="button" ng-class="{'only_button' : !(profile.user_name == user.user_name)}" ui-sref="list">LFG</button>
+        <button type="button" class="edit_button" ui-sref="editUser({ 'user_name' : session_user_name() })" ng-if="(profile.user_name == session_user_name())">Edit</button><button type="button" ng-class="{'only_button' : !(profile.user_name == session_user_name())}" ui-sref="lfg">LFG</button>
     </div>
 </section>

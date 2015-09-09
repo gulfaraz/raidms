@@ -1,9 +1,9 @@
 <section id="register">
-    <form name="signUp" ng-submit="sign_up()">
-        <header class="title">Sign Up</header>
+    <header class="title">Sign Up</header>
+    <form name="signUp" ng-submit="sign_up()" ng-hide="is_authenticated_user()">
         <div class="user_name_container">
             <label>User Name</label>
-            <span class="error_message" ng-messages="signUp.user_name.$error" ng-if="showMessages('user_name')">
+            <span class="error_message" ng-messages="signUp.user_name.$error" ng-if="show_message('user_name')">
                 <span ng-message="required">Required</span>
                 <span ng-message="duplicate">{{signUp.user_name.$viewValue}} not available</span>
             </span>
@@ -11,7 +11,7 @@
         </div>
         <div class="passcode_container">
             <label>Passcode</label>
-            <span class="error_message" ng-messages="signUp.passcode.$error" ng-if="showMessages('passcode')">
+            <span class="error_message" ng-messages="signUp.passcode.$error" ng-if="show_message('passcode')">
                 <span ng-message="required">Required</span>
             </span>
             <div class="passcode_container">
@@ -23,7 +23,7 @@
         </div>
         <div class="mail_container">
             <label>Mail</label>
-            <span class="error_message" ng-messages="signUp.mail.$error" ng-if="showMessages('mail')">
+            <span class="error_message" ng-messages="signUp.mail.$error" ng-if="show_message('mail')">
                 <span ng-message="required">Required</span>
                 <span ng-message="email">Invalid Mail</span>
                 <span ng-message="duplicate">Registered Mail</span>
@@ -31,7 +31,10 @@
             <input type="email" name="mail" placeholder="name@rms.com" ng-model="mail" required available />
         </div>
         <div class="form_controls">
-            <button class="register_button" type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button><button class="cancel_button" type="button" ui-sref="list({ 'filter_state' : { 'access' : '', 'platform' : '', 'game' : '' } })">Cancel</button>
+            <button class="register_button" type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button><button class="cancel_button" type="button" ui-sref="lfg">Cancel</button>
         </div>
     </form>
+    <div ng-show="is_authenticated_user()">
+        <div class="unauthorized_message">Access Denied</div>
+    </div>
 </section>

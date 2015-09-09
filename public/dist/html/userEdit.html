@@ -1,7 +1,7 @@
-<section class="user edit" ng-class="{'full_width' : !(profile.user_name == user.user_name)}">
-    <div ng-if="(profile.user_name == user.user_name)">
-        <header class="title">Edit Profile</header>
-        <section class="section">
+<section class="user edit" ng-class="{'full_width' : (profile.user_name !== session_user_name())}">
+    <header class="title">Edit Profile</header>
+    <div ng-if="(profile.user_name === session_user_name())">
+        <section class="section" ng-hide="profile.delete">
             <header class="section_header">Profile Settings</header>
             <div>
                 <div id="caption" class="component">
@@ -14,7 +14,7 @@
                         <div class="inline sub_component">
                             <label>Platform</label>
                             <div>
-                                <select ng-model="profile.seeking.platform" ng-options="(value | capitalize) for (key , value) in models.filter.platform">
+                                <select ng-model="profile.seeking.platform" ng-options="(filter_name | uppercase) for filter_name in get_filter_list('platform') track by filter_name">
                                     <option value="">All</option>
                                 </select>
                             </div>
@@ -22,7 +22,7 @@
                         <div class="inline sub_component">
                             <label>Game</label>
                             <div>
-                                <select ng-model="profile.seeking.game" ng-options="(value | capitalize) for (key , value) in models.filter.game">
+                                <select ng-model="profile.seeking.game" ng-options="(filter_name | capitalize) for filter_name in get_filter_list('game') track by filter_name">
                                     <option value="">All</option>
                                 </select>
                             </div>
@@ -39,41 +39,42 @@
                         <div id="platform_list">
                             <div class="platform" title="Click to Remove" ng-repeat="platform in profile.platforms" ng-click="remove_platform(platform)">{{platform}}</div>
                         </div>
-                        <div id="platform_input" ng-show="models.new_platforms.length > 0">
-                            <select ng-model="models.new_platform" ng-options="(value | capitalize) for (key , value) in models.new_platforms">
+                        <div id="platform_help_message" ng-hide="profile.platforms.length">Add platforms you play on...</div>
+                        <div id="platform_input" ng-show="(profile.platforms.length || 0) < get_filter_list('platform').length">
+                            <select ng-model="new_platform" ng-options="(filter_name | uppercase) for filter_name in get_filter_list('platform') | unselected:(profile.platforms || []) track by filter_name">
                                 <option value="">All</option>
                             </select>
-                            <button ng-disabled="!models.new_platform" ng-click="add_platform()">Add</button>
+                            <button ng-disabled="!new_platform" ng-click="add_platform(new_platform); new_platform = null;">Add</button>
                         </div>
                     </div>
                 </div>
                 <div class="component play_information">
                     <div class="component_header">Play Time</div>
                     <div id="timezone">
-                        <label for="timezone">Choose Default Timezone </label><select ng-model="profile.timezone" ng-options="value for (key , value) in timezones"></select>
+                        <label for="timezone">Choose Default Timezone </label><select ng-model="profile.timezone" ng-options="zone.display for zone in timezones"></select>
                     </div>
                     <div class="inline play_timings">
                         <div class="play_start_time_container">
                             <div class="label">Start Time</div>
                             <div class="timepicker_container">
-                                <timepicker ng-model="models.play_start" disable-seconds="true" timezone="profile.timezone"></timepicker>
+                                <timepicker ng-model="models.play_start" disable-seconds="true" timezone="profile.timezone.name"></timepicker>
                             </div>
                         </div><div class="play_end_time_container">
                         <div class="label">End Time</div>
                             <div class="timepicker_container">
-                                <timepicker ng-model="models.play_end" disable-seconds="true" timezone="profile.timezone"></timepicker>
+                                <timepicker ng-model="models.play_end" disable-seconds="true" timezone="profile.timezone.name"></timepicker>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="controls">
                     <div id="profile_form_status_message" ng-class="{'success' : models.profile_form_status_message_success}">{{models.profile_form_status_message}}</div>
-                    <button type="button" class="save_button" ng-click="update_profile()">Save</button>
-                    <button type="button" class="back_button" ui-sref="user({ 'user_name' : user.user_name })">Back</button>
+                    <button type="button" class="save_button" ng-click="update_profile()" ng-disabled="models.profile_details_changed">Save</button>
+                    <button type="button" class="back_button" ui-sref="user({ 'user_name' : profile.user_name })">Back</button>
                 </div>
             </div>
         </section>
-        <section id="accounts_linked" class="component">
+        <section id="accounts_linked" class="component" ng-hide="profile.delete">
             <header class="component_header">Accounts Linked</header>
             <div class="inline" id="social_login_icons">
                 <div class="account_container">
@@ -138,7 +139,7 @@
                                 <div class="passcode_container">
                                     <input type="{{ models.passcode.show_old_passcode ? 'text' : 'password' }}" name="old_passcode" placeholder="Old Passcode" ng-model="models.passcode.old_passcode" required />
                                     <span class="show_passcode_container" ng-show="models.passcode.old_passcode" ng-click="models.passcode.show_old_passcode = !models.passcode.show_old_passcode">
-                                        <label>{{ models.passcode.show_old_passcode ? 'Hide' : 'Show' }}</label>
+                                        <label>{{ models.passcode.show_old_passcode ? "Hide" : "Show" }}</label>
                                     </span>
                                 </div>
                             </div><div id="new_passcode_container">
@@ -149,7 +150,7 @@
                                 <div class="passcode_container">
                                     <input type="{{ models.passcode.show_new_passcode ? 'text' : 'password' }}" name="new_passcode" placeholder="New Passcode" ng-model="models.passcode.new_passcode" required />
                                     <span class="show_passcode_container" ng-show="models.passcode.new_passcode" ng-click="models.passcode.show_new_passcode = !models.passcode.show_new_passcode">
-                                        <label>{{ models.passcode.show_new_passcode ? 'Hide' : 'Show' }}</label>
+                                        <label>{{ models.passcode.show_new_passcode ? "Hide" : "Show" }}</label>
                                     </span>
                                 </div>
                             </div>
@@ -185,7 +186,7 @@
                             <div class="passcode_container">
                                 <input type="{{ models.delete.show_old_delete ? 'text' : 'password' }}" name="old_delete" placeholder="Passcode" ng-model="models.delete.old_delete" required />
                                 <span class="show_passcode_container" ng-show="models.delete.old_delete" ng-click="models.delete.show_old_delete = !models.delete.show_old_delete">
-                                    <label>{{ models.delete.show_old_delete ? 'Hide' : 'Show' }}</label>
+                                    <label>{{ models.delete.show_old_delete ? "Hide" : "Show" }}</label>
                                 </span>
                             </div>
                         </div>
@@ -218,7 +219,7 @@
             </div>
         </section>
     </div>
-    <div ng-if="!(profile.user_name == user.user_name)">
+    <div ng-if="(profile.user_name !== session_user_name())">
         <div class="unauthorized_message">Access Denied</div>
     </div>
 </section>

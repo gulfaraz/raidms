@@ -1,24 +1,24 @@
-angular.module('rmsApp.shared')
-    .filter('capitalize', function () {
-      return function (input, scope) {
-        if(input !== null && (typeof input == 'string' || input instanceof String)) {
-            return input.charAt(0).toUpperCase() + input.slice(1);
-        }
-      };
+angular.module("rmsApp.shared")
+    .filter("capitalize", function () {
+        return function (input) {
+            if(input && input.length > 0) {
+                return input.toString().charAt(0).toUpperCase() + input.slice(1);
+            }
+        };
     })
-    .filter('multiFilter', ['$filter', function ($filter) {
+    .filter("multiFilter", function () {
         return function (array, expression) {
             return array.filter(function(value, index) {
-                var found = !expression.hasOwnProperty('$');
+                var found = !expression.hasOwnProperty("$");
                 var select = true;
                 angular.forEach(expression, function (v, k) {
-                    if(k === '$') {
-                        angular.forEach(v.split(' '), function (keyword) {
+                    if(k === "$") {
+                        angular.forEach(v.split(" "), function (keyword) {
                             keyword = keyword.toLowerCase();
                             if(keyword.length > 1) {
                                 angular.forEach(value, function (data) {
-                                    if((typeof data == 'string' || data instanceof String) && !found) {
-                                        data = data.toLowerCase();
+                                    if((data || data === "") && !found) {
+                                        data = data.toString().toLowerCase();
                                         found = (data.indexOf(keyword) > -1);
                                     }
                                 });
@@ -33,4 +33,11 @@ angular.module('rmsApp.shared')
                 return found && select;
             });
         };
-    }]);
+    })
+    .filter("unselected", function () {
+        return function (array, selected_values) {
+            return array.filter(function(value, index) {
+                return (selected_values.indexOf(value) < 0);
+            });
+        };
+    });

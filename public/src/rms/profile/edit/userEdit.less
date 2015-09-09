@@ -16,7 +16,7 @@
         #platforms_container {
             position: relative;
             overflow: hidden;
-            min-height: 38px;
+            min-height: 40px;
             padding: 1px 0;
             #platform_list {
                 text-align: center;
@@ -30,11 +30,18 @@
                     border-radius: 5px;
                 }
             }
+            #platform_help_message {
+                line-height: 2;
+                font-style: italic;
+                opacity: 0.8;
+                font-size: 90%;
+                text-indent: 10px;
+            }
             #platform_input {
                 margin: 10px auto 0;
                 text-align: center;
                 select {
-                    height: 38px;
+                    height: 40px;
                 }
                 button {
                     padding: 3px 5px;
@@ -141,6 +148,9 @@
             #new_passcode_container {
                 display: inline-block;
                 width: 50%;
+                .passcode_container {
+                    margin-bottom: 0;
+                }
             }
             #change_mail_container,
             #delete_account_container,
@@ -251,16 +261,10 @@
                     font-size: 70%;
                     max-width: 50px;
                     button {
-                        &.connect_button {
-                            width: 40px;
-                        }
-                        &.remove_button {
-                            width: 50px;
-                        }   
+                        width: 50px;
                     }
                     a {
-                        height: 40px;
-                        width: 40px;
+                        margin: 0;
                     }
                 }
             }

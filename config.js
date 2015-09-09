@@ -14,7 +14,8 @@ module.exports = function () {
             "domain" : "localhost",
             "port" : 27017,
             "dbname" : "rmsdev"
-        }
+        },
+        "secret" : "gulfaraz"
     }
 };
 

@@ -1,6 +1,6 @@
 <section id="reset">
     <header class="title">Set New Passcode</header>
-    <form name="reset" ng-submit="reset_passcode()">
+    <form name="reset" ng-submit="reset_passcode()" ng-hide="is_authenticated_user()">
         <label>New Passcode</label>
         <span class="error_message" ng-messages="reset.passcode.$error" ng-if="reset.passcode.$dirty && reset.passcode.$invalid">
             <span ng-message="required">Required</span>
@@ -15,4 +15,7 @@
             <button class="reset_button" type="submit" ng-disabled="reset.$invalid">Reset</button>
         </div>
     </form>
+    <div ng-show="is_authenticated_user()">
+        <div class="unauthorized_message">Access Denied</div>
+    </div>
 </section>

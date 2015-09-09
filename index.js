@@ -1,41 +1,41 @@
-var config = require('./config')();
+var config = require("./config")();
 
-var express = require('express');
+var express = require("express");
 var rms = express();
 
-var bodyParser = require('body-parser');
-rms.use(bodyParser.urlencoded({ 'extended' : true }));
+var bodyParser = require("body-parser");
+rms.use(bodyParser.urlencoded({ "extended" : true }));
 rms.use(bodyParser.json());
 
-var mongoose = require('mongoose');
-mongoose.connect(config.database.scheme + '://' + config.database.domain + '/' + config.database.dbname);
+var mongoose = require("mongoose");
+mongoose.connect(config.database.scheme + "://" + config.database.domain + "/" + config.database.dbname);
 
-var models = require('./architecture/models');
+var models = require("./architecture/models")();
 
-var auth = require('./architecture/auth');
+var auth = require("./architecture/auth")(models.User, config.secret);
 
-var session = require('express-session');
+var session = require("express-session");
 
-var swig = require('swig');
-swig.setDefaults({ 'cache' : false });
+var swig = require("swig");
+swig.setDefaults({ "cache" : false });
 
-var util = require('./util')(auth, config.web);
+var util = require("./util")(auth, config.web);
 
 var port = config.web.port || process.env.PORT || 8080;
 
-rms.engine('html', swig.renderFile);
+rms.engine("html", swig.renderFile);
 
-rms.set('view engine', 'html');
-rms.set('views', __dirname + '/views');
-rms.set('view cache', false);
+rms.set("view engine", "html");
+rms.set("views", __dirname + "/views");
+rms.set("view cache", false);
 
-rms.use(session({ 'secret' : 'gulfaraz', 'saveUninitialized' : true, 'resave' : true }));
+rms.use(session({ "secret" : config.secret, "saveUninitialized" : true, "resave" : true }));
 rms.use(auth.passport_init);
 
-rms.use(require('connect-livereload')({ 'port' : 35729 }));
+rms.use(require("connect-livereload")({ "port" : 35729 }));
 
-rms.use(express.static(__dirname + '/public/dist'), require('./routes/routes')(util, express, models, auth));
-rms.use('/', function (req, res) { res.sendFile('public/dist/html/index.html', { 'root' : __dirname }); });
+rms.use(express.static(__dirname + "/public/dist"), require("./routes/routes")(util, express, models, auth));
+rms.use("/", function (req, res) { res.sendFile("public/dist/html/rms.html", { "root" : __dirname }); });
 
 rms.listen(port);
-console.log('Port ' + port + ' open and listening for requests');
+console.log("Port " + port + " open and listening for requests");

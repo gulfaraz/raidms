@@ -1,14 +1,25 @@
-angular.module('rmsApp.profile')
-    .controller('forgotController', ['$scope', 'api', '$stateParams', '$state', function ($scope, api, $stateParams, $state) {
-        $scope.$parent.message = $stateParams.message;
-        $scope.models = {};
+angular.module("rmsApp.profile")
+    .controller("forgotController",
+        ["$scope", "api", "$state", "BroadcastMessage", "SessionControl",
+        function ($scope, api, $state, BroadcastMessage, SessionControl) {
+
+        $scope.is_authenticated_user = SessionControl.is_authenticated_user;
+
+        if($scope.is_authenticated_user()) {
+            $state.go("lfg");
+        }
+
         $scope.recover_account = function () {
-            api.cache({ 'set' : 'forgot', 'id' : $scope.models.recover_account_form.lost.$viewValue }, function (data) {
-                if(data.success) {
-                    $state.go('list', { 'message' : data.message });
-                } else {
-                    $state.go('forgot', { 'message' : 'Recovery Failed' });
-                }
-            });
+            api.cache({ "set" : "forgot", "id" : $scope.recover_account_form.lost.$viewValue },
+                function (data) {
+                    if(data.success) {
+                        BroadcastMessage.broadcast_message = data.message;
+                        $state.go("lfg");
+                    } else {
+                        BroadcastMessage.broadcast_message = "Recovery Failed";
+                        $state.go("forgot");
+                    }
+                });
         };
+
     }]);
