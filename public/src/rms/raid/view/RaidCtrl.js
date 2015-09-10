@@ -9,6 +9,8 @@ angular.module("rmsApp.raid")
 
         $scope.rms_constants = rmsConstants;
 
+        $scope.back_state = SessionControl.get_back_state();
+
         api.get({ "set" : "raid", "id" : $stateParams.raid_id },
             function (raid) {
                 if(raid.success) {

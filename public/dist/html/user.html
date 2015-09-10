@@ -29,6 +29,6 @@
         </div>
     </div>
     <div class="controls">
-        <button type="button" class="edit_button" ui-sref="editUser({ 'user_name' : session_user_name() })" ng-if="(profile.user_name == session_user_name())">Edit</button><button type="button" ng-class="{'only_button' : !(profile.user_name == session_user_name())}" ui-sref="lfg">LFG</button>
+        <button type="button" class="edit_button" ui-sref="editUser({ 'user_name' : session_user_name() })" ng-if="(profile.user_name === session_user_name())">Edit</button><button class="back_button" ng-class="{'only_button' : !(profile.user_name === session_user_name())}" type="button" ui-sref="{{back_state.name}}({{back_state.params}})">Back</button>
     </div>
 </section>

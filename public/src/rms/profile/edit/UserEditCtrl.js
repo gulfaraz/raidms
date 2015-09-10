@@ -5,6 +5,8 @@ angular.module("rmsApp.profile")
 
         $scope.session_user_name = SessionControl.get_user_name;
 
+        $scope.back_state = SessionControl.get_back_state();
+
         $scope.models = {
             "passcode" : {
                 "old_passcode" : "",

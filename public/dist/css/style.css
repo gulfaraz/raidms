@@ -61,6 +61,25 @@
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
+}
 * {
   box-sizing: border-box;
   line-height: 1.4;
@@ -428,7 +447,8 @@ aside#statistics #users_online {
 .save_button:not([disabled="disabled"]),
 .access_button:not([disabled="disabled"]),
 .add_button:not([disabled="disabled"]),
-.create_button:not([disabled="disabled"]) {
+.create_button:not([disabled="disabled"]),
+.register_button:not([disabled="disabled"]) {
   background-color: #6ec06e;
   border-color: #449d44;
   color: #fbfbfb;
@@ -438,11 +458,13 @@ aside#statistics #users_online {
 .access_button:not([disabled="disabled"]):hover,
 .add_button:not([disabled="disabled"]):hover,
 .create_button:not([disabled="disabled"]):hover,
+.register_button:not([disabled="disabled"]):hover,
 .join_button:not([disabled="disabled"]):focus,
 .save_button:not([disabled="disabled"]):focus,
 .access_button:not([disabled="disabled"]):focus,
 .add_button:not([disabled="disabled"]):focus,
-.create_button:not([disabled="disabled"]):focus {
+.create_button:not([disabled="disabled"]):focus,
+.register_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
 .leave_button:not([disabled="disabled"]),
@@ -461,15 +483,18 @@ aside#statistics #users_online {
   background-color: #c9302c;
 }
 .view_button:not([disabled="disabled"]),
-.requester_button:not([disabled="disabled"]) {
+.requester_button:not([disabled="disabled"]),
+.recover_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
 .view_button:not([disabled="disabled"]):hover,
 .requester_button:not([disabled="disabled"]):hover,
+.recover_button:not([disabled="disabled"]):hover,
 .view_button:not([disabled="disabled"]):focus,
-.requester_button:not([disabled="disabled"]):focus {
+.requester_button:not([disabled="disabled"]):focus,
+.recover_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
 .game_button:not([disabled="disabled"]),
@@ -503,15 +528,18 @@ aside#statistics #users_online {
   background-color: #ff9b0c;
 }
 .edit_button:not([disabled="disabled"]),
-.host_button:not([disabled="disabled"]) {
+.host_button:not([disabled="disabled"]),
+.reset_button:not([disabled="disabled"]) {
   background-color: #a66abb;
   border-color: #7f4495;
   color: #fbfbfb;
 }
 .edit_button:not([disabled="disabled"]):hover,
 .host_button:not([disabled="disabled"]):hover,
+.reset_button:not([disabled="disabled"]):hover,
 .edit_button:not([disabled="disabled"]):focus,
-.host_button:not([disabled="disabled"]):focus {
+.host_button:not([disabled="disabled"]):focus,
+.reset_button:not([disabled="disabled"]):focus {
   background-color: #7f4495;
 }
 .success,
@@ -721,6 +749,25 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
+}
 .user {
   width: 100%;
   max-width: 600px;
@@ -738,6 +785,7 @@ aside#statistics #users_online {
 .user .seeking .message {
   margin: 10px 0;
   font-style: italic;
+  word-break: break-word;
 }
 .user #joined {
   color: #9ca1a7;
@@ -840,7 +888,27 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
+}
 .raid {
+  width: 100%;
   max-width: 600px;
   font-size: 120%;
 }
@@ -856,6 +924,7 @@ aside#statistics #users_online {
   font-style: italic;
   margin: 15px 10px 0;
   padding: 0 10px;
+  word-break: break-word;
 }
 .raid .play_information {
   padding: 0 10px;
@@ -1024,6 +1093,25 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):hover,
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
+}
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
 }
 .user.edit #caption #caption_input {
   border: none;
@@ -1464,6 +1552,25 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
+}
 .raid.edit .component {
   padding-top: 0;
 }
@@ -1599,10 +1706,33 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
+}
 #lfg table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+}
+#lfg table tbody tr td {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 #lfg table tbody tr td#table_message {
   text-align: center;
@@ -1920,268 +2050,13 @@ aside#statistics #users_online {
     padding: 20px 0 0;
   }
 }
-
-.blue_button:not([disabled="disabled"]) {
-  background-color: #5697d0;
-  border-color: #3071a9;
-  color: #fbfbfb;
-}
-.blue_button:not([disabled="disabled"]):hover,
-.blue_button:not([disabled="disabled"]):focus {
-  background-color: #3071a9;
-}
-.red_button:not([disabled="disabled"]) {
-  background-color: #de6764;
-  border-color: #c9302c;
-  color: #fbfbfb;
-}
-.red_button:not([disabled="disabled"]):hover,
-.red_button:not([disabled="disabled"]):focus {
-  background-color: #c9302c;
-}
-.green_button:not([disabled="disabled"]) {
-  background-color: #6ec06e;
-  border-color: #449d44;
-  color: #fbfbfb;
-}
-.green_button:not([disabled="disabled"]):hover,
-.green_button:not([disabled="disabled"]):focus {
-  background-color: #449d44;
-}
-.purple_button:not([disabled="disabled"]) {
-  background-color: #a66abb;
-  border-color: #7f4495;
-  color: #fbfbfb;
-}
-.purple_button:not([disabled="disabled"]):hover,
-.purple_button:not([disabled="disabled"]):focus {
-  background-color: #7f4495;
-}
-.yellow_button:not([disabled="disabled"]) {
-  background-color: #ffba59;
-  border-color: #ff9b0c;
-  color: #fbfbfb;
-}
-.yellow_button:not([disabled="disabled"]):hover,
-.yellow_button:not([disabled="disabled"]):focus {
-  background-color: #ff9b0c;
-}
-.orange_button:not([disabled="disabled"]) {
-  background-color: #fb9347;
-  border-color: #f16805;
-  color: #fbfbfb;
-}
-.orange_button:not([disabled="disabled"]):hover,
-.orange_button:not([disabled="disabled"]):focus {
-  background-color: #f16805;
-}
-.aqua_button:not([disabled="disabled"]) {
-  background-color: #70c8e2;
-  border-color: #31b0d5;
-  color: #fbfbfb;
-}
-.aqua_button:not([disabled="disabled"]):hover,
-.aqua_button:not([disabled="disabled"]):focus {
-  background-color: #31b0d5;
-}
-#forgot {
-  font-size: 120%;
-  max-width: 600px;
-}
-#forgot .form_controls {
-  margin: 10px 0;
-}
-#forgot .form_controls .recover_button {
-  padding: 10px;
-  width: 100%;
-}
-#forgot .form_controls .recover_button:not([disabled="disabled"]) {
-  background-color: #5697d0;
-  border-color: #3071a9;
-  color: #fbfbfb;
-}
-#forgot .form_controls .recover_button:not([disabled="disabled"]):hover,
-#forgot .form_controls .recover_button:not([disabled="disabled"]):focus {
-  background-color: #3071a9;
-}
-
-.blue_button:not([disabled="disabled"]) {
-  background-color: #5697d0;
-  border-color: #3071a9;
-  color: #fbfbfb;
-}
-.blue_button:not([disabled="disabled"]):hover,
-.blue_button:not([disabled="disabled"]):focus {
-  background-color: #3071a9;
-}
-.red_button:not([disabled="disabled"]) {
-  background-color: #de6764;
-  border-color: #c9302c;
-  color: #fbfbfb;
-}
-.red_button:not([disabled="disabled"]):hover,
-.red_button:not([disabled="disabled"]):focus {
-  background-color: #c9302c;
-}
-.green_button:not([disabled="disabled"]) {
-  background-color: #6ec06e;
-  border-color: #449d44;
-  color: #fbfbfb;
-}
-.green_button:not([disabled="disabled"]):hover,
-.green_button:not([disabled="disabled"]):focus {
-  background-color: #449d44;
-}
-.purple_button:not([disabled="disabled"]) {
-  background-color: #a66abb;
-  border-color: #7f4495;
-  color: #fbfbfb;
-}
-.purple_button:not([disabled="disabled"]):hover,
-.purple_button:not([disabled="disabled"]):focus {
-  background-color: #7f4495;
-}
-.yellow_button:not([disabled="disabled"]) {
-  background-color: #ffba59;
-  border-color: #ff9b0c;
-  color: #fbfbfb;
-}
-.yellow_button:not([disabled="disabled"]):hover,
-.yellow_button:not([disabled="disabled"]):focus {
-  background-color: #ff9b0c;
-}
-.orange_button:not([disabled="disabled"]) {
-  background-color: #fb9347;
-  border-color: #f16805;
-  color: #fbfbfb;
-}
-.orange_button:not([disabled="disabled"]):hover,
-.orange_button:not([disabled="disabled"]):focus {
-  background-color: #f16805;
-}
-.aqua_button:not([disabled="disabled"]) {
-  background-color: #70c8e2;
-  border-color: #31b0d5;
-  color: #fbfbfb;
-}
-.aqua_button:not([disabled="disabled"]):hover,
-.aqua_button:not([disabled="disabled"]):focus {
-  background-color: #31b0d5;
-}
-#reset {
-  font-size: 120%;
-  max-width: 600px;
-}
-#reset .form_controls {
-  text-align: center;
-  padding: 10px 0;
-}
-#reset .form_controls button {
-  padding: 5px 0;
-  width: 100%;
-}
-#reset .form_controls button.reset_button:not([disabled="disabled"]) {
-  background-color: #a66abb;
-  border-color: #7f4495;
-  color: #fbfbfb;
-}
-#reset .form_controls button.reset_button:not([disabled="disabled"]):hover,
-#reset .form_controls button.reset_button:not([disabled="disabled"]):focus {
-  background-color: #7f4495;
-}
-
-.blue_button:not([disabled="disabled"]) {
-  background-color: #5697d0;
-  border-color: #3071a9;
-  color: #fbfbfb;
-}
-.blue_button:not([disabled="disabled"]):hover,
-.blue_button:not([disabled="disabled"]):focus {
-  background-color: #3071a9;
-}
-.red_button:not([disabled="disabled"]) {
-  background-color: #de6764;
-  border-color: #c9302c;
-  color: #fbfbfb;
-}
-.red_button:not([disabled="disabled"]):hover,
-.red_button:not([disabled="disabled"]):focus {
-  background-color: #c9302c;
-}
-.green_button:not([disabled="disabled"]) {
-  background-color: #6ec06e;
-  border-color: #449d44;
-  color: #fbfbfb;
-}
-.green_button:not([disabled="disabled"]):hover,
-.green_button:not([disabled="disabled"]):focus {
-  background-color: #449d44;
-}
-.purple_button:not([disabled="disabled"]) {
-  background-color: #a66abb;
-  border-color: #7f4495;
-  color: #fbfbfb;
-}
-.purple_button:not([disabled="disabled"]):hover,
-.purple_button:not([disabled="disabled"]):focus {
-  background-color: #7f4495;
-}
-.yellow_button:not([disabled="disabled"]) {
-  background-color: #ffba59;
-  border-color: #ff9b0c;
-  color: #fbfbfb;
-}
-.yellow_button:not([disabled="disabled"]):hover,
-.yellow_button:not([disabled="disabled"]):focus {
-  background-color: #ff9b0c;
-}
-.orange_button:not([disabled="disabled"]) {
-  background-color: #fb9347;
-  border-color: #f16805;
-  color: #fbfbfb;
-}
-.orange_button:not([disabled="disabled"]):hover,
-.orange_button:not([disabled="disabled"]):focus {
-  background-color: #f16805;
-}
-.aqua_button:not([disabled="disabled"]) {
-  background-color: #70c8e2;
-  border-color: #31b0d5;
-  color: #fbfbfb;
-}
-.aqua_button:not([disabled="disabled"]):hover,
-.aqua_button:not([disabled="disabled"]):focus {
-  background-color: #31b0d5;
-}
-#register {
-  width: 100%;
-  max-width: 600px;
-  font-size: 120%;
-}
-#register .form_controls {
-  text-align: center;
-  padding: 10px 0;
-}
-#register .form_controls button {
-  width: 40%;
-  margin: 0 5%;
-  padding: 5px 0;
-}
-#register .form_controls button.register_button:not([disabled="disabled"]) {
-  background-color: #6ec06e;
-  border-color: #449d44;
-  color: #fbfbfb;
-}
-#register .form_controls button.register_button:not([disabled="disabled"]):hover,
-#register .form_controls button.register_button:not([disabled="disabled"]):focus {
-  background-color: #449d44;
-}
-#register .form_controls button.cancel_button:not([disabled="disabled"]) {
-  background-color: #de6764;
-  border-color: #c9302c;
-  color: #fbfbfb;
-}
-#register .form_controls button.cancel_button:not([disabled="disabled"]):hover,
-#register .form_controls button.cancel_button:not([disabled="disabled"]):focus {
-  background-color: #c9302c;
+@media only screen and (min-width: 1025px) and (max-width: 1090px) {
+  #lfg table tr td.play_time_column,
+  #lfg table tr td.created_column {
+    text-indent: 15px;
+  }
+  #lfg table tr td.play_time_column .date,
+  #lfg table tr td.created_column .date {
+    display: none;
+  }
 }

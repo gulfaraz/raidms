@@ -46,7 +46,7 @@
             <span>Members ({{raid.players.length}}/{{raid.strength || ((raid.players.length < 3) ? 3 : ((raid.players.length > 12) ? 12 : raid.players.length))}})</span>
         </div>
         <div class="controls">
-            <button class="create_button" type="button" ng-disabled="raidForm.$invalid" ng-click="create_update_raid()">{{ raid._id ? "Update" : "Create" }}</button><button class="back_button" type="button" ui-sref="lfg">Back</button>
+            <button class="create_button" type="button" ng-disabled="raidForm.$invalid" ng-click="create_update_raid()">{{ raid._id ? "Update" : "Create" }}</button><button class="back_button" type="button" ui-sref="{{back_state.name}}({{back_state.params}})">Back</button>
         </div>
     </form>
     <div ng-hide="is_authenticated_user()">

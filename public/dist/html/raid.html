@@ -43,7 +43,7 @@
             </span>
             <button class="edit_button" type="button" ng-show="session_user_id() == raid.host" ui-sref="editRaid({ 'raid_id' : raid._id })">Edit</button>
             <button class="show_similar_button" type="button" ng-click="set_filter('access', raid.access);set_filter('platform', raid.platform);set_filter('game', raid.game);" ui-sref="lfg">Show Similar</button>
-            <button type="button" ui-sref="lfg">LFG</button>
+            <button class="back_button" type="button" ui-sref="{{back_state.name}}({{back_state.params}})">Back</button>
         </div>
     <div>
 </section>

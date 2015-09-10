@@ -8,12 +8,16 @@
         table-layout: fixed;
         tbody {
             tr {
-                td#table_message {
-                    text-align: center;
-                    padding: 9px 0;
-                }
-                td.controls_column {
-                    text-align: center;
+                td {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    &#table_message {
+                        text-align: center;
+                        padding: 9px 0;
+                    }
+                    &.controls_column {
+                        text-align: center;
+                    }
                 }
                 &#filter_row {
                     td {
@@ -307,6 +311,24 @@
         }
         #create_raid_button {
             padding: 20px 0 0;
+        }
+    }
+}
+
+@media only screen and (min-width : 1025px) and (max-width: 1090px) {
+    #lfg {
+        table {
+            tr {
+                td {
+                    &.play_time_column,
+                    &.created_column {
+                        text-indent: 15px;
+                        .date {
+                            display: none;
+                        }
+                    }
+                }
+            }
         }
     }
 }

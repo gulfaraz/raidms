@@ -1,4 +1,4 @@
-<section id="register">
+<section class="form" id="register">
     <header class="title">Sign Up</header>
     <form name="signUp" ng-submit="sign_up()" ng-hide="is_authenticated_user()">
         <div class="user_name_container">
@@ -31,7 +31,7 @@
             <input type="email" name="mail" placeholder="name@rms.com" ng-model="mail" required available />
         </div>
         <div class="form_controls">
-            <button class="register_button" type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button><button class="cancel_button" type="button" ui-sref="lfg">Cancel</button>
+            <button class="register_button" type="submit" ng-disabled="signUp.$invalid || signUp.$pending">Register</button><button class="back_button" type="button" ui-sref="{{back_state.name}}({{back_state.params}})">Back</button>
         </div>
     </form>
     <div ng-show="is_authenticated_user()">

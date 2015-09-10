@@ -70,7 +70,7 @@
                 <div class="controls">
                     <div id="profile_form_status_message" ng-class="{'success' : models.profile_form_status_message_success}">{{models.profile_form_status_message}}</div>
                     <button type="button" class="save_button" ng-click="update_profile()" ng-disabled="models.profile_details_changed">Save</button>
-                    <button type="button" class="back_button" ui-sref="user({ 'user_name' : profile.user_name })">Back</button>
+                    <button class="back_button" type="button" ui-sref="{{back_state.name}}({{back_state.params}})">Back</button>
                 </div>
             </div>
         </section>

@@ -5,6 +5,8 @@ angular.module("rmsApp.profile")
 
         $scope.is_authenticated_user = SessionControl.is_authenticated_user;
 
+        $scope.back_state = SessionControl.get_back_state();
+
         if($scope.is_authenticated_user()) {
             $state.go("lfg");
         }

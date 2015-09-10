@@ -1,4 +1,4 @@
-<section id="forgot">
+<section class="form" id="forgot">
     <header class="title">Recover Account</header>
     <form name="recover_account_form" ng-submit="recover_account()" ng-hide="is_authenticated_user()">
         <div class="user_name_container">
@@ -12,7 +12,7 @@
             <input type="text" placeholder="Registered User Name/Mail" name="lost" ng-model="lost" required available />
         </div>
         <div class="form_controls">
-            <button class="recover_button" type="submit" ng-disabled="!recover_account_form.lost.$error.duplicate || recover_account_form.$pending">Recover</button>
+            <button class="recover_button" type="submit" ng-disabled="!recover_account_form.lost.$error.duplicate || recover_account_form.$pending">Recover</button><button class="back_button" type="button" ui-sref="{{back_state.name}}({{back_state.params}})">Back</button>
         </div>
     </form>
     <div ng-show="is_authenticated_user()">

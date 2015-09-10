@@ -11,6 +11,8 @@ angular.module("rmsApp.profile")
 
         $scope.is_now_ahead = util.is_now_ahead;
 
+        $scope.back_state = SessionControl.get_back_state();
+
         if(!$stateParams.user_name) {
             BroadcastMessage.broadcast_message = "Invalid User";
             $state.go("lfg");
