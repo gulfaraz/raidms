@@ -37,5 +37,28 @@ rms.use(require("connect-livereload")({ "port" : 35729 }));
 rms.use(express.static(__dirname + "/public/dist"), require("./routes/routes")(util, express, models, auth));
 rms.use("/", function (req, res) { res.sendFile("public/dist/html/rms.html", { "root" : __dirname }); });
 
+var CronJob = require('cron').CronJob;
+
+new CronJob("0 */15 * * * *", function () {
+    models.Raid.remove({
+        "play_time" : { "$lte": new Date((new Date) - 1000 * 60 * 15) }
+    }, function (err, removed) {
+        if(err) {
+            console.log(new Date() + " - Error in removing expired Raids");
+        } else {
+            console.log(new Date() + " - Removed " + removed.result.n + " Expired Raids");
+        }
+    });
+    models.User.remove({
+        "delete" : { "$lte": new Date((new Date)) }
+    }, function (err, removed) {
+        if(err) {
+            console.log(new Date() + " - Error in removing deleted Users");
+        } else {
+            console.log(new Date() + " - Removed " + removed.result.n + " Deleted Users");
+        }
+    });
+}, null, true, 'UTC');
+
 rms.listen(port);
 console.log("Port " + port + " open and listening for requests");

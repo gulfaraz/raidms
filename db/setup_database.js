@@ -1,9 +1,11 @@
-print("SETUP DATABASE - START");
+print(new Date() + " - SETUP DATABASE - START");
 
 print("Load Configutation - START");
 
 load("../config.js");
 var database_config = module.exports().database;
+
+print("CONFIGURATION - " + JSON.stringify(database_config));
 
 print("Load Configutation - END");
 
@@ -14,9 +16,8 @@ var scripts = ["create_filters.js"];
 print("Scripts to execute - " + scripts.length);
 
 for(var i=0; i<scripts.length; i++) {
-    print(scripts[0]);
-    load(scripts[0]);
+    print(scripts[i]);
+    load(scripts[i]);
 }
 
-print("SETUP DATABASE - END");
-
+print(new Date() + " - SETUP DATABASE - END");

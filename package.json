@@ -20,7 +20,8 @@
     "passport": "^0.2.1",
     "passport-http": "^0.2.2",
     "passport-http-bearer": "^1.0.1",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "cron": "~1.0.9"
   },
   "devDependencies": {
     "connect-livereload": "^0.5.3",
