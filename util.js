@@ -54,18 +54,19 @@ module.exports = function (auth, web_config) {
     return {
         "config" : web_config,
         "except" : function (object, arguments) {
+            var new_object = {};
             if (object.constructor.name === "model") {
                 object = object.toObject();
             }
-            for(var i = 0, j = arguments.length; i < j; i++) {
-                if(object.hasOwnProperty(arguments[i])) {
-                    delete object[arguments[i]];
+            for(var i = 0, keys = Object.keys(object), len = keys.length; i < len; i++) {
+                if(arguments.indexOf(keys[i]) < 0) {
+                    new_object[keys[i]] = object[keys[i]];
                 }
             }
-            return object;
+            return new_object;
         },
         "validateEmail" : function (email) {
-            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            var re = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
             return re.test(email);
         },
         "sendRegistrationMail" : sendRegistrationMail,

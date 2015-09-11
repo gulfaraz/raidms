@@ -973,6 +973,7 @@ aside#statistics #users_online {
 }
 .raid #raid_members .user_row .confirm_expel_container {
   display: inline-block;
+  padding-left: 5px;
 }
 .raid #raid_members .user_row .confirm_expel_container .label {
   font-size: 90%;

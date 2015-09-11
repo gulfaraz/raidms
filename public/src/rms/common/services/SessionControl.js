@@ -1,5 +1,5 @@
 angular.module("rmsApp.shared")
-    .factory("SessionControl", ["$rootScope", "$state", function ($rootScope, $state) {
+    .factory("SessionControl", ["$rootScope", "$state", "api", function ($rootScope, $state, api) {
 
         var home_state = {
             "name" : "lfg",
@@ -66,6 +66,13 @@ angular.module("rmsApp.shared")
                 session.user_name = user_name;
                 session.user_id = id;
                 session.time = moment().utc();
+                api.get({ "set" : "user", "id" : user_name },
+                    function (user) {
+                        if(user.success) {
+                            session.filters.platform = user.data.seeking.platform;
+                            session.filters.game = user.data.seeking.game;
+                        }
+                    });
             },
             "clear_session" : function () {
                 session.user_name = null;

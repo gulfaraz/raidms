@@ -10,35 +10,9 @@ module.exports = function (User, secret) {
         return {
             "user_name" : user.user_name,
             "_id" : user._id,
-            "status" : user.status
+            "role" : user.role
         };
     };
-
-    passport.use(new BasicStrategy(
-        function (user_name, password, callback) {
-            User.find({ "user_name" : user_name })
-                .limit(1)
-                .exec(function (err, user) {
-                    user = user[0];
-                    if(err) {
-                        return callback(err);
-                    }
-                    if(!user) {
-                        return callback(null, false);
-                    }
-
-                    user.verifyPassword(password, function (err, isMatch) {
-                      if(err) {
-                          return callback(err);
-                      }
-                      if(!isMatch) {
-                          return callback(null, false);
-                      }
-                      return callback(null, auth_return(user));
-                    });
-                });
-        }
-    ));
 
     passport.use(new BearerStrategy(
         function (token, callback) {
@@ -57,7 +31,19 @@ module.exports = function (User, secret) {
                             if(!user) {
                                 return callback(null, false);
                             } else {
-                                callback(null, auth_return(user), { "scope" : "*" });
+                                if(user.status === "active") {
+                                    var permissions = { "scope" : "read" };
+                                    if(user.role === "member") {
+                                        permissions.scope = "edit";
+                                    } else if(user.role === "moderator") {
+                                        permissions.scope = "manage";
+                                    } else if(user.role === "super") {
+                                        permissions.scope = "*";
+                                    }
+                                    callback(null, auth_return(user), permissions);
+                                } else {
+                                    return callback(null, false);
+                                }
                             }
                         });
                 });
@@ -93,8 +79,7 @@ module.exports = function (User, secret) {
         "jwt" : jwt,
         "jwt_secret" : jwt_secret,
         "verify_token" : verify_token,
-        "isAuthenticated" : passport.authenticate(["basic", "bearer"], { "session" : false }),
-        "isBearerAuthenticated" : passport.authenticate("bearer", { "session" : false })
+        "isAuthenticated" : passport.authenticate("bearer", { "session" : false })
     }
 
 };

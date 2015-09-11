@@ -1,7 +1,7 @@
 angular.module("rmsApp.profile")
     .controller("signUpController",
-        ["$scope", "api", "$state", "BroadcastMessage", "angularMomentConfig", "SessionControl",
-        function ($scope, api, $state, BroadcastMessage, angularMomentConfig, SessionControl) {
+        ["$scope", "api", "$state", "BroadcastMessage", "angularMomentConfig", "SessionControl", "$localStorage",
+        function ($scope, api, $state, BroadcastMessage, angularMomentConfig, SessionControl, $localStorage) {
 
         $scope.is_authenticated_user = SessionControl.is_authenticated_user;
 
@@ -25,6 +25,8 @@ angular.module("rmsApp.profile")
                 },
                 function (data) {
                     if(data.success) {
+                        $localStorage.rms = data.token;
+                        SessionControl.set_user(data.user_name, data._id);
                         BroadcastMessage.broadcast_message = "Please check your registered mail to complete the registration";
                         $scope.show_register_passcode = false;
                         $state.go("lfg");
