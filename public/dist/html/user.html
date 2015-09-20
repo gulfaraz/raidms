@@ -6,7 +6,7 @@
         <div class="message">{{profile.seeking.message ? "\"" + profile.seeking.message + "\"" : ""}}</div>
     </div>
     <div>
-        <div><span class="karma_score" ng-class="{'good_karma' : profile.karma > 0, 'bad_karma' : profile.karma < 0}">{{profile.karma || 0}}</span> Karma Score</div>
+        <div id="karma_score_container"><span class="karma_score" ng-class="{'good_karma' : profile.karma > 0, 'bad_karma' : profile.karma < 0}">{{profile.karma || 0}}</span> Karma Score</div>
         <div id="joined">Joined RMS <span am-time-ago="profile.date_joined"></span></div>
     </div>
     <div class="play_information">

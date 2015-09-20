@@ -1,9 +1,7 @@
 angular.module("rmsApp.shared")
     .filter("capitalize", function () {
         return function (input) {
-            if(input && input.length > 0) {
-                return input.toString().charAt(0).toUpperCase() + input.slice(1);
-            }
+            return (input && input.length > 0) ? input.toString().charAt(0).toUpperCase() + input.slice(1) : input;
         };
     })
     .filter("multiFilter", function () {

@@ -1,4 +1,4 @@
-var config = require("./config")();
+var config = require("./config/" + process.env.ENVIRONMENT + ".js")();
 
 var express = require("express");
 var rms = express();
@@ -12,14 +12,14 @@ mongoose.connect(config.database.scheme + "://" + config.database.domain + "/" +
 
 var models = require("./architecture/models")();
 
-var auth = require("./architecture/auth")(models.User, config.secret);
+var util = require("./util")(config);
+
+var auth = require("./architecture/auth")(util, models.User, config.secret, config.social);
 
 var session = require("express-session");
 
 var swig = require("swig");
 swig.setDefaults({ "cache" : false });
-
-var util = require("./util")(auth, config.web);
 
 var port = config.web.port || process.env.PORT || 8080;
 
@@ -30,7 +30,7 @@ rms.set("views", __dirname + "/views");
 rms.set("view cache", false);
 
 rms.use(session({ "secret" : config.secret, "saveUninitialized" : true, "resave" : true }));
-rms.use(auth.passport_init);
+rms.use(auth.passport.initialize());
 
 rms.use(require("connect-livereload")({ "port" : 35729 }));
 

@@ -30,7 +30,7 @@
                     </div>
                     <div class="sub_component">
                         <div>Message</div>
-                        <div><textarea rows="3" cols="50" maxlength="90" ng-maxlength="90" ng-model="profile.seeking.message"></textarea></div>
+                        <div><textarea rows="3" cols="50" maxlength="90" ng-maxlength="90" ng-model="profile.seeking.message" placeholder="Describe the kind of raid you are looking for... Eg. 1)Mic Optional 2)Experienced Only"></textarea></div>
                     </div>
                 </div>
                 <div id="platforms" class="component">
@@ -74,60 +74,83 @@
                 </div>
             </div>
         </section>
-        <section id="accounts_linked" class="component" ng-hide="profile.delete">
+        <section id="accounts_linked" class="component" ng-hide="profile.delete || profile.user_name === profile._id">
             <header class="component_header">Accounts Linked</header>
             <div class="inline" id="social_login_icons">
-                <div class="account_container">
-                    <a class="psn_logo" href="/auth/facebook"></a>
-                    <div>
-                        <button class="connect_button" ng-hide="profile.social.psn.linked">Link</button>
+                <div class="account_container psn_account">
+                    <a class="account_logo psn_logo" href="/auth/psn"></a>
+                    <div ng-hide="profile.social.psn.linked">
+                        <a href="/auth/psn" title="Link PSN Account"><button class="connect_button">Link</button></a>
                     </div>
                     <div ng-show="profile.social.psn.linked">
-                        <button class="remove_button">Unlink</button>
-                        <div class="account_id" title="PSN ID">PSN ID</div>
+                        <button class="remove_button" ng-click="unlink('psn')">Unlink</button>
                     </div>
-                </div><div class="account_container">
-                    <a class="xbox_logo" href="/auth/facebook"></a>
-                    <div>
-                        <button class="connect_button" ng-hide="profile.social.xbox.linked">Link</button>
+                </div><div class="account_container xbox_account">
+                    <a class="account_logo xbox_logo" href="/auth/xbox"></a>
+                    <div ng-hide="profile.social.xbox.linked">
+                        <a href="/auth/xbox" title="Link XBOX Account"><button class="connect_button">Link</button></a>
                     </div>
                     <div ng-show="profile.social.xbox.linked">
-                        <button class="remove_button">Unlink</button>
-                        <div class="account_id" title="XBOX ID">XBOX ID</div>
+                        <button class="remove_button" ng-click="unlink('xbox')">Unlink</button>
                     </div>
-                </div><div class="account_container">
-                    <a class="facebook_logo" href="/auth/facebook"></a>
-                    <div>
-                        <button class="connect_button" ng-hide="profile.social.facebook.linked">Link</button>
+                </div><div class="account_container facebook_account">
+                    <a class="account_logo facebook_logo" href="/auth/facebook"></a>
+                    <div ng-hide="profile.social.facebook.linked">
+                        <a href="/auth/facebook" title="Link Facebook Account"><button class="connect_button">Link</button></a>
                     </div>
                     <div ng-show="profile.social.facebook.linked">
-                        <button class="remove_button">Unlink</button>
-                        <div class="account_id" title="Facebook ID">Facebook ID</div>
+                        <button class="remove_button" ng-click="unlink('facebook')">Unlink</button>
                     </div>
-                </div><div class="account_container">
-                    <a class="twitter_logo" href="/auth/twitter"></a>
-                    <div>
-                        <button class="connect_button" ng-hide="profile.social.twitter.linked">Link</button>
+                </div><div class="account_container twitter_account">
+                    <a class="account_logo twitter_logo" href="/auth/twitter"></a>
+                    <div ng-hide="profile.social.twitter.linked">
+                        <a href="/auth/twitter" title="Link Twitter Account"><button class="connect_button">Link</button></a>
                     </div>
                     <div ng-show="profile.social.twitter.linked">
-                        <button class="remove_button">Unlink</button>
-                        <div class="account_id" title="Twitter ID">Twitter ID</div>
+                        <button class="remove_button" ng-click="unlink('twitter')">Unlink</button>
                     </div>
-                </div><div class="account_container">
-                    <a class="google_logo" href="/auth/google"></a>
-                    <div>
-                        <button class="connect_button" ng-hide="profile.social.google.linked">Link</button>
+                </div><div class="account_container google_account">
+                    <a class="account_logo google_logo" href="/auth/google"></a>
+                    <div ng-hide="profile.social.google.linked">
+                        <a href="/auth/google" title="Link Google Account"><button class="connect_button">Link</button></a>
                     </div>
                     <div ng-show="profile.social.google.linked">
-                        <button class="remove_button">Unlink</button>
-                        <div class="account_id" title="Google ID">Google ID</div>
+                        <button class="remove_button" ng-click="unlink('google')">Unlink</button>
                     </div>
                 </div>
             </div>
         </section>
         <section id="account_settings" class="component">
             <header class="component_header">Account Settings</header>
-            <div class="form_container" ng-show="models.passcode.show_change_passcode || models.mail.show_change_mail || models.delete.show_change_delete || models.passcode.passcode_message || models.mail.mail_message || models.delete.delete_message">
+            <div class="form_container" ng-class="{ 'no_border' : profile._id === profile.user_name }" ng-show="models.passcode.show_change_passcode || models.mail.show_change_mail || models.delete.show_change_delete || models.passcode.passcode_message || models.mail.mail_message || models.delete.delete_message || profile.user_name === profile._id">
+                <div ng-show="profile.user_name === profile._id">
+                    <form name="models.credentials.set_credentials_form" ng-submit="set_credentials()">
+                        <div class="inline">
+                            <div id="set_user_name_container">
+                                <label class="sub_component_label">User Name</label>
+                                <span class="error_message" ng-messages="models.credentials.set_credentials_form.user_name.$error" ng-if="models.credentials.set_credentials_form.user_name.$dirty && models.credentials.set_credentials_form.user_name.$invalid">
+                                    <span ng-message="required">Required</span>
+                                    <span ng-message="duplicate">{{models.credentials.set_credentials_form.user_name.$viewValue}} not available</span>
+                                </span>
+                                <input id="set_user_name_input" type="text" name="user_name" placeholder="Choose a User Name" ng-model="models.credentials.user_name" required available />
+                            </div><div id="passcode_container">
+                                <label class="sub_component_label">Passcode</label>
+                                <span class="error_message" ng-messages="models.credentials.set_credentials_form.passcode.$error" ng-if="models.credentials.set_credentials_form.passcode.$dirty && models.credentials.set_credentials_form.passcode.$invalid">
+                                    <span ng-message="required">Required</span>
+                                </span>
+                                <div class="passcode_container">
+                                    <input type="{{ models.credentials.show_passcode ? 'text' : 'password' }}" name="passcode" placeholder="Choose Passcode" ng-model="models.credentials.passcode" required />
+                                    <span class="show_passcode_container" ng-show="models.credentials.passcode" ng-click="models.credentials.show_passcode = !models.credentials.show_passcode">
+                                        <label>{{ models.credentials.show_passcode ? "Hide" : "Show" }}</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form_controls">
+                            <button type="submit" class="set_credentials_button" ng-disabled="models.credentials.set_credentials_form.$invalid || models.credentials.set_credentials_form.$pending">Save</button>
+                        </div>
+                    </form>
+                </div>
                 <div ng-show="models.passcode.show_change_passcode">
                     <form name="models.passcode.change_passcode_form" ng-submit="change_passcode()">
                         <div class="inline">
@@ -195,14 +218,15 @@
                         </div>
                     </form>
                 </div>
-                <div class="message" ng-class="{'extra_margin' : models.passcode.show_change_passcode || models.mail.show_change_mail || models.delete.show_change_delete, 'success' : models.message.success}" ng-show="models.passcode.passcode_message || models.mail.mail_message || models.delete.delete_message">
+                <div class="message" ng-class="{'extra_margin' : models.passcode.show_change_passcode || models.mail.show_change_mail || models.delete.show_change_delete, 'success' : models.message.success}" ng-show="models.passcode.passcode_message || models.mail.mail_message || models.delete.delete_message || models.user_name.user_name_message">
                     <span>{{models.passcode.passcode_message}}</span>
                     <span>{{models.mail.mail_message}}</span>
                     <span>{{models.delete.delete_message}}</span>
+                    <span>{{models.user_name.user_name_message}}</span>
                 </div>
             </div>
             <div>
-                <div class="buttons_array" ng-hide="models.delete.countdown">
+                <div class="buttons_array" ng-hide="models.delete.countdown || profile.user_name === profile._id">
                     <div class="button_container">
                         <button type="button" ng-class="{'change_passcode_button' : !models.passcode.show_change_passcode}" ng-click="toggle('passcode')">Change Passcode</button>
                     </div><div class="button_container">

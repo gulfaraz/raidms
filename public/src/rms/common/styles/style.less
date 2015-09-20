@@ -182,11 +182,12 @@ a {
 #social_login_icons {
     margin: 0 auto;
     width: 290px;
-    a {
+    text-align: center;
+    .account_logo {
         display: inline-block;
         height: 50px;
         width: 50px;
-        margin: 0 4px;
+        margin: 0 20px;
         overflow: hidden;
         background-repeat: no-repeat;
         background-image: url("/media/social_login_icons.png");
@@ -194,27 +195,24 @@ a {
         &:hover {
             outline: darken(@gray, @darkener * @superlative) dotted thin;
         }
+        &.psn_logo {
+            background-position: 0px 0px;
+            display: none;
+        }
+        &.xbox_logo {
+            background-position: 0px -50px;
+            display: none;
+        }
+        &.facebook_logo {
+            background-position: 0px -100px;
+        }
+        &.twitter_logo {
+            background-position: 0px -150px;
+        }
+        &.google_logo {
+            background-position: 0px -200px;
+        }
     }
-}
-
-.psn_logo {
-    background-position: 0px 0px;
-}
-
-.xbox_logo {
-    background-position: 0px -50px;
-}
-
-.facebook_logo {
-    background-position: 0px -100px;
-}
-
-.twitter_logo {
-    background-position: 0px -150px;
-}
-
-.google_logo {
-    background-position: 0px -200px;
 }
 
 .user_name_container,
@@ -288,17 +286,22 @@ a {
     margin: auto;
     #authorized_user_name {
         display: inline-block;
-        width: 35%;
+        width: 46%;
         font-weight: bold;
         text-align: center;
         font-size: 120%;
         vertical-align: bottom;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
-    .sign_out_button {
-        .red_button;
-    }
-    .view_profile_button {
-        .blue_button;
+    button {
+        margin-left: 2%;
+        &.sign_out_button {
+            .red_button;
+        }
+        &.view_profile_button {
+            .blue_button;
+        }
     }
 }
 
@@ -425,11 +428,12 @@ aside {
 .karma_score {
     font-weight: bold;
     color: darken(@blue, @darkener);
+    display: none;
     &.good_karma {
-        color: @green;/*darkener(@green, @darkener);*/
+        color: @green;
     }
     &.bad_karma {
-        color: @red;/*darkener(@red, @darkener);*/
+        color: @red;
     }
 }
 

@@ -21,7 +21,11 @@
     "passport-http": "^0.2.2",
     "passport-http-bearer": "^1.0.1",
     "swig": "^1.4.2",
-    "cron": "~1.0.9"
+    "cron": "~1.0.9",
+    "passport-facebook": "~2.0.0",
+    "passport-twitter": "~1.0.3",
+    "passport-local": "~1.0.0",
+    "passport-google-oauth": "~0.2.0"
   },
   "devDependencies": {
     "connect-livereload": "^0.5.3",

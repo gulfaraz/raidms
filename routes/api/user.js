@@ -11,8 +11,8 @@ module.exports = function (util, router, User, auth) {
             user.role = "new";
             user.status = "active";
             user.seeking = {
-                "platform" : "",
-                "game" : ""
+                "platform" : null,
+                "game" : null
             };
             user.karma = 0;
             user.date_joined = Date.now();
@@ -26,20 +26,15 @@ module.exports = function (util, router, User, auth) {
                         "message" : err.toString()
                     });
                 } else {
-                    var token = auth.jwt.sign(user.user_name, auth.jwt_secret, {
-                        expiresInMinutes: (60 * 24 * 14)
-                    });
                     res.json({
                         "success" : true,
                         "message" : "User Created",
-                        "token" : token,
+                        "token" : auth.jwt.generate_token(user._id),
                         "user_name" : user.user_name,
                         "_id" : user._id
                     });
-                    var validation_token = auth.jwt.sign(user.user_name, auth.jwt_secret, {
-                        expiresInMinutes: (60 * 24)
-                    });
-                    util.sendRegistrationMail(user.mail, validation_token);
+                    util.sendRegistrationMail(user.mail, auth.jwt.generate_token(user._id, (60 * 24)));
+                    req.logIn(user);
                 }
             });
         })
@@ -55,6 +50,9 @@ module.exports = function (util, router, User, auth) {
                     } else {
                         for(var i=0; i<user.length; i++) {
                             user[i] = util.except(user[i], except.split(" "));
+                            if(!user[i].user_name) {
+                                user[i].user_name = user[i]._id;
+                            }
                         }
                         res.json({
                             "success" : true,
@@ -66,7 +64,7 @@ module.exports = function (util, router, User, auth) {
     router.route("/:user_id")
         .get(function (req, res) {
             var authorization_header = req.get("Authorization") || "";
-            var verify_user = auth.verify_token(authorization_header.split(" ")[1], function (status, data) {
+            var verify_user = auth.jwt.verify_token(authorization_header.split(" ")[1], function (status, data) {
                 var query = { "user_name" : req.params.user_id };
                 if (req.params.user_id.match(/^[0-9a-fA-F]{24}$/)) {
                     query = { "_id" : req.params.user_id };
@@ -83,8 +81,11 @@ module.exports = function (util, router, User, auth) {
                                     "message" : err.toString()
                                 });
                             } else {
-                                if(!status && (user.status !== "active" || data.user_name !== user.user_name)) {
+                                if(!status || user.status !== "active" || data.user_id.toString() !== user._id.toString()) {
                                     user = util.except(user, except.split(" "));
+                                }
+                                if(!user.user_name) {
+                                    user.user_name = user._id;
                                 }
                                 res.json({
                                     "success" : true,
@@ -100,7 +101,7 @@ module.exports = function (util, router, User, auth) {
                     });
             });
         })
-        .post(auth.isAuthenticated, function (req, res) {
+        .post(auth.passport.authenticate("bearer"), function (req, res) {
             var query = { "user_name" : req.params.user_id };
             if (req.params.user_id.match(/^[0-9a-fA-F]{24}$/)) {
                 query = { "_id" : req.params.user_id };
@@ -116,7 +117,7 @@ module.exports = function (util, router, User, auth) {
                     } else {
                         user = user[0];
                         if(user) {
-                            if(req.user.user_name === user.user_name) {
+                            if(req.user.user_id.toString() === user._id.toString()) {
                                 user.user_name = req.body.user_name;
                                 user.password = req.body.password || user.password;
                                 user.mail = req.body.mail || user.mail;
@@ -138,13 +139,10 @@ module.exports = function (util, router, User, auth) {
                                 user.date_updated = Date.now();
                                 user.delete = req.body.delete;
                                 if(req.body.mail) {
-                                    var validation_token = auth.jwt.sign({
-                                        "user_name" : user.user_name,
+                                    util.sendMailChangeMail(req.body.mail, auth.jwt.generate_token({
+                                        "user_id" : user._id,
                                         "mail" : req.body.mail
-                                    }, auth.jwt_secret, {
-                                        expiresInMinutes: (60 * 24)
-                                    });
-                                    util.sendMailChangeMail(req.body.mail, validation_token);
+                                    }));
                                     res.json({
                                         "success" : true,
                                         "message" : "Verification Mail Sent"

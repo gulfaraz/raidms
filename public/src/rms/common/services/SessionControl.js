@@ -1,5 +1,7 @@
 angular.module("rmsApp.shared")
-    .factory("SessionControl", ["$rootScope", "$state", "api", function ($rootScope, $state, api) {
+    .factory("SessionControl",
+        ["$rootScope", "$state", "api", "amMoment",
+        function ($rootScope, $state, api, amMoment) {
 
         var home_state = {
             "name" : "lfg",
@@ -62,15 +64,19 @@ angular.module("rmsApp.shared")
             "set_filter" : function (type, value) {
                 session.filters[type] = value;
             },
-            "set_user" : function (user_name, id) {
-                session.user_name = user_name;
-                session.user_id = id;
+            "set_user" : function (user_id) {
                 session.time = moment().utc();
-                api.get({ "set" : "user", "id" : user_name },
+                api.get({ "set" : "user", "id" : user_id },
                     function (user) {
                         if(user.success) {
                             session.filters.platform = user.data.seeking.platform;
                             session.filters.game = user.data.seeking.game;
+                            session.user_name = user.data.user_name;
+                            session.user_id = user.data._id;
+                            amMoment.changeTimezone(user.data.timezone || jstz.determine().name());
+                            if($state.current.name === "lfg") {
+                                $state.go("lfg", {}, { "reload" : true });
+                            }
                         }
                     });
             },

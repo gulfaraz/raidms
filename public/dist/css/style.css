@@ -245,33 +245,36 @@ a {
 #social_login_icons {
   margin: 0 auto;
   width: 290px;
+  text-align: center;
 }
-#social_login_icons a {
+#social_login_icons .account_logo {
   display: inline-block;
   height: 50px;
   width: 50px;
-  margin: 0 4px;
+  margin: 0 20px;
   overflow: hidden;
   background-repeat: no-repeat;
   background-image: url("/media/social_login_icons.png");
 }
-#social_login_icons a:focus,
-#social_login_icons a:hover {
+#social_login_icons .account_logo:focus,
+#social_login_icons .account_logo:hover {
   outline: #000000 dotted thin;
 }
-.psn_logo {
+#social_login_icons .account_logo.psn_logo {
   background-position: 0px 0px;
+  display: none;
 }
-.xbox_logo {
+#social_login_icons .account_logo.xbox_logo {
   background-position: 0px -50px;
+  display: none;
 }
-.facebook_logo {
+#social_login_icons .account_logo.facebook_logo {
   background-position: 0px -100px;
 }
-.twitter_logo {
+#social_login_icons .account_logo.twitter_logo {
   background-position: 0px -150px;
 }
-.google_logo {
+#social_login_icons .account_logo.google_logo {
   background-position: 0px -200px;
 }
 .user_name_container,
@@ -359,28 +362,33 @@ a {
 }
 #user_information #authorized_user_name {
   display: inline-block;
-  width: 35%;
+  width: 46%;
   font-weight: bold;
   text-align: center;
   font-size: 120%;
   vertical-align: bottom;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-#user_information .sign_out_button:not([disabled="disabled"]) {
+#user_information button {
+  margin-left: 2%;
+}
+#user_information button.sign_out_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
 }
-#user_information .sign_out_button:not([disabled="disabled"]):hover,
-#user_information .sign_out_button:not([disabled="disabled"]):focus {
+#user_information button.sign_out_button:not([disabled="disabled"]):hover,
+#user_information button.sign_out_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-#user_information .view_profile_button:not([disabled="disabled"]) {
+#user_information button.view_profile_button:not([disabled="disabled"]) {
   background-color: #5697d0;
   border-color: #3071a9;
   color: #fbfbfb;
 }
-#user_information .view_profile_button:not([disabled="disabled"]):hover,
-#user_information .view_profile_button:not([disabled="disabled"]):focus {
+#user_information button.view_profile_button:not([disabled="disabled"]):hover,
+#user_information button.view_profile_button:not([disabled="disabled"]):focus {
   background-color: #3071a9;
 }
 aside {
@@ -552,14 +560,13 @@ aside#statistics #users_online {
 .karma_score {
   font-weight: bold;
   color: #3071a9;
+  display: none;
 }
 .karma_score.good_karma {
   color: #5cb85c;
-  /*darkener(@green, @darkener);*/
 }
 .karma_score.bad_karma {
   color: #d9534f;
-  /*darkener(@red, @darkener);*/
 }
 .component {
   border: 1px solid #9ca1a7;
@@ -786,6 +793,9 @@ aside#statistics #users_online {
   margin: 10px 0;
   font-style: italic;
   word-break: break-word;
+}
+.user #karma_score_container {
+  display: none;
 }
 .user #joined {
   color: #9ca1a7;
@@ -1244,7 +1254,7 @@ aside#statistics #users_online {
   font-size: 80%;
   text-align: center;
   vertical-align: top;
-  margin: 0 2px;
+  margin: 0 20px;
   word-break: break-all;
 }
 .user.edit #accounts_linked #social_login_icons .account_container button {
@@ -1274,38 +1284,63 @@ aside#statistics #users_online {
 .user.edit #accounts_linked #social_login_icons .account_container button.remove_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
-.user.edit #accounts_linked #social_login_icons .account_container .account_id {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.user.edit #accounts_linked #social_login_icons .account_container.psn_account,
+.user.edit #accounts_linked #social_login_icons .account_container.xbox_account {
+  display: none;
+}
+.user.edit #accounts_linked #social_login_icons .account_container a {
+  margin: 0;
 }
 .user.edit #account_settings {
   padding-top: 25px;
 }
 .user.edit #account_settings .form_container {
-  border-bottom: 1px solid gray;
   margin: 0 -10px 10px;
   padding: 0 10px 10px;
 }
+.user.edit #account_settings .form_container:not(.no_border) {
+  border-bottom: 1px solid gray;
+}
+.user.edit #account_settings .form_container #set_user_name_container,
+.user.edit #account_settings .form_container #passcode_container,
 .user.edit #account_settings .form_container #old_passcode_container,
 .user.edit #account_settings .form_container #new_passcode_container {
   display: inline-block;
   width: 50%;
 }
+.user.edit #account_settings .form_container #set_user_name_container .passcode_container,
+.user.edit #account_settings .form_container #passcode_container .passcode_container,
 .user.edit #account_settings .form_container #old_passcode_container .passcode_container,
 .user.edit #account_settings .form_container #new_passcode_container .passcode_container {
   margin-bottom: 0;
 }
+.user.edit #account_settings .form_container #set_user_name_container .show_passcode_container,
+.user.edit #account_settings .form_container #passcode_container .show_passcode_container,
+.user.edit #account_settings .form_container #old_passcode_container .show_passcode_container,
+.user.edit #account_settings .form_container #new_passcode_container .show_passcode_container {
+  top: 20px;
+}
+.user.edit #account_settings .form_container #set_user_name_container,
+.user.edit #account_settings .form_container #passcode_container,
 .user.edit #account_settings .form_container #change_mail_container,
 .user.edit #account_settings .form_container #delete_account_container,
 .user.edit #account_settings .form_container #old_passcode_container,
 .user.edit #account_settings .form_container #new_passcode_container {
   padding: 0 10px;
 }
-.user.edit #account_settings .form_container #change_mail_container #change_mail_input,
-.user.edit #account_settings .form_container #delete_account_container #change_mail_input,
-.user.edit #account_settings .form_container #old_passcode_container #change_mail_input,
-.user.edit #account_settings .form_container #new_passcode_container #change_mail_input {
+.user.edit #account_settings .form_container #set_user_name_container input,
+.user.edit #account_settings .form_container #passcode_container input,
+.user.edit #account_settings .form_container #change_mail_container input,
+.user.edit #account_settings .form_container #delete_account_container input,
+.user.edit #account_settings .form_container #old_passcode_container input,
+.user.edit #account_settings .form_container #new_passcode_container input {
+  margin: 10px 0;
+}
+.user.edit #account_settings .form_container #set_user_name_container #set_user_name_input {
+  padding: 5px 5px 5px 10px;
+  width: 100%;
+}
+.user.edit #account_settings .form_container #change_mail_container #change_mail_input {
   padding: 5px 5px 5px 10px;
   width: 100%;
 }
@@ -1327,6 +1362,15 @@ aside#statistics #users_online {
 }
 .user.edit #account_settings .form_container .form_controls button {
   padding: 3px 15px;
+}
+.user.edit #account_settings .form_container .form_controls button.set_credentials_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.user.edit #account_settings .form_container .form_controls button.set_credentials_button:not([disabled="disabled"]):hover,
+.user.edit #account_settings .form_container .form_controls button.set_credentials_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
 }
 .user.edit #account_settings .form_container .form_controls button.change_passcode_button:not([disabled="disabled"]) {
   background-color: #5697d0;
@@ -1414,6 +1458,10 @@ aside#statistics #users_online {
 .user.edit #account_settings #termination_countdown_container .cancel_termination_button:not([disabled="disabled"]):focus {
   background-color: #449d44;
 }
+.input_user_name_mail_mixin {
+  padding: 5px 5px 5px 10px;
+  width: 100%;
+}
 @media only screen and (max-width: 480px) {
   .user.edit #platforms #platforms_container #platform_input select {
     height: 34px;
@@ -1433,7 +1481,7 @@ aside#statistics #users_online {
     font-size: 70%;
     max-width: 50px;
   }
-  .user.edit #accounts_linked #social_login_icons .account_container button {
+  .user.edit #accounts_linked #social_login_icons .account_container button.remove_button {
     width: 50px;
   }
   .user.edit #accounts_linked #social_login_icons .account_container a {
@@ -1465,7 +1513,7 @@ aside#statistics #users_online {
     text-align: center;
   }
   .user.edit #accounts_linked #social_login_icons .account_container {
-    margin: 0 2%;
+    margin: 0 8%;
     width: 15%;
   }
   .user.edit #account_settings .buttons_array .button_container {

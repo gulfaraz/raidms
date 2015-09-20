@@ -26,7 +26,7 @@ angular.module("rmsApp.profile")
                 function (data) {
                     if(data.success) {
                         $localStorage.rms = data.token;
-                        SessionControl.set_user(data.user_name, data._id);
+                        SessionControl.set_user(data._id);
                         BroadcastMessage.broadcast_message = "Please check your registered mail to complete the registration";
                         $scope.show_register_passcode = false;
                         $state.go("lfg");

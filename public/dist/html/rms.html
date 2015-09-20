@@ -32,7 +32,7 @@
             </div><div id="account_portal">
                 <div class="content">
                     <section ng-hide="is_authenticated_user()">
-                        <div id="social_login_icons"><a class="psn_logo" href="/auth/facebook"></a><a class="xbox_logo" href="/auth/facebook"></a><a class="facebook_logo" href="/auth/facebook"></a><a class="twitter_logo" href="/auth/twitter"></a><a class="google_logo" href="/auth/google"></a></div>
+                        <div id="social_login_icons"><a class="account_logo psn_logo" href="/auth/facebook"></a><a class="account_logo xbox_logo" href="/auth/facebook"></a><a class="account_logo facebook_logo" href="/auth/facebook"></a><a class="account_logo twitter_logo" href="/auth/twitter"></a><a class="account_logo google_logo" href="/auth/google"></a></div>
                         <div id="sign_in_form">
                             <form name="signIn" ng-submit="sign_in()">
                                 <div class="inline">
@@ -54,9 +54,7 @@
                     </section>
                     <section ng-show="is_authenticated_user()">
                         <div id="user_information">
-                            <div id="authorized_user_name">{{session_user_name()}}</div>
-                            <button class="view_profile_button" type="button" ui-sref="user({ 'user_name' : session_user_name() })">Profile</button>
-                            <button class="sign_out_button" type="button" ng-click="sign_out()">Sign Out</button>
+                            <div id="authorized_user_name" title="{{session_user_name()}}">{{session_user_name()}}</div><button class="view_profile_button" type="button" ui-sref="user({ 'user_name' : session_user_name() })">Profile</button><button class="sign_out_button" type="button" ng-click="sign_out()">Sign Out</button>
                         </div>
                     </section>
                 </div>

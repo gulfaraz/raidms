@@ -146,12 +146,20 @@ module.exports = function (grunt) {
         },
         "nodemon" : {
             "development" : {
-                "script" : "index.js"
+                "script" : "index.js",
+                "options" : {
+                    "env" : {
+                        "ENVIRONMENT" : "development"
+                    }
+                }
             },
             "production" : {
                 "script" : "index.js",
                 "options" : {
-                    "ignore" : ["**/*.*"]
+                    "ignore" : ["**/*.*"],
+                    "env" : {
+                        "ENVIRONMENT" : "production"
+                    }
                 }
             }
         },

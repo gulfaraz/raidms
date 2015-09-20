@@ -29,11 +29,7 @@ angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsA
 
         $scope.timezones = util.get_timezones();
 
-        var detect_timezone = function () {
-            $scope.timezone = util.timezone_lookup[jstz.determine().name()];
-        };
-
-        detect_timezone();
+        $scope.timezone = util.timezone_lookup[jstz.determine().name()];
 
         api.get(function (data) {
             if(data.success) {
@@ -50,7 +46,7 @@ angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsA
 
         $scope.sign_in = function () {
             BroadcastMessage.broadcast_message = "Signing In...";
-            api.save({ "set" : "login" } ,
+            api.save({ "set" : "login" },
                 {
                     "user_name" : $scope.user_name,
                     "password" : $scope.passcode
@@ -58,9 +54,8 @@ angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsA
                 function (data) {
                     if(data.success) {
                         $localStorage.rms = data.token;
-                        SessionControl.set_user(data.user_name, data._id);
-                        user_timezone();
-                        BroadcastMessage.broadcast_message = "";
+                        SessionControl.set_user(data.user_id);
+                        BroadcastMessage.broadcast_message = null;
                         $scope.show_login_passcode = false;
                     } else {
                         $scope.sign_out();
@@ -70,9 +65,12 @@ angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsA
         };
 
         $scope.sign_out = function () {
-            $localStorage.$reset();
-            SessionControl.clear_session();
-            detect_timezone();
+            api.get({ "set" : "logout" }, function (data) {
+                if(data.success) {
+                    $localStorage.$reset();
+                    SessionControl.clear_session();
+                }
+            });
         };
 
         if($localStorage.rms) {
@@ -80,22 +78,13 @@ angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsA
                 {},
                 function (data) {
                     if(data.success) {
-                        SessionControl.set_user(data.user_name, data._id);
-                        user_timezone();
+                        $localStorage.rms = data.token;
+                        SessionControl.set_user(data.user_id);
                     } else {
                         $scope.sign_out();
                     }
                 });
         }
-
-        var user_timezone = function () {
-            api.get({ "set" : "user", "id" : $scope.session_user_name() },
-                function (user) {
-                    if(user.success) {
-                        $scope.timezone = util.timezone_lookup[user.data.timezone];
-                    }
-                });
-        };
 
         $scope.trustAsHtml = function (message) {
             return $sce.trustAsHtml(message);

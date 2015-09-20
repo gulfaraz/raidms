@@ -5,9 +5,9 @@ module.exports = function () {
     var Schema = mongoose.Schema;
 
     var UserSchema = new Schema({
-        "user_name" : { "type" : String, "unique" : true, "required" : true },
-        "password" : { "type" : String, "required" : true },
-        "mail" : { "type" : String, "unique" : true, "lowercase" : true },
+        "user_name" : { "type" : String },
+        "password" : { "type" : String },
+        "mail" : { "type" : String, "lowercase" : true },
         "role" : String,
         "status" : String,
         "caption" : String,
@@ -19,7 +19,8 @@ module.exports = function () {
         "date_joined" : Date,
         "date_updated" : Date,
         "delete" : Date,
-        "timezone" : String
+        "timezone" : String,
+        "social" : Schema.Types.Mixed
     });
 
     UserSchema.pre("save", function (callback) {

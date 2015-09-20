@@ -1,8 +1,8 @@
 module.exports = function (util, router, Raid, auth) {
     router.route("/")
-        .post(auth.isAuthenticated, function (req, res) {
+        .post(auth.passport.authenticate("bearer"), function (req, res) {
             if(req.authInfo.scope === "edit" || req.authInfo.scope === "manage") {
-                Raid.find({ "players" : req.user._id })
+                Raid.find({ "players" : req.user.user_id })
                     .exec(function (err, exists) {
                         if(err) {
                             res.json({
@@ -15,10 +15,10 @@ module.exports = function (util, router, Raid, auth) {
                                 raid.platform = req.body.platform;
                                 raid.game = req.body.game;
                                 raid.strength = req.body.strength;
-                                raid.players = [req.user._id];
+                                raid.players = [req.user.user_id];
                                 raid.play_time = req.body.play_time;
                                 raid.access = req.body.access;
-                                raid.host = req.user._id;
+                                raid.host = req.user.user_id;
                                 raid.description = req.body.description;
                                 raid.queue = [];
                                 raid.time_created = Date.now();
@@ -127,7 +127,7 @@ module.exports = function (util, router, Raid, auth) {
                 }
             });
         })
-        .post(auth.isAuthenticated, function (req, res) {
+        .post(auth.passport.authenticate("bearer"), function (req, res) {
             Raid.find({ "_id" : req.params.raid_id })
                 .limit(1)
                 .exec(function (err, raid) {
@@ -138,7 +138,7 @@ module.exports = function (util, router, Raid, auth) {
                         });
                     } else {
                         raid = raid[0];
-                        if(raid.host.toString() === req.user._id.toString()) {
+                        if(raid.host.toString() === req.user.user_id.toString()) {
                             if(req.body.action === "admit") {
                                 if(req.body.player) {
                                     if(raid.queue.indexOf(req.body.player) >= 0 &&
@@ -239,7 +239,7 @@ module.exports = function (util, router, Raid, auth) {
                             }
                         } else {
                             if(req.body.action === "join") {
-                                Raid.find({ "players" : req.user._id })
+                                Raid.find({ "players" : req.user.user_id })
                                     .exec(function (err, exists) {
                                         if(err) {
                                             res.json({
@@ -249,22 +249,22 @@ module.exports = function (util, router, Raid, auth) {
                                         } else {
                                             if(exists.length === 0) {
                                                 var success_message = "Raid Updated";
-                                                if(raid.players.indexOf(req.user._id) >= 0) {
+                                                if(raid.players.indexOf(req.user.user_id) >= 0) {
                                                     res.json({
                                                         "success" : false,
                                                         "message" : "Already Joined"
                                                     });
-                                                } else if(raid.queue.indexOf(req.user._id) >= 0) {
+                                                } else if(raid.queue.indexOf(req.user.user_id) >= 0) {
                                                     res.json({
                                                         "success" : false,
                                                         "message" : "Request Pending"
                                                     });
                                                 } else {
                                                     if(raid.access === "open") {
-                                                        raid.players.push(req.user._id);
+                                                        raid.players.push(req.user.user_id);
                                                         success_message = "Joined Raid";
                                                     } else {
-                                                        raid.queue.push(req.user._id);
+                                                        raid.queue.push(req.user.user_id);
                                                         success_message = "Requested to Join";
                                                     }
                                                     raid.save(function (err) {
@@ -290,8 +290,8 @@ module.exports = function (util, router, Raid, auth) {
                                         }
                                     });
                             } else if(req.body.action === "leave") {
-                                if(raid.players.indexOf(req.user._id) >= 0) {
-                                    raid.players.splice(raid.players.indexOf(req.user._id), 1);
+                                if(raid.players.indexOf(req.user.user_id) >= 0) {
+                                    raid.players.splice(raid.players.indexOf(req.user.user_id), 1);
                                     raid.save(function (err) {
                                         if(err) {
                                             res.json({

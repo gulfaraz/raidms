@@ -117,7 +117,7 @@
                 font-size: 80%;
                 text-align: center;
                 vertical-align: top;
-                margin: 0 2px;
+                margin: 0 20px;
                 word-break: break-all;
                 button {
                     font-size: 95%;
@@ -130,10 +130,12 @@
                         .red_button;
                     }
                 }
-                .account_id {
-                    text-overflow: ellipsis;
-                    overflow: hidden;
-                    white-space: nowrap;
+                &.psn_account,
+                &.xbox_account {
+                    display: none;
+                }
+                a {
+                    margin: 0;
                 }
             }
         }
@@ -141,9 +143,13 @@
     #account_settings {
         padding-top: 25px;
         .form_container {
-            border-bottom: 1px solid gray;
+            &:not(.no_border) {
+                border-bottom: 1px solid gray;
+            }
             margin: 0 -10px 10px;
             padding: 0 10px 10px;
+            #set_user_name_container,
+            #passcode_container,
             #old_passcode_container,
             #new_passcode_container {
                 display: inline-block;
@@ -151,15 +157,29 @@
                 .passcode_container {
                     margin-bottom: 0;
                 }
+                .show_passcode_container {
+                    top: 20px;
+                }
             }
+            #set_user_name_container,
+            #passcode_container,
             #change_mail_container,
             #delete_account_container,
             #old_passcode_container,
             #new_passcode_container {
                 padding: 0 10px;
+                input {
+                    margin: 10px 0;
+                }
+            }
+            #set_user_name_container {
+                #set_user_name_input {
+                    .input_user_name_mail_mixin;
+                }
+            }
+            #change_mail_container {
                 #change_mail_input {
-                    padding: 5px 5px 5px 10px;
-                    width: 100%;
+                    .input_user_name_mail_mixin;
                 }
             }
             .message {
@@ -181,6 +201,9 @@
                 margin: 10px 0 0;
                 button {
                     padding: 3px 15px;
+                    &.set_credentials_button {
+                        .orange_button;
+                    }
                     &.change_passcode_button {
                         .blue_button;
                     }
@@ -231,6 +254,11 @@
     }
 }
 
+.input_user_name_mail_mixin {
+    padding: 5px 5px 5px 10px;
+    width: 100%;
+}
+
 @media only screen and (max-width : 480px) {
     .user.edit {
         #platforms {
@@ -261,7 +289,9 @@
                     font-size: 70%;
                     max-width: 50px;
                     button {
-                        width: 50px;
+                        &.remove_button {
+                            width: 50px;
+                        }
                     }
                     a {
                         margin: 0;
@@ -306,7 +336,7 @@
                 width: 100%;
                 text-align: center;
                 .account_container {
-                    margin: 0 2%;
+                    margin: 0 8%;
                     width: 15%;
                 }
             }

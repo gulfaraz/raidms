@@ -9,21 +9,21 @@ angular.module("rmsApp.profile")
 
         $scope.models = {
             "passcode" : {
-                "old_passcode" : "",
-                "new_passcode" : "",
-                "passcode_message" : "",
+                "old_passcode" : null,
+                "new_passcode" : null,
+                "passcode_message" : null,
                 "show_old_passcode" : false,
                 "show_new_passcode" : false,
                 "show_change_passcode" : false
             },
             "mail" : {
-                "new_mail" : "",
-                "mail_message" : "",
+                "new_mail" : null,
+                "mail_message" : null,
                 "show_change_mail" : false
             },
             "delete" : {
-                "old_delete" : "",
-                "delete_message" : "",
+                "old_delete" : null,
+                "delete_message" : null,
                 "show_old_delete" : false,
                 "show_change_delete" : false,
                 "countdown" : false
@@ -55,7 +55,11 @@ angular.module("rmsApp.profile")
                             start_countdown($scope.profile.delete);
                         }
                     }
-                    $scope.profile.timezone = util.timezone_lookup[$scope.profile.timezone];
+                    if($scope.profile.timezone) {
+                        $scope.profile.timezone = util.timezone_lookup[$scope.profile.timezone];
+                    } else {
+                        $scope.profile.timezone = util.timezone_lookup[jstz.determine().name()];
+                    }
                     $scope.models.play_start = $scope.profile.play_start;
                     $scope.models.play_end = $scope.profile.play_end;
                     $timeout(function () {
@@ -74,7 +78,7 @@ angular.module("rmsApp.profile")
                 "profile.caption",
                 "profile.platforms"
             ], function () {
-                $scope.models.profile_form_status_message = "";
+                $scope.models.profile_form_status_message = null;
                 $scope.models.profile_form_status_message_success = true;
                 $scope.models.profile_details_changed = false;
             });
@@ -87,14 +91,33 @@ angular.module("rmsApp.profile")
             $scope.models[section]["show_change_" + section] = !toggle_state;
             $scope.models.passcode.passcode_message =
             $scope.models.mail.mail_message =
-            $scope.models.delete.delete_message = "";
-            $scope.models[section]["old_" + section] = $scope.models[section]["new_" + section] = "";
+            $scope.models.delete.delete_message = null;
+            $scope.models[section]["old_" + section] = $scope.models[section]["new_" + section] = null;
             if(section === "passcode" || section === "delete") {
                 $scope.models[section]["show_old_" + section] =
                 $scope.models[section]["show_new_" + section] = false;
             }
             $scope.models[section]["change_" + section + "_form"].$setPristine();
             $scope.models[section]["change_" + section + "_form"].$setUntouched();
+        };
+
+        $scope.set_credentials = function () {
+            api.save({ "set" : "user", "id" : $scope.session_user_name() },
+                {
+                    "user_name" : $scope.models.credentials.user_name,
+                    "password" : $scope.models.credentials.passcode
+                },
+                function (data_change) {
+                    if(data_change.success) {
+                        $scope.profile.user_name = $scope.models.credentials.user_name;
+                        SessionControl.set_user(SessionControl.get_user_id());
+                        $scope.models.credentials.user_name = null;
+                        $scope.models.credentials.passcode = null;
+                        $scope.models.credentials.credentials_message = null;
+                    } else {
+                        $scope.models.credentials.credentials_message = "Could Not Save";
+                    }
+                });
         };
 
         $scope.change_passcode = function () {
@@ -121,7 +144,7 @@ angular.module("rmsApp.profile")
                                         if(data_change.success) {
                                             $scope.models.passcode.passcode_message = "Passcode Changed";
                                             $scope.models.passcode.old_passcode =
-                                            $scope.models.passcode.new_passcode = "";
+                                            $scope.models.passcode.new_passcode = null;
                                             $scope.models.passcode.show_old_passcode =
                                             $scope.models.passcode.show_new_passcode =
                                             $scope.models.passcode.show_change_passcode = false;
@@ -130,7 +153,7 @@ angular.module("rmsApp.profile")
                                             $scope.models.passcode.passcode_message = "Passcode Change Failed";
                                         }
                                     });
-                                $scope.models.passcode.passcode_message = "";
+                                $scope.models.passcode.passcode_message = null;
                             } else {
                                 $scope.models.passcode.passcode_message = "Invalid Passcode";
                             }
@@ -143,63 +166,55 @@ angular.module("rmsApp.profile")
 
         $scope.change_mail = function () {
             $scope.models.message.success = false;
-            if(($scope.models.mail.new_mail && $scope.models.mail.new_mail.length > 0)) {
-                api.save({ "set" : "user", "id" : $scope.session_user_name() },
-                    {
-                        "user_name" : $scope.session_user_name(),
-                        "mail" : $scope.models.mail.new_mail
-                    },
-                    function (data_change) {
-                        if(data_change.success) {
-                            $scope.models.mail.mail_message = data_change.message;
-                            $scope.models.mail.new_mail = "";
-                            $scope.models.mail.show_change_mail = false;
-                            $scope.models.message.success = true;
-                        } else {
-                            $scope.models.mail.mail_message = "Mail Change Failed";
-                        }
-                    });
-                $scope.models.mail.mail_message = "";
-            } else {
-                $scope.models.mail.mail_message = "Invalid Mail";
-            }
+            api.save({ "set" : "user", "id" : $scope.session_user_name() },
+                {
+                    "user_name" : $scope.session_user_name(),
+                    "mail" : $scope.models.mail.new_mail
+                },
+                function (data_change) {
+                    if(data_change.success) {
+                        $scope.models.mail.mail_message = data_change.message;
+                        $scope.models.mail.new_mail = null;
+                        $scope.models.mail.show_change_mail = false;
+                        $scope.models.message.success = true;
+                    } else {
+                        $scope.models.mail.mail_message = "Mail Change Failed";
+                    }
+                });
+            $scope.models.mail.mail_message = null;
         };
 
         $scope.delete_account = function () {
             $scope.models.message.success = false;
-            if(($scope.models.delete.old_delete && $scope.models.delete.old_delete.length > 0)) {
-                api.save({ "set" : "login" },
-                    {
-                        "user_name" : $scope.session_user_name(),
-                        "password" : $scope.models.delete.old_delete
-                    },
-                    function (data_login) {
-                        if(data_login.success) {
-                            api.save({ "set" : "user", "id" : $scope.session_user_name() },
-                                {
-                                    "user_name" : $scope.session_user_name(),
-                                    "delete" : moment().add(1, "d").utc()
-                                },
-                                function (data_change) {
-                                    if(data_change.success) {
-                                        $scope.models.delete.delete_message = data_change.message;
-                                        $scope.models.delete.old_delete = "";
-                                        $scope.models.delete.show_old_delete =
-                                        $scope.models.delete.show_change_delete = false;
-                                        start_countdown(moment().utc().add(1, "d"));
-                                        $scope.models.message.success = true;
-                                    } else {
-                                        $scope.models.delete.delete_message = "Action Failed. Please try again later.";
-                                    }
-                                });
-                            $scope.models.delete.delete_message = "";
-                        } else {
-                            $scope.models.delete.delete_message = "Invalid Passcode";
-                        }
-                    });
-            } else {
-                $scope.models.delete.delete_message = "Invalid Passcode";
-            }
+            api.save({ "set" : "login" },
+                {
+                    "user_name" : $scope.session_user_name(),
+                    "password" : $scope.models.delete.old_delete
+                },
+                function (data_login) {
+                    if(data_login.success) {
+                        api.save({ "set" : "user", "id" : $scope.session_user_name() },
+                            {
+                                "user_name" : $scope.session_user_name(),
+                                "delete" : moment().add(1, "d").utc()
+                            },
+                            function (data_change) {
+                                if(data_change.success) {
+                                    $scope.models.delete.delete_message = data_change.message;
+                                    $scope.models.delete.old_delete = null;
+                                    $scope.models.delete.show_old_delete =
+                                    $scope.models.delete.show_change_delete = false;
+                                    start_countdown(moment().utc().add(1, "d"));
+                                    $scope.models.message.success = true;
+                                } else {
+                                    $scope.models.delete.delete_message = "Action Failed. Please try again later.";
+                                }
+                            });
+                        $scope.models.delete.delete_message = null;
+                    } else {
+                        $scope.models.delete.delete_message = "Invalid Passcode";
+                    }
+                });
         };
 
         $scope.cancel_termination = function () {
@@ -212,7 +227,7 @@ angular.module("rmsApp.profile")
                 function (data_change) {
                     if(data_change.success) {
                         $scope.models.delete.delete_message = "Account Termination Cancelled";
-                        $scope.models.delete.old_delete = "";
+                        $scope.models.delete.old_delete = null;
                         $scope.models.delete.show_old_delete =
                         $scope.models.delete.show_change_delete =
                         $scope.models.delete.countdown = false;
@@ -282,6 +297,15 @@ angular.module("rmsApp.profile")
                     } else {
                         $scope.models.profile_form_status_message = "Update Error";
                         $scope.models.profile_form_status_message_success = false;
+                    }
+                });
+        };
+
+        $scope.unlink = function (account) {
+            api.get({ "set" : "unlink", "id" : account },
+                function (user) {
+                    if(user.success) {
+                        $scope.profile.social = user.social;
                     }
                 });
         };
