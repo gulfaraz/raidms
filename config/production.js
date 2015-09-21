@@ -14,7 +14,7 @@ module.exports = function () {
             "scheme" : "mongodb",
             "domain" : "localhost",
             "port" : 27017,
-            "dbname" : "rmsdev"
+            "dbname" : "raid_ms"
         },
         "mail" : {
             "host" : "smtp.zoho.com",

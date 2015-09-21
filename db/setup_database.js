@@ -2,7 +2,7 @@ print(new Date() + " - SETUP DATABASE - START");
 
 print("Load Configutation - START");
 
-load("../config.js");
+load("../config/" + (environment || "development") + ".js");
 var database_config = module.exports().database;
 
 print("CONFIGURATION - " + JSON.stringify(database_config));

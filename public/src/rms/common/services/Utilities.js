@@ -13,7 +13,7 @@ angular.module("rmsApp.shared")
         });
 
         api.cache({ "set" : "filter" }, function (filters) {
-            if(filters.success) {
+            if(filters.success && filters.data.length) {
                 filter_list = filters.data[0];
                 filter_list._id = null;
             }
