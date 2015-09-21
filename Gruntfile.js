@@ -92,6 +92,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+        "svgstore" : {
+            "options" : {
+                "includeTitleElement" : false,
+                "preserveDescElement" : false
+            },
+            "social_icons" : {
+                "files" : {
+                    "<%= globalConfig.dist %>/media/social_icons.svg" : [
+                            "<%= globalConfig.src %>/rms/common/images/facebook.svg",
+                            "<%= globalConfig.src %>/rms/common/images/twitter.svg",
+                            "<%= globalConfig.src %>/rms/common/images/google.svg"
+                        ]
+                }
+            }
+        },
         "copy" : {
             "html" : {
                 "files" : [
@@ -136,6 +151,10 @@ module.exports = function (grunt) {
             "js" : {
                 "files" : ["<%= globalConfig.src %>/**/*.js"],
                 "tasks" : ["jshint", "uglify:development"]
+            },
+            "images" : {
+                "files" : ["<%= globalConfig.src %>/rms/common/images/**/*.svg"],
+                "tasks" : ["svgstore"]
             }
         },
         "concurrent" : {
@@ -194,6 +213,7 @@ module.exports = function (grunt) {
         "cssmin",
         "jshint",
         "uglify:development",
+        "svgstore",
         "copy",
         "concurrent"
     ]);
@@ -207,6 +227,7 @@ module.exports = function (grunt) {
         "cssmin",
         "jshint",
         "uglify:production",
+        "svgstore",
         "copy",
         "nodemon:production"
     ]);

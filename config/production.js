@@ -1,5 +1,6 @@
 module.exports = function () {
     return {
+        "name" : "Raid MS",
         "web" : {
             "scheme" : "http",
             "domain" : "raidms.com",
@@ -16,11 +17,12 @@ module.exports = function () {
             "dbname" : "rmsdev"
         },
         "mail" : {
-            "host" : "smtpout.europe.secureserver.net",
-            "port" : 80,
+            "host" : "smtp.zoho.com",
+            "port" : 465,
+            "secure" : true,
             "auth" : {
-                "user" : "alerts@raidms.com",
-                "pass" : "raidms"
+                "user" : "gulfaraz@raidms.com",
+                "pass" : "raidms.com"
             },
             "tls" : {
                 "rejectUnauthorized" : false

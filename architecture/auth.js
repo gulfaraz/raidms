@@ -175,24 +175,28 @@ module.exports = function (util, User, secret, social) {
                     if(exists.length < 2) {
                         if(exists.length === 0 || exists[0]._id.toString() === req.session.passport.user) {
                             User.findById(req.session.passport.user, function (err, user) {
-                                if(!util.get_sub_property(user, "social")) {
-                                    user.social = {};
-                                }
-                                user.social[network] = social_object;
-                                if(!user.mail && profile.emails) {
-                                    user.mail = profile.emails[0].value;
-                                }
-                                user.markModified("social");
-                                user.save(function (err) {
-                                    if(err) {
-                                        callback(false, err.toString());
-                                    } else {
-                                        if(user.mail) {
-                                            util.sendSocialAccount(user.mail, util.capitalize(network), true);
-                                        }
+                                if(user) {
+                                    if(!util.get_sub_property(user, "social")) {
+                                        user.social = {};
                                     }
-                                });
-                                callback(null, auth_return(user));
+                                    user.social[network] = social_object;
+                                    if(!user.mail && profile.emails) {
+                                        user.mail = profile.emails[0].value;
+                                    }
+                                    user.markModified("social");
+                                    user.save(function (err) {
+                                        if(err) {
+                                            callback(false, err.toString());
+                                        } else {
+                                            if(user.mail) {
+                                                util.sendSocialAccount(user.mail, util.capitalize(network), true);
+                                            }
+                                        }
+                                    });
+                                    callback(null, auth_return(user));
+                                } else {
+                                    callback("User Not Found");
+                                }
                             });
                         } else {
                             callback("This " + util.capitalize(network) + " ID is linked to a different account.");

@@ -35,9 +35,7 @@ module.exports = function (util, router, User, auth) {
                     "message" : "Invalid Token"
                 });
             } else {
-                var query = { "user_name" : decoded };
-                User.find(query)
-                    .limit(1)
+                User.findById(decoded)
                     .exec(function (err, user) {
                         if(err) {
                             res.json({
@@ -45,7 +43,6 @@ module.exports = function (util, router, User, auth) {
                                 "message" : err.toString()
                             });
                         } else {
-                            user = user[0];
                             if(user) {
                                 if(user.role === "new") {
                                     user.role = "member";

@@ -39,7 +39,7 @@ module.exports = function (util, router, Raid, auth) {
                             } else {
                                 res.json({
                                     "success" : false,
-                                    "message" : "You are already in a <a href='#/raid/'" + exists[0]._id + ">Raid</a>"
+                                    "message" : "You are already in a <a href='#/raid/" + exists[0]._id + "'>Raid</a>"
                                 });
                             }
                         }
@@ -284,7 +284,7 @@ module.exports = function (util, router, Raid, auth) {
                                             } else {
                                                 res.json({
                                                     "success" : false,
-                                                    "message" : "You are already in a <a href='#/raid/'" + exists[0]._id + ">Raid</a>"
+                                                    "message" : "You are already in a <a href='#/raid/" + exists[0]._id + "'>Raid</a>"
                                                 });
                                             }
                                         }

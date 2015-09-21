@@ -171,14 +171,14 @@ textarea {
 a {
   text-decoration: none;
 }
-#rms {
+#raid_ms {
   height: 120px;
   background-color: teal;
 }
-#rms #rms_logo {
+#raid_ms #raid_ms_logo {
   width: 257px;
   height: 120px;
-  background-image: url("/media/rms.svg");
+  background-image: url("/media/raid_ms.svg");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -253,29 +253,14 @@ a {
   width: 50px;
   margin: 0 20px;
   overflow: hidden;
-  background-repeat: no-repeat;
-  background-image: url("/media/social_login_icons.png");
 }
 #social_login_icons .account_logo:focus,
 #social_login_icons .account_logo:hover {
   outline: #000000 dotted thin;
 }
-#social_login_icons .account_logo.psn_logo {
-  background-position: 0px 0px;
-  display: none;
-}
+#social_login_icons .account_logo.psn_logo,
 #social_login_icons .account_logo.xbox_logo {
-  background-position: 0px -50px;
   display: none;
-}
-#social_login_icons .account_logo.facebook_logo {
-  background-position: 0px -100px;
-}
-#social_login_icons .account_logo.twitter_logo {
-  background-position: 0px -150px;
-}
-#social_login_icons .account_logo.google_logo {
-  background-position: 0px -200px;
 }
 .user_name_container,
 .passcode_container,
@@ -679,15 +664,15 @@ aside#statistics #users_online {
   }
 }
 @media only screen and (max-width: 650px) {
-  #rms #rms_logo {
+  #raid_ms #raid_ms_logo {
     margin: auto;
   }
 }
 @media only screen and (max-width: 1024px) {
-  #rms {
+  #raid_ms {
     height: 80px;
   }
-  #rms #rms_logo {
+  #raid_ms #raid_ms_logo {
     width: 172px;
     height: 80px;
   }

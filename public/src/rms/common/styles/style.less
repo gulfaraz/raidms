@@ -108,13 +108,13 @@ a {
     text-decoration: none;
 }
 
-#rms {
+#raid_ms {
     height: 120px;
     background-color: teal;
-    #rms_logo {
+    #raid_ms_logo {
         width: 257px;
         height: 120px;
-        background-image: url("/media/rms.svg");
+        background-image: url("/media/raid_ms.svg");
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -189,28 +189,13 @@ a {
         width: 50px;
         margin: 0 20px;
         overflow: hidden;
-        background-repeat: no-repeat;
-        background-image: url("/media/social_login_icons.png");
         &:focus,
         &:hover {
             outline: darken(@gray, @darkener * @superlative) dotted thin;
         }
-        &.psn_logo {
-            background-position: 0px 0px;
-            display: none;
-        }
+        &.psn_logo,
         &.xbox_logo {
-            background-position: 0px -50px;
             display: none;
-        }
-        &.facebook_logo {
-            background-position: 0px -100px;
-        }
-        &.twitter_logo {
-            background-position: 0px -150px;
-        }
-        &.google_logo {
-            background-position: 0px -200px;
         }
     }
 }
@@ -557,8 +542,8 @@ aside {
 }
 
 @media only screen and (max-width : 650px) {
-    #rms {
-        #rms_logo {
+    #raid_ms {
+        #raid_ms_logo {
             margin: auto;
         }
     }
@@ -566,9 +551,9 @@ aside {
 
 
 @media only screen and (max-width : 1024px) {
-    #rms {
+    #raid_ms {
         height: 80px;
-        #rms_logo {
+        #raid_ms_logo {
             width: 172px;
             height: 80px;
         }

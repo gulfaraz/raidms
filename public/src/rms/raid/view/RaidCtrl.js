@@ -1,7 +1,7 @@
 angular.module("rmsApp.raid")
     .controller("raidController",
-        ["$scope", "api", "$stateParams", "$state", "$timeout", "SessionControl", "rmsConstants", "util",
-        function ($scope, api, $stateParams, $state, $timeout, SessionControl, rmsConstants, util) {
+        ["$scope", "api", "$stateParams", "$state", "$timeout", "SessionControl", "rmsConstants", "util", "BroadcastMessage",
+        function ($scope, api, $stateParams, $state, $timeout, SessionControl, rmsConstants, util, BroadcastMessage) {
 
         $scope.session_user_id = SessionControl.get_user_id;
 
@@ -78,6 +78,8 @@ angular.module("rmsApp.raid")
                                     }
                                 );
                             }
+                        } else {
+                            BroadcastMessage.broadcast_message = raid.message;
                         }
                     });
             } else {
@@ -93,6 +95,8 @@ angular.module("rmsApp.raid")
                     if(raid.success) {
                         $scope.raid.players.splice($scope.raid.players.indexOf($scope.session_user_id()), 1);
                         $scope.player_data = util.all_but($scope.session_user_id(), $scope.player_data);
+                    } else {
+                        BroadcastMessage.broadcast_message = raid.message;
                     }
                 });
         };
@@ -107,6 +111,8 @@ angular.module("rmsApp.raid")
                         $scope.raid.queue.splice($scope.raid.queue.indexOf(player), 1);
                         $scope.player_data[player] = $scope.queue_data[player];
                         $scope.queue_data = util.all_but(player, $scope.queue_data);
+                    } else {
+                        BroadcastMessage.broadcast_message = raid.message;
                     }
                 });
         };
@@ -119,6 +125,8 @@ angular.module("rmsApp.raid")
                     if(raid.success) {
                         $scope.raid.players.splice($scope.raid.players.indexOf(player), 1);
                         $scope.player_data = util.all_but(player, $scope.player_data);
+                    } else {
+                        BroadcastMessage.broadcast_message = raid.message;
                     }
                 });
         };

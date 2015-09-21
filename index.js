@@ -32,7 +32,9 @@ rms.set("view cache", false);
 rms.use(session({ "secret" : config.secret, "saveUninitialized" : true, "resave" : true }));
 rms.use(auth.passport.initialize());
 
-rms.use(require("connect-livereload")({ "port" : 35729 }));
+if(process.env.ENVIRONMENT === "development") {
+    rms.use(require("connect-livereload")({ "port" : 35729 }));
+}
 
 rms.use(express.static(__dirname + "/public/dist"), require("./routes/routes")(util, express, models, auth));
 rms.use("/", function (req, res) { res.sendFile("public/dist/html/rms.html", { "root" : __dirname }); });

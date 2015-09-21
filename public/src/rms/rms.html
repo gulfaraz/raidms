@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body ng-app="rmsApp" ng-class="{ 'disable_scrolling' : broadcast_message_service.broadcast_message }">
-    <header id="rms">
-        <div id="rms_logo"></div>
+    <header id="raid_ms">
+        <div id="raid_ms_logo"></div>
     </header>
     <div ng-controller="sessionController" id="content" ng-cloak>
         <section id="overlayed_content" ng-show="broadcast_message_service.broadcast_message" ng-click="broadcast_message_service.broadcast_message = ''">
@@ -32,7 +32,7 @@
             </div><div id="account_portal">
                 <div class="content">
                     <section ng-hide="is_authenticated_user()">
-                        <div id="social_login_icons"><a class="account_logo psn_logo" href="/auth/facebook"></a><a class="account_logo xbox_logo" href="/auth/facebook"></a><a class="account_logo facebook_logo" href="/auth/facebook"></a><a class="account_logo twitter_logo" href="/auth/twitter"></a><a class="account_logo google_logo" href="/auth/google"></a></div>
+                        <div id="social_login_icons"><a class="account_logo psn_logo" href="/auth/psn"><svg viewBox="0 0 50 50"><use xlink:href="/media/social_icons.svg#psn" /></svg></a><a class="account_logo xbox_logo" href="/auth/xbox"><svg viewBox="0 0 50 50"><use xlink:href="/media/social_icons.svg#xbox" /></svg></a><a class="account_logo facebook_logo" href="/auth/facebook"><svg viewBox="0 0 50 50"><use xlink:href="/media/social_icons.svg#facebook" /></svg></a><a class="account_logo twitter_logo" href="/auth/twitter"><svg viewBox="0 0 50 50"><use xlink:href="/media/social_icons.svg#twitter" /></svg></a><a class="account_logo google_logo" href="/auth/google"><svg viewBox="0 0 50 50"><use xlink:href="/media/social_icons.svg#google" /></svg></a></div>
                         <div id="sign_in_form">
                             <form name="signIn" ng-submit="sign_in()">
                                 <div class="inline">
