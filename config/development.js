@@ -47,6 +47,12 @@ module.exports = function () {
                 "clientSecret" : "E9vvSsERn26dBGzdCD7QKcS3",
                 "callbackURL" : "http://raidms.com:8082/auth/google/callback",
                 "passReqToCallback" : true
+            },
+            "xbox" : {
+                "clientID" : "0000000044164666",
+                "clientSecret" : "QV3nDtVir6BsdExFYNKjUqTp1Xmxp-vo",
+                "callbackURL" : "http://raidms.com:8082/auth/xbox/callback",
+                "passReqToCallback" : true
             }
         },
         "secret" : "gulfaraz"

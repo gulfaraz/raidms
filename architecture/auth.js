@@ -6,6 +6,7 @@ module.exports = function (util, User, secret, social) {
     var FacebookStrategy = require("passport-facebook").Strategy;
     var TwitterStrategy  = require("passport-twitter").Strategy;
     var GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+    var WindowsStrategy = require("passport-windowslive").Strategy;
     var jwt = require("jsonwebtoken");
 
     jwt.secret = secret;
@@ -156,6 +157,13 @@ module.exports = function (util, User, secret, social) {
         function (req, token, refreshToken, profile, callback) {
             process.nextTick(function () {
                 social_linker("google", req, profile, callback);
+            });
+        }));
+
+    passport.use(new WindowsStrategy(social.xbox,
+        function (req, accessToken, refreshToken, profile, callback) {
+            process.nextTick(function () {
+                social_linker("xbox", req, profile, callback);
             });
         }));
 
