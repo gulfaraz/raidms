@@ -138,7 +138,12 @@ module.exports = function (util, User, secret, social) {
             });
         }));
 
-    passport.use(new FacebookStrategy(social.facebook,
+    var oauth_configuration = function (configuration) {
+        configuration.passReqToCallback = true;
+        return configuration;
+    };
+
+    passport.use(new FacebookStrategy(oauth_configuration(social.facebook),
         function (req, accessToken, refreshToken, profile, callback) {
             process.nextTick(function () {
                 social_linker("facebook", req, profile, callback);
@@ -146,21 +151,21 @@ module.exports = function (util, User, secret, social) {
         }
     ));
 
-    passport.use(new TwitterStrategy(social.twitter,
+    passport.use(new TwitterStrategy(oauth_configuration(social.twitter),
         function (req, token, tokenSecret, profile, callback) {
             process.nextTick(function () {
                 social_linker("twitter", req, profile, callback);
             });
         }));
 
-    passport.use(new GoogleStrategy(social.google,
+    passport.use(new GoogleStrategy(oauth_configuration(social.google),
         function (req, token, refreshToken, profile, callback) {
             process.nextTick(function () {
                 social_linker("google", req, profile, callback);
             });
         }));
 
-    passport.use(new WindowsStrategy(social.xbox,
+    passport.use(new WindowsStrategy(oauth_configuration(social.xbox),
         function (req, accessToken, refreshToken, profile, callback) {
             process.nextTick(function () {
                 social_linker("xbox", req, profile, callback);

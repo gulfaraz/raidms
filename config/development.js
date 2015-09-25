@@ -33,26 +33,22 @@ module.exports = function () {
                 "clientID" : "182493012083232",
                 "clientSecret" : "8a0e7162e74be698ccada2ce786dd91b",
                 "callbackURL" : "http://raidms.com:8082/auth/facebook/callback",
-                "profileFields" : ["id", "emails", "name"],
-                "passReqToCallback" : true
+                "profileFields" : ["id", "emails", "name"]
             },
             "twitter" : {
                 "consumerKey" : "lFZMyW3jPJr4wLT70F5YNylgk",
                 "consumerSecret" : "WNB95WHMKPnq6aUfKYAJ3EFuY2V1du5mVYqWMJPkrjo7iamjad",
-                "callbackURL" : "http://raidms.com:8082/auth/twitter/callback",
-                "passReqToCallback" : true
+                "callbackURL" : "http://raidms.com:8082/auth/twitter/callback"
             },
             "google" : {
                 "clientID" : "883974981493-gg5vabeuhus8h7rgt44b7l8ptqfjk8ne.apps.googleusercontent.com",
                 "clientSecret" : "E9vvSsERn26dBGzdCD7QKcS3",
-                "callbackURL" : "http://raidms.com:8082/auth/google/callback",
-                "passReqToCallback" : true
+                "callbackURL" : "http://raidms.com:8082/auth/google/callback"
             },
             "xbox" : {
                 "clientID" : "0000000044164666",
                 "clientSecret" : "QV3nDtVir6BsdExFYNKjUqTp1Xmxp-vo",
-                "callbackURL" : "http://raidms.com:8082/auth/xbox/callback",
-                "passReqToCallback" : true
+                "callbackURL" : "http://raidms.com:8082/auth/xbox/callback"
             }
         },
         "secret" : "gulfaraz"
