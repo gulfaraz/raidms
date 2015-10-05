@@ -14,6 +14,7 @@ angular.module("rmsApp.shared")
             "time" : moment().utc(),
             "user_name" : null,
             "user_id" : null,
+            "is_admin" : false,
             "filters" : {
                 "access" : "",
                 "platform" : "",
@@ -52,6 +53,9 @@ angular.module("rmsApp.shared")
             "is_authenticated_user" : function () {
                 return (session.user_name && (session.user_name.length > 0));
             },
+            "is_admin" : function () {
+                return session.is_admin;
+            },
             "get_user_name" : function () {
                 return session.user_name;
             },
@@ -73,6 +77,7 @@ angular.module("rmsApp.shared")
                             session.filters.game = user.data.seeking.game;
                             session.user_name = user.data.user_name;
                             session.user_id = user.data._id;
+                            session.is_admin = (user.data.role === "moderator");
                             amMoment.changeTimezone(user.data.timezone || jstz.determine().name());
                             if($state.current.name === "lfg") {
                                 $state.go("lfg", {}, { "reload" : true });
@@ -83,6 +88,7 @@ angular.module("rmsApp.shared")
             "clear_session" : function () {
                 session.user_name = null;
                 session.user_id = null;
+                session.is_admin = false;
                 session.time = moment().utc();
             },
             "get_back_state" : function () {

@@ -33,6 +33,14 @@ angular.module("rmsApp.shared")
             "get_filter_list" : function (type) {
                 return filter_list[type] || [];
             },
+            "update_filter_list" : function () {
+                api.get({ "set" : "filter" }, function (filters) {
+                    if(filters.success && filters.data.length) {
+                        filter_list = filters.data[0];
+                        filter_list._id = null;
+                    }
+                });
+            },
             "is_now_ahead" : function (time) {
                 return (moment().diff(time) < 0);
             },

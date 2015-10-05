@@ -1,18 +1,5 @@
-module.exports = function (router, Filter) {
+module.exports = function (router, Filter, auth) {
     router.route("/")
-        .post(function (req, res) {
-            var filter = new Filter();
-            filter.game = req.body.game;
-            filter.platform = req.body.platform;
-            filter.access = req.body.access;
-            filter.save(function (err) {
-                if(err) {
-                    res.json({ "success" : false, "message" : err.toString() });
-                } else {
-                    res.json({ "success" : true, "message" : "Filters created" });
-                }
-            });
-        })
         .get(function (req, res) {
             Filter.find().exec(function (err, filter) {
                 if(err) {
@@ -20,29 +7,25 @@ module.exports = function (router, Filter) {
                 }
                 res.json({ "success" : true, "data" : filter });
             });
-        })
-        .delete(function (req, res) {
-            Filter.remove({}, function (err, user) {
-                if(err) {
-                    res.json({ "success" : false, "message" : err.toString() });
-                } else {
-                    res.json({ "success" : true , "message" : "Filters deleted" });
-                }
-            });
         });
     router.route("/:filter_type")
-        .post(function (req, res) {
-            var filter_type = req.params.filter_type;
-            var push = {};
-            push[filter_type] = req.body[filter_type];
-
-            Filter.update({}, { "$push" : push }, { "upsert" : true }, function (err, data) {
-                if(err) {
-                    res.json({ "success" : false, "message" : err.toString() });
-                } else {
-                    res.json({ "success" : true , "message" : "New Filter " + req.body[filter_type] + " of type " + filter_type + " added" });
-                }
-            });
+        .post(auth.passport.authenticate("bearer"), function (req, res) {
+            if(req.authInfo.scope === "manage") {
+                var filter_type = req.params.filter_type;
+                var operand = {};
+                operand[filter_type] = req.body[filter_type];
+                var operation_object = {};
+                operation_object[(req.body.remove) ? "$pull" : "$push"] = operand;
+                Filter.update({}, operation_object, { "upsert" : true }, function (err, data) {
+                    if(err) {
+                        res.json({ "success" : false, "message" : err.toString() });
+                    } else {
+                        res.json({ "success" : true , "message" : ((req.body.remove) ? "" : "New ") + "Filter " + req.body[filter_type] + " of type " + filter_type.toUpperCase() + " " + ((req.body.remove) ? "removed" : "added") });
+                    }
+                });
+            } else {
+                res.json({ "success" : false, "message" : "Unauthorized" });
+            }
         })
         .get(function (req, res) {
             var filter_type = req.params.filter_type;
@@ -51,19 +34,6 @@ module.exports = function (router, Filter) {
                     res.json({ "success" : false, "message" : err.toString() });
                 } else {
                     res.json({ "success" : true, "data" : filter });
-                }
-            });
-        })
-        .delete(function (req, res) {
-            var filter_type = req.params.filter_type;
-            var pull = {};
-            pull[filter_type] = req.body[filter_type];
-
-            Filter.update({}, { "$pull" : pull }, { "upsert" : true }, function (err, data) {
-                if(err) {
-                    res.json({ "success" : false, "message" : err.toString() });
-                } else {
-                    res.json({ "success" : true , "message" : "Filter " + req.body[filter_type] + " of type " + filter_type + " removed" });
                 }
             });
         });

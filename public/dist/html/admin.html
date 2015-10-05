@@ -1,0 +1,55 @@
+<section class="form" id="admin">
+    <header class="title">Administration</header>
+    <div ng-show="is_admin()">
+        <h2>Filters</h2>
+        <div id="manage_filters">
+            <div id="game" class="component">
+                <div class="component_header">Game</div>
+                <div class="sub_component">
+                    <select ng-model="filter.game" ng-options="(filter_name | capitalize) for filter_name in get_filter_list('game') track by filter_name">
+                            <option value="">Select</option>
+                    </select>
+                    <button type="button" class="remove_button" ng-disabled="!filter.game" ng-click="remove_filter('game')">Remove</button>
+                </div>
+                <div class="sub_component">
+                    <input type="text" ng-model="filter.new_game" />
+                    <button type="button" class="add_button" ng-disabled="!filter.new_game" ng-click="add_filter('game')">Add</button>
+                </div>
+            </div>
+            <div id="platform" class="component">
+                <div class="component_header">Platform</div>
+                <div class="sub_component">
+                    <select ng-model="filter.platform" ng-options="(filter_name | capitalize) for filter_name in get_filter_list('platform') track by filter_name">
+                            <option value="">Select</option>
+                    </select>
+                    <button type="button" class="remove_button" ng-disabled="!filter.platform" ng-click="remove_filter('platform')">Remove</button>
+                </div>
+                <div class="sub_component">
+                    <input type="text" ng-model="filter.new_platform" />
+                    <button type="button" class="add_button" ng-disabled="!filter.new_platform" ng-click="add_filter('platform')">Add</button>
+                </div>
+            </div>
+            <div id="access" class="component">
+                <div class="component_header">Access</div>
+                <div class="sub_component">
+                    <select ng-model="filter.access" ng-options="(filter_name | capitalize) for filter_name in get_filter_list('access') track by filter_name">
+                            <option value="">Select</option>
+                    </select>
+                    <button type="button" class="remove_button" ng-disabled="!filter.access" ng-click="remove_filter('access')">Remove</button>
+                </div>
+                <div class="sub_component">
+                    <input type="text" ng-model="filter.new_access" />
+                    <button type="button" class="add_button" ng-disabled="!filter.new_access" ng-click="add_filter('access')">Add</button>
+                </div>
+            </div>
+        </div>
+        <h2>Users</h2>
+        <div id="manage_users" class="component">
+            <button type="button" class="player_button" ng-repeat="user in users" ui-sref="user({ 'user_name' : user.user_name })">{{user.user_name}}</button>
+            <div id="manage_users_message">{{ manage_users_message }}</div>
+        </div>
+    </div>
+    <div ng-hide="is_admin()">
+        <div class="unauthorized_message">Access Denied</div>
+    </div>
+</section>

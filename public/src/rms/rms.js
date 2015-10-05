@@ -1,4 +1,4 @@
-angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsApp.lfm"])
+angular.module("rmsApp", ["rmsApp.shared", "rmsApp.profile", "rmsApp.lfg", "rmsApp.lfm", "rmsApp.admin"])
     .config(["$urlRouterProvider", function ($urlRouterProvider) {
         $urlRouterProvider.otherwise("/lfg");
     }])

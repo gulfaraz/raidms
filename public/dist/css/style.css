@@ -205,7 +205,7 @@ a {
   padding: 3px 8px;
   z-index: 2;
   width: 250px;
-  padding: 25px 0;
+  padding: 25px 5px;
   text-align: center;
 }
 #overlayed_content #broadcast_message a {
@@ -462,7 +462,8 @@ aside#statistics #users_online {
 }
 .leave_button:not([disabled="disabled"]),
 .back_button:not([disabled="disabled"]),
-.expel_button:not([disabled="disabled"]) {
+.expel_button:not([disabled="disabled"]),
+.remove_button:not([disabled="disabled"]) {
   background-color: #de6764;
   border-color: #c9302c;
   color: #fbfbfb;
@@ -470,9 +471,11 @@ aside#statistics #users_online {
 .leave_button:not([disabled="disabled"]):hover,
 .back_button:not([disabled="disabled"]):hover,
 .expel_button:not([disabled="disabled"]):hover,
+.remove_button:not([disabled="disabled"]):hover,
 .leave_button:not([disabled="disabled"]):focus,
 .back_button:not([disabled="disabled"]):focus,
-.expel_button:not([disabled="disabled"]):focus {
+.expel_button:not([disabled="disabled"]):focus,
+.remove_button:not([disabled="disabled"]):focus {
   background-color: #c9302c;
 }
 .view_button:not([disabled="disabled"]),
@@ -1662,6 +1665,18 @@ aside#statistics #users_online {
   width: 40%;
   margin: 0 5%;
   padding: 5px 10px;
+}
+
+#admin #manage_filters input {
+  padding: 0 5px;
+}
+#admin #manage_users button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+#admin #manage_users #manage_users_message {
+  margin: 0 10px 20px;
+  opacity: 0.7;
 }
 
 @font-face {
