@@ -1,3 +1,21 @@
-<section>
-    <button type="button" ui-sref="queue">Request Queue</button>
+<section id="lfm">
+    <div class="inline">
+        <div class="filter_container inline">
+            <div class="label">Platform</div>
+            <select class="filter_drop_down" ng-class="{'no_matching_users' : (filtered_users.length === 0)}" ng-model="filter.seeking.platform" ng-options="(filter_name | uppercase) for filter_name in get_filter_list('platform') track by filter_name">
+                <option value="">All</option>
+            </select>
+        </div>
+        <div class="filter_container inline">
+            <div class="label">Game</div>
+            <select class="filter_drop_down" ng-class="{'no_matching_users' : (filtered_users.length === 0)}" ng-model="filter.seeking.game" ng-options="(filter_name | capitalize) for filter_name in get_filter_list('game') track by filter_name">
+                <option value="">All</option>
+            </select>
+        </div>
+    </div>
+    <div id="player_list">
+        <div id="player_count">{{((filtered_users.length > 0) ? filtered_users.length : "No") || "No"}} Matching User{{(filtered_users.length === 1) ? "" : "s"}}</div>
+        <button class="player_button {{get_button_color(user.seeking.platform)}}" ng-repeat="user in filtered_users = (users | filter:filter)" ui-sref="user({ 'user_name' : user.user_name })">{{user.user_name}}</button>
+        <div id="player_list_message" ng-hide="filtered_users.length">Choose different Platform/Game for more players</div>
+    </div>
 </section>

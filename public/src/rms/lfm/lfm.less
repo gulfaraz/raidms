@@ -1,0 +1,35 @@
+@import "../common/styles/variables.less";
+@import "../common/styles/mixins.less";
+
+#lfm {
+    .filter_container {
+        margin: 10px;
+        padding: 0 0 0 10px;
+        border: 1px solid darken(@gray, @darkener);
+        .label {
+            width: 80px;
+        }
+        .filter_drop_down {
+            border-top: none;
+            border-right: none;
+            border-bottom: none;
+            &.no_matching_users {
+                color: @red;
+            }
+        }
+    }
+    #player_list {
+        margin: 0 30px;
+        #player_count {
+            color: @gray;
+        }
+        .player_button {
+            display: block;
+            margin: 10px;
+        }
+        #player_list_message {
+            margin: 10px 0;
+            color: @red;
+        }
+    }
+}

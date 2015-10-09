@@ -12,7 +12,7 @@ module.exports = function (util, User, secret, social) {
     jwt.secret = secret;
 
     jwt.generate_token = function (decoded, expires) {
-        return jwt.sign(decoded, jwt.secret, { "expiresInMinutes" : ((expires) ? expires : (60 * 24 * 14)) });
+        return jwt.sign(decoded, jwt.secret, { "expiresIn" : ((expires) ? expires : (60 * 60 * 24 * 14)) });
     };
 
     jwt.verify_token = function (token, callback) {

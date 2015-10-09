@@ -1,5 +1,7 @@
 angular.module("rmsApp.shared")
-    .factory("util", ["api", function (api) {
+    .factory("util",
+        ["api", "angularMomentConfig",
+        function (api, angularMomentConfig) {
 
         var zones = [],
             filter_list = {},
@@ -52,6 +54,12 @@ angular.module("rmsApp.shared")
                     }
                 });
                 return new_obj;
+            },
+            "get_time_as_today" : function (time) {
+                return moment().tz(angularMomentConfig.timezone).set({
+                    "hour" : moment.tz(time, angularMomentConfig.timezone).hour(),
+                    "minute" : moment.tz(time, angularMomentConfig.timezone).minute()
+                });
             }
         };
 

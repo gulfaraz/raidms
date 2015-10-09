@@ -61,6 +61,51 @@
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
+}
 .page {
   width: 100%;
   max-width: 600px;
@@ -237,7 +282,8 @@ a {
 }
 #navigation > button {
   padding: 5px;
-  width: 100%;
+  margin: 0 1%;
+  width: 47%;
 }
 #account_portal {
   margin: 10px auto;
@@ -744,6 +790,51 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
+}
 .page {
   width: 100%;
   max-width: 600px;
@@ -885,6 +976,51 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):hover,
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
+}
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
 }
 .page {
   width: 100%;
@@ -1092,6 +1228,51 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):hover,
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
+}
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
 }
 .page {
   width: 100%;
@@ -1589,6 +1770,51 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
 }
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
+}
 .page {
   width: 100%;
   max-width: 600px;
@@ -1754,6 +1980,51 @@ aside#statistics #users_online {
 .aqua_button:not([disabled="disabled"]):hover,
 .aqua_button:not([disabled="disabled"]):focus {
   background-color: #31b0d5;
+}
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
 }
 .page {
   width: 100%;
@@ -2108,4 +2379,162 @@ aside#statistics #users_online {
   #lfg table tr td.created_column .date {
     display: none;
   }
+}
+
+.blue_button:not([disabled="disabled"]) {
+  background-color: #5697d0;
+  border-color: #3071a9;
+  color: #fbfbfb;
+}
+.blue_button:not([disabled="disabled"]):hover,
+.blue_button:not([disabled="disabled"]):focus {
+  background-color: #3071a9;
+}
+.red_button:not([disabled="disabled"]) {
+  background-color: #de6764;
+  border-color: #c9302c;
+  color: #fbfbfb;
+}
+.red_button:not([disabled="disabled"]):hover,
+.red_button:not([disabled="disabled"]):focus {
+  background-color: #c9302c;
+}
+.green_button:not([disabled="disabled"]) {
+  background-color: #6ec06e;
+  border-color: #449d44;
+  color: #fbfbfb;
+}
+.green_button:not([disabled="disabled"]):hover,
+.green_button:not([disabled="disabled"]):focus {
+  background-color: #449d44;
+}
+.purple_button:not([disabled="disabled"]) {
+  background-color: #a66abb;
+  border-color: #7f4495;
+  color: #fbfbfb;
+}
+.purple_button:not([disabled="disabled"]):hover,
+.purple_button:not([disabled="disabled"]):focus {
+  background-color: #7f4495;
+}
+.yellow_button:not([disabled="disabled"]) {
+  background-color: #ffba59;
+  border-color: #ff9b0c;
+  color: #fbfbfb;
+}
+.yellow_button:not([disabled="disabled"]):hover,
+.yellow_button:not([disabled="disabled"]):focus {
+  background-color: #ff9b0c;
+}
+.orange_button:not([disabled="disabled"]) {
+  background-color: #fb9347;
+  border-color: #f16805;
+  color: #fbfbfb;
+}
+.orange_button:not([disabled="disabled"]):hover,
+.orange_button:not([disabled="disabled"]):focus {
+  background-color: #f16805;
+}
+.aqua_button:not([disabled="disabled"]) {
+  background-color: #70c8e2;
+  border-color: #31b0d5;
+  color: #fbfbfb;
+}
+.aqua_button:not([disabled="disabled"]):hover,
+.aqua_button:not([disabled="disabled"]):focus {
+  background-color: #31b0d5;
+}
+.ps4_blue_button:not([disabled="disabled"]) {
+  background-color: #0041ab;
+  border-color: #00245e;
+  color: #fbfbfb;
+}
+.ps4_blue_button:not([disabled="disabled"]):hover,
+.ps4_blue_button:not([disabled="disabled"]):focus {
+  background-color: #00245e;
+}
+.x1_green_button:not([disabled="disabled"]) {
+  background-color: #139313;
+  border-color: #0a4f0a;
+  color: #fbfbfb;
+}
+.x1_green_button:not([disabled="disabled"]):hover,
+.x1_green_button:not([disabled="disabled"]):focus {
+  background-color: #0a4f0a;
+}
+.ps3_blue_button:not([disabled="disabled"]) {
+  background-color: #389dff;
+  border-color: #0077ea;
+  color: #fbfbfb;
+}
+.ps3_blue_button:not([disabled="disabled"]):hover,
+.ps3_blue_button:not([disabled="disabled"]):focus {
+  background-color: #0077ea;
+}
+.x360_green_button:not([disabled="disabled"]) {
+  background-color: #68d821;
+  border-color: #489617;
+  color: #fbfbfb;
+}
+.x360_green_button:not([disabled="disabled"]):hover,
+.x360_green_button:not([disabled="disabled"]):focus {
+  background-color: #489617;
+}
+.wii_gray_button:not([disabled="disabled"]) {
+  background-color: #a6a6a6;
+  border-color: #808080;
+  color: #fbfbfb;
+}
+.wii_gray_button:not([disabled="disabled"]):hover,
+.wii_gray_button:not([disabled="disabled"]):focus {
+  background-color: #808080;
+}
+.page {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form {
+  width: 100%;
+  max-width: 600px;
+  font-size: 120%;
+}
+.form .form_controls {
+  text-align: center;
+  padding: 10px 0;
+}
+.form .form_controls button {
+  padding: 5px 0;
+  width: 40%;
+  margin: 0 5%;
+}
+#lfm .filter_container {
+  margin: 10px;
+  padding: 0 0 0 10px;
+  border: 1px solid #81878f;
+}
+#lfm .filter_container .label {
+  width: 80px;
+}
+#lfm .filter_container .filter_drop_down {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+}
+#lfm .filter_container .filter_drop_down.no_matching_users {
+  color: #d9534f;
+}
+#lfm #player_list {
+  margin: 0 30px;
+}
+#lfm #player_list #player_count {
+  color: #9ca1a7;
+}
+#lfm #player_list .player_button {
+  display: block;
+  margin: 10px;
+}
+#lfm #player_list #player_list_message {
+  margin: 10px 0;
+  color: #d9534f;
 }

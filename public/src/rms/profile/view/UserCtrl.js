@@ -1,7 +1,7 @@
 angular.module("rmsApp.profile")
     .controller("userController",
-        ["$scope", "api", "$stateParams", "$state", "$timeout", "BroadcastMessage", "SessionControl", "rmsConstants", "angularMomentConfig", "util",
-        function ($scope, api, $stateParams, $state, $timeout, BroadcastMessage, SessionControl, rmsConstants, angularMomentConfig, util) {
+        ["$scope", "api", "$stateParams", "$state", "$timeout", "BroadcastMessage", "SessionControl", "rmsConstants", "util",
+        function ($scope, api, $stateParams, $state, $timeout, BroadcastMessage, SessionControl, rmsConstants, util) {
 
         $scope.rms_constants = rmsConstants;
 
@@ -28,14 +28,8 @@ angular.module("rmsApp.profile")
                         $state.go("lfg");
                     }
 
-                    $scope.profile.play_start = moment().tz(angularMomentConfig.timezone).set({
-                        "hour" : moment.tz($scope.profile.play_start, angularMomentConfig.timezone).hour(),
-                        "minute" : moment.tz($scope.profile.play_start, angularMomentConfig.timezone).minute()
-                    });
-                    $scope.profile.play_end = moment().tz(angularMomentConfig.timezone).set({
-                        "hour" : moment.tz($scope.profile.play_end, angularMomentConfig.timezone).hour(),
-                        "minute" : moment.tz($scope.profile.play_end, angularMomentConfig.timezone).minute()
-                    });
+                    $scope.profile.play_start = util.get_time_as_today($scope.profile.play_start);
+                    $scope.profile.play_end = util.get_time_as_today($scope.profile.play_end);
 
                     check_user_play_time();
 

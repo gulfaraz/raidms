@@ -70,11 +70,21 @@ module.exports = function () {
         "access" : [String]
     });
 
+    var WebEventSchema = new Schema({
+        "time" : Date,
+        "url" : String,
+        "session_id" : String,
+        "user_agent" : String,
+        "referer" : String,
+        "with_auth_token" : Boolean,
+        "is_authenticated" : Boolean
+    });
+
     return {
         "User" : mongoose.model("User", UserSchema),
         "Raid" : mongoose.model("Raid", RaidSchema),
-        "Filter" : mongoose.model("Filter", FilterSchema)
+        "Filter" : mongoose.model("Filter", FilterSchema),
+        "WebEvent" : mongoose.model("WebEvent", WebEventSchema)
     };
 
-};
-
+}

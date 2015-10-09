@@ -36,6 +36,8 @@ if(process.env.ENVIRONMENT === "development") {
     rms.use(require("connect-livereload")({ "port" : 35729 }));
 }
 
+rms.use(require("./analytics")(models.WebEvent));
+
 rms.use(express.static(__dirname + "/public/dist"), require("./routes/routes")(util, express, models, auth));
 rms.use("/", function (req, res) { res.sendFile("public/dist/html/rms.html", { "root" : __dirname }); });
 
